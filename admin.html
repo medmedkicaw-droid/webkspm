@@ -539,6 +539,20 @@
             <strong>Mode Saat Ini:</strong> Dashboard saat ini menyimpan data secara lokal di browser admin (<code>localStorage</code>) sehingga Anda sudah bisa langsung menambah, mengedit, dan menghapus konten sekarang juga. Bila Supabase sudah dihubungkan, data akan langsung tersinkron ke cloud.
           </div>
 
+          <!-- Cloud Diagnostic & Connection Checker -->
+          <div class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <p class="text-xs font-bold text-slate-800">Status Database &amp; Storage Cloud</p>
+                <p class="text-[10px] text-slate-500">Uji apakah tabel dan storage Supabase sudah aktif untuk upload foto &amp; artikel.</p>
+              </div>
+              <button type="button" onclick="runCloudDiagnostic()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold flex items-center gap-1 shadow-2xs self-start sm:self-auto">
+                <span>⚡ Tes Koneksi Supabase</span>
+              </button>
+            </div>
+            <div id="cloud-diagnostic-result" class="hidden text-xs space-y-2 pt-2 border-t border-slate-200"></div>
+          </div>
+
           <div class="pt-4 flex items-center justify-between">
             <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs btn-tactile">
               Simpan Konfigurasi
@@ -1290,6 +1304,11 @@
 
       // 2. Offline / Local fallback: Save compact compressed DataURL
       document.getElementById(targetInputId).value = dataUrl;
+      const previewImg = document.getElementById(targetInputId + '-preview-img');
+      if (previewImg) {
+        previewImg.src = dataUrl;
+        previewImg.classList.remove('hidden');
+      }
       if (statusEl) {
         statusEl.innerText = `✓ Foto lokal siap & ringan (${(file.size / 1024).toFixed(0)} KB)`;
         statusEl.className = 'text-[10px] text-brand-700 font-bold';
@@ -1473,12 +1492,16 @@
               <span id="upload-status-image" class="text-[10px] text-slate-400 font-medium"></span>
             </div>
             <div class="flex gap-2">
-              <input required id="f-image" placeholder="Pilih file atau tempel link URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              <input required id="f-image" placeholder="Pilih file atau tempel link URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs" oninput="const p = document.getElementById('f-image-preview-img'); if(p){ p.src=this.value; p.classList.remove('hidden'); }">
               <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-                <span>Upload</span>
+                <span>Upload Foto</span>
                 <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-image', 'upload-status-image')">
               </label>
+            </div>
+            <div class="mt-2 flex items-center gap-2.5 p-2 bg-slate-50 border border-slate-200/80 rounded-xl">
+              <img id="f-image-preview-img" src="" class="w-12 h-12 object-cover rounded-lg border border-slate-200 bg-white hidden">
+              <span class="text-[10px] text-slate-400">Pilih file foto dari laptop/HP Anda atau tempel link gambar.</span>
             </div>
           </div>
           <div>
@@ -1542,12 +1565,16 @@
                 <span id="upload-status-cover" class="text-[10px] text-slate-400 font-medium"></span>
               </div>
               <div class="flex gap-2">
-                <input required id="f-cover" placeholder="Pilih file foto atau tempel URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+                <input required id="f-cover" placeholder="Pilih file foto atau tempel URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono" oninput="const p = document.getElementById('f-cover-preview-img'); if(p){ p.src=this.value; p.classList.remove('hidden'); }">
                 <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-                  <span>Upload</span>
+                  <span>Upload Foto</span>
                   <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-cover', 'upload-status-cover')">
                 </label>
+              </div>
+              <div class="mt-2 flex items-center gap-2.5 p-2 bg-slate-50 border border-slate-200/80 rounded-xl">
+                <img id="f-cover-preview-img" src="" class="w-12 h-12 object-cover rounded-lg border border-slate-200 bg-white hidden">
+                <span class="text-[10px] text-slate-400">Pratinjau foto sampul yang akan tampil di kartu agenda &amp; berita.</span>
               </div>
             </div>
 
@@ -1716,6 +1743,8 @@
           document.getElementById('f-day').value = item.day;
           document.getElementById('f-desc').value = item.desc;
           document.getElementById('f-image').value = item.image;
+          const pImg = document.getElementById('f-image-preview-img');
+          if (pImg && item.image) { pImg.src = item.image; pImg.classList.remove('hidden'); }
           document.getElementById('f-location').value = item.location;
         }
       } else if (type === 'event') {
@@ -1728,7 +1757,11 @@
           if (document.getElementById('f-schedule')) document.getElementById('f-schedule').value = item.schedule;
           if (document.getElementById('f-dateBadge')) document.getElementById('f-dateBadge').value = item.dateBadge || '';
           if (document.getElementById('f-location')) document.getElementById('f-location').value = item.location;
-          if (document.getElementById('f-cover')) document.getElementById('f-cover').value = item.coverImage || '';
+          if (document.getElementById('f-cover')) {
+            document.getElementById('f-cover').value = item.coverImage || '';
+            const pCover = document.getElementById('f-cover-preview-img');
+            if (pCover && item.coverImage) { pCover.src = item.coverImage; pCover.classList.remove('hidden'); }
+          }
           if (document.getElementById('f-drive')) document.getElementById('f-drive').value = item.driveLink || '';
           if (document.getElementById('f-desc')) document.getElementById('f-desc').value = item.desc || '';
           currentUploadedGallery = (item.gallery && Array.isArray(item.gallery)) ? [...item.gallery] : [];
@@ -2011,6 +2044,7 @@
 
       closeModal();
       renderAll();
+      alert('✓ Berhasil disimpan! Data acara & foto kustom telah diperbarui.');
     }
 
     function saveSupabaseSettings(e) {
@@ -2020,6 +2054,43 @@
       localStorage.setItem('kspm_supabase_url', url);
       localStorage.setItem('kspm_supabase_key', key);
       alert('Pengaturan Supabase berhasil disimpan secara lokal!');
+    }
+
+    async function runCloudDiagnostic() {
+      const resEl = document.getElementById('cloud-diagnostic-result');
+      if (!resEl) return;
+      resEl.classList.remove('hidden');
+      resEl.innerHTML = '<span class="text-slate-500">Sedang memeriksa status Supabase Cloud...</span>';
+
+      if (!window.kspmDB || !window.kspmDB.testCloudConnection) {
+        resEl.innerHTML = '<span class="text-red-600 font-bold">Client Supabase belum siap.</span>';
+        return;
+      }
+
+      const res = await window.kspmDB.testCloudConnection();
+      let html = '';
+      if (res.tableOk && res.bucketOk) {
+        html = `
+          <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 font-semibold space-y-1">
+            <p>✓ Database Tabel &amp; Storage Supabase 100% Siap!</p>
+            <p class="text-[11px] font-normal text-emerald-700">Semua foto yang diunggah dan artikel yang dibuat akan otomatis tersinkronisasi ke cloud secara real-time.</p>
+          </div>
+        `;
+      } else {
+        html = `
+          <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 space-y-2">
+            <p class="font-bold">⚠️ Perlu Menjalankan Skrip SQL di Dashboard Supabase</p>
+            <ul class="text-[11px] list-disc list-inside space-y-0.5 text-amber-800">
+              <li>Status Tabel (events): <strong>${res.tableOk ? '✓ Aktif' : 'Belum Dibuat (' + (res.tableError || 'Error') + ')'}</strong></li>
+              <li>Status Storage (kspm-media): <strong>${res.bucketOk ? '✓ Aktif' : 'Belum Dibuat / Belum Ada Bucket kspm-media'}</strong></li>
+            </ul>
+            <p class="text-[11px] text-slate-600 pt-1 leading-relaxed">
+              <strong>Solusi Mudah (1 Menit):</strong> Buka menu <em>SQL Editor</em> di Supabase Anda, salin seluruh isi file <code>supabase_schema.sql</code>, lalu klik <strong>Run</strong>. Semua tabel &amp; izin upload foto langsung aktif seketika!
+            </p>
+          </div>
+        `;
+      }
+      resEl.innerHTML = html;
     }
 
     function resetToDefaultData() {

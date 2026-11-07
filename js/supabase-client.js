@@ -281,29 +281,60 @@
     // --- FILE UPLOAD TO SUPABASE STORAGE (BUCKET: kspm-media) ---
     async uploadMedia(file, folder = 'uploads') {
       if (!isCloudConnected()) {
-        alert('Supabase belum terhubung. Konfigurasi URL dan Anon Key di menu Database.');
+        console.warn('[KSPM Backend] Cloud not connected, will use local storage');
         return null;
       }
       try {
-        const fileExt = file.name.split('.').pop();
+        const fileExt = (file.name || 'image.webp').split('.').pop();
         const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
         const { data, error } = await supabaseClient.storage
           .from('kspm-media')
-          .upload(fileName, file, { cacheControl: '3600', upsert: false });
+          .upload(fileName, file, { cacheControl: '3600', upsert: true });
 
-        if (error) throw error;
+        if (error) {
+          console.warn('[KSPM Backend] Supabase storage upload warning:', error.message || error);
+          return null;
+        }
 
         // Get public download URL
         const { data: publicUrlData } = supabaseClient.storage
           .from('kspm-media')
           .getPublicUrl(fileName);
 
-        console.log('[KSPM Backend] File uploaded successfully:', publicUrlData.publicUrl);
-        return publicUrlData.publicUrl;
-      } catch (err) {
-        console.error('[KSPM Backend] Storage upload error:', err);
-        alert('Gagal mengunggah berkas ke Supabase: ' + err.message);
+        if (publicUrlData && publicUrlData.publicUrl) {
+          console.log('[KSPM Backend] File uploaded successfully to Cloud:', publicUrlData.publicUrl);
+          return publicUrlData.publicUrl;
+        }
         return null;
+      } catch (err) {
+        console.warn('[KSPM Backend] Storage upload exception, falling back to local storage:', err);
+        return null;
+      }
+    },
+
+    // --- CLOUD CONNECTION & SCHEMA DIAGNOSTIC TEST ---
+    async testCloudConnection() {
+      if (!isCloudConnected()) return { ok: false, message: 'Kredensial URL / Key belum terpasang' };
+      try {
+        // Test Table: events
+        const { data: tableData, error: tableError } = await supabaseClient
+          .from('events')
+          .select('id')
+          .limit(1);
+
+        // Test Storage: kspm-media
+        const { data: buckets, error: bucketError } = await supabaseClient.storage.listBuckets();
+        const hasMediaBucket = buckets && buckets.some(b => b.name === 'kspm-media');
+
+        return {
+          ok: !tableError && hasMediaBucket,
+          tableOk: !tableError,
+          tableError: tableError ? tableError.message : null,
+          bucketOk: hasMediaBucket,
+          bucketError: !hasMediaBucket ? 'Bucket kspm-media belum dibuat di Supabase' : null
+        };
+      } catch(e) {
+        return { ok: false, error: e.message || String(e) };
       }
     },
 

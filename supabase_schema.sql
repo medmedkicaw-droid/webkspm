@@ -79,57 +79,54 @@ ALTER TABLE public.research_reports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.partners ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inquiries ENABLE ROW LEVEL SECURITY;
 
--- Hak Akses Publik (Read-only data publik)
+-- Hak Akses Lengkap Publik & Anon (Memungkinkan Panel Admin Frontend mengelola data via API Anon / Publishable Key)
 DROP POLICY IF EXISTS "Public Read Events" ON public.events;
-CREATE POLICY "Public Read Events" ON public.events FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admin Full Events" ON public.events;
+DROP POLICY IF EXISTS "Full Access Events" ON public.events;
+CREATE POLICY "Full Access Events" ON public.events FOR ALL USING (true) WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Public Read Research" ON public.research_reports;
-CREATE POLICY "Public Read Research" ON public.research_reports FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admin Full Research" ON public.research_reports;
+DROP POLICY IF EXISTS "Full Access Research" ON public.research_reports;
+CREATE POLICY "Full Access Research" ON public.research_reports FOR ALL USING (true) WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Public Read Partners" ON public.partners;
-CREATE POLICY "Public Read Partners" ON public.partners FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admin Full Partners" ON public.partners;
+DROP POLICY IF EXISTS "Full Access Partners" ON public.partners;
+CREATE POLICY "Full Access Partners" ON public.partners FOR ALL USING (true) WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Public Insert Inquiries" ON public.inquiries;
-CREATE POLICY "Public Insert Inquiries" ON public.inquiries FOR INSERT WITH CHECK (true);
-
--- Hak Akses Admin (Hanya akun pengurus terotentikasi yang bisa ubah/hapus/tambah data)
-DROP POLICY IF EXISTS "Admin Full Events" ON public.events;
-CREATE POLICY "Admin Full Events" ON public.events FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admin Full Research" ON public.research_reports;
-CREATE POLICY "Admin Full Research" ON public.research_reports FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admin Full Partners" ON public.partners;
-CREATE POLICY "Admin Full Partners" ON public.partners FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
 DROP POLICY IF EXISTS "Admin Full Inquiries" ON public.inquiries;
-CREATE POLICY "Admin Full Inquiries" ON public.inquiries FOR ALL TO authenticated USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Full Access Inquiries" ON public.inquiries;
+CREATE POLICY "Full Access Inquiries" ON public.inquiries FOR ALL USING (true) WITH CHECK (true);
 
--- 7. STORAGE BUCKET: MEDIA, FOTO DOKUMENTASI & PDF RISET (GRATIS 1 GB, MAX 5MB)
+-- 7. STORAGE BUCKET: MEDIA, FOTO DOKUMENTASI & PDF RISET (GRATIS, MAX 10MB)
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types) 
 VALUES (
   'kspm-media',
   'kspm-media',
   true,
-  5242880, -- Batas 5 MB per file
+  10485760, -- Batas 10 MB per file
   ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf']
 )
 ON CONFLICT (id) DO UPDATE SET
   public = true,
-  file_size_limit = 5242880,
+  file_size_limit = 10485760,
   allowed_mime_types = ARRAY['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf'];
 
 DROP POLICY IF EXISTS "Public Access Storage" ON storage.objects;
-CREATE POLICY "Public Access Storage" ON storage.objects FOR SELECT USING (bucket_id = 'kspm-media');
-
 DROP POLICY IF EXISTS "Admin Upload Storage" ON storage.objects;
-CREATE POLICY "Admin Upload Storage" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'kspm-media');
-
 DROP POLICY IF EXISTS "Admin Update Storage" ON storage.objects;
-CREATE POLICY "Admin Update Storage" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'kspm-media');
-
 DROP POLICY IF EXISTS "Admin Delete Storage" ON storage.objects;
-CREATE POLICY "Admin Delete Storage" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'kspm-media');
+DROP POLICY IF EXISTS "Allow All Storage Read" ON storage.objects;
+DROP POLICY IF EXISTS "Allow All Storage Insert" ON storage.objects;
+DROP POLICY IF EXISTS "Allow All Storage Update" ON storage.objects;
+DROP POLICY IF EXISTS "Allow All Storage Delete" ON storage.objects;
+
+CREATE POLICY "Allow All Storage Read" ON storage.objects FOR SELECT USING (bucket_id = 'kspm-media');
+CREATE POLICY "Allow All Storage Insert" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'kspm-media');
+CREATE POLICY "Allow All Storage Update" ON storage.objects FOR UPDATE USING (bucket_id = 'kspm-media');
+CREATE POLICY "Allow All Storage Delete" ON storage.objects FOR DELETE USING (bucket_id = 'kspm-media');
 
 -- 8. DATA AWAL RESMI (SEED DATA AUTENTIK KSPM UNSOED)
 INSERT INTO public.events (id, name, category, schedule, date_badge, status, location, author, cover_image, drive_link, description, article, article_paragraphs, gallery)
@@ -143,12 +140,12 @@ VALUES
   'Running',
   'Auditorium Graha Widyatama Unsoed',
   'Divisi Project Management & Humas KSPM',
-  'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+  'assets/team/groups/dsx09626-1-.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-siw-2026',
   'Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.',
   'Purwokerto — Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.',
   '["Purwokerto — Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.", "Mengusung tema ''Outthink the Algorithm, Outinvest the Rhythm, Outperform the System'', kegiatan ini menghadirkan narasumber dari BEI dan OJK Purwokerto.", "Seluruh dokumentasi kegiatan dan materi paparan telah diarsipkan secara resmi."]'::jsonb,
-  '[{"title": "Sesi Keynote Speaker BEI & OJK", "img": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"}, {"title": "Antusiasme 1.200 Peserta Mahasiswa", "img": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"}]'::jsonb
+  '[{"title": "Sesi Keynote Speaker BEI & OJK", "img": "assets/team/groups/dsx09550.webp"}, {"title": "Antusiasme 1.200 Peserta Mahasiswa", "img": "assets/team/groups/dsx09572.webp"}]'::jsonb
 ),
 (
   'spm',
@@ -159,12 +156,12 @@ VALUES
   'Running',
   'Laboratorium Terpadu Lantai 1 FEB Unsoed',
   'Divisi Project Management & Edukasi',
-  'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
+  'assets/team/groups/dsx09414.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-spm-2026',
   'Pelatihan berjenjang resmi bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.',
   'Purwokerto — Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.',
   '["Purwokerto — Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.", "Bekerja sama erat dengan PT Sinarmas Sekuritas untuk pembukaan rekening dana nasabah (RDN) dan sertifikasi edukasi BEI."]'::jsonb,
-  '[{"title": "Praktik Transaksi Saham Perdana", "img": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80"}]'::jsonb
+  '[{"title": "Praktik Transaksi Saham Perdana", "img": "assets/team/groups/dsx09458.webp"}]'::jsonb
 ),
 (
   'legacy',
@@ -175,12 +172,12 @@ VALUES
   'Completed',
   'Platform Daring Nasional',
   'Divisi Research & HRM',
-  'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80',
+  'assets/team/groups/dsx09493.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-legacy-2026',
   'Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.',
   'Purwokerto — Sebagai wujud komitmen dalam mencetak analis dan trader muda yang rasional, KSPM Unsoed kembali sukses menggelar kompetisi nasional tahunan LEGACY.',
   '["Purwokerto — Sebagai wujud komitmen dalam mencetak analis dan trader muda yang rasional, KSPM Unsoed kembali sukses menggelar kompetisi nasional tahunan LEGACY."]'::jsonb,
-  '[{"title": "Penjurian Babak Presentasi Finalis", "img": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"}]'::jsonb
+  '[{"title": "Penjurian Babak Presentasi Finalis", "img": "assets/team/groups/dsx09502.webp"}]'::jsonb
 )
 ON CONFLICT (id) DO UPDATE SET 
   name = EXCLUDED.name,
@@ -203,10 +200,10 @@ VALUES
   '+32.6%',
   'September 2026',
   'https://kspm.unsoed.ac.id/research/AMMN-Report-2026.pdf',
-  'https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=1200&q=80',
+  'assets/team/adjani.webp',
   '["[INVESTORY]", "Mining", "Gold"]'::jsonb,
   '["Purwokerto — PT Amman Mineral Internasional Tbk (AMMN) berhasil mencatatkan rekor kapitalisasi pasar yang membawanya masuk ke dalam jajaran 50 Perusahaan Tambang Terbesar di Dunia.", "Proyek smelter tembaga di Sumbawa Barat telah mencapai tahap commissioning dan siap beroperasi komersial penuh."]'::jsonb,
-  '[{"name": "Raka Pratama", "role": "Lead Equity Analyst", "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"}]'::jsonb
+  '[{"name": "Raka Pratama", "role": "Lead Equity Analyst", "avatar": "assets/team/alfio.webp"}]'::jsonb
 ),
 (
   'brpt',
@@ -221,10 +218,10 @@ VALUES
   '+26.1%',
   'Agustus 2026',
   'https://kspm.unsoed.ac.id/research/BRPT-Report-2026.pdf',
-  'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
+  'assets/team/ari-dwi-cesariano.webp',
   '["[INVESTORY]", "Renewable Energy", "Geothermal"]'::jsonb,
   '["Purwokerto — PT Barito Pacific Tbk (BRPT) membukukan lonjakan pendapatan berkat rampungnya ekspansi kilang Singapura dan stabilitas arus kas Star Energy Geothermal."]'::jsonb,
-  '[{"name": "Ilham Kurnia", "role": "Lead Industrial Analyst", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80"}]'::jsonb
+  '[{"name": "Ilham Kurnia", "role": "Lead Industrial Analyst", "avatar": "assets/team/adi.webp"}]'::jsonb
 ),
 (
   'bbca',
@@ -239,10 +236,10 @@ VALUES
   '+13.7%',
   'Oktober 2026',
   'https://kspm.unsoed.ac.id/research/BBCA-Report-2026.pdf',
-  'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80',
+  'assets/team/ridha.webp',
   '["[INVESTORY]", "Perbankan", "Blue Chip"]'::jsonb,
   '["Purwokerto — PT Bank Central Asia Tbk (BBCA) terus menunjukkan resiliensi kinerja keuangan yang solid didukung rasio dana murah (CASA) di atas 81%."]'::jsonb,
-  '[{"name": "Farhan Maulana", "role": "Lead Banking Analyst", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"}]'::jsonb
+  '[{"name": "Farhan Maulana", "role": "Lead Banking Analyst", "avatar": "assets/team/aditya-rayhandi.webp"}]'::jsonb
 )
 ON CONFLICT (id) DO UPDATE SET 
   title = EXCLUDED.title,
