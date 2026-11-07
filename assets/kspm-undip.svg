@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#0284C7"/>
+  <circle cx="50" cy="50" r="44" fill="#0F172A"/>
+  <!-- Undip Pangeran Diponegoro crest -->
+  <path d="M30 35 Q50 20 70 35 Q75 60 50 75 Q25 60 30 35 Z" fill="#0284C7"/>
+  <polygon points="50,30 55,42 67,42 57,50 61,62 50,54 39,62 43,50 33,42 45,42" fill="#FACC15"/>
+  <text x="50" y="88" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="8.5" font-weight="bold" letter-spacing="1">KSPM UNDIP</text>
+</svg>

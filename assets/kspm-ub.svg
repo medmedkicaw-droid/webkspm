@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#1D4ED8"/>
+  <circle cx="50" cy="50" r="44" fill="#0F172A"/>
+  <!-- UB Prabu Brawijaya Crown -->
+  <path d="M26 40 L38 65 L50 48 L62 65 L74 40 L66 70 L34 70 Z" fill="#FBBF24"/>
+  <circle cx="50" cy="34" r="5" fill="#FBBF24"/>
+  <text x="50" y="87" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="8.5" font-weight="bold" letter-spacing="1">KSPM UB</text>
+</svg>

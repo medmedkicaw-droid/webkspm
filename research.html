@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon & Identity -->
+  <link rel="icon" type="image/png" href="assets/logo-gi-unsoed.png">
+  <link rel="apple-touch-icon" href="assets/logo-gi-unsoed.png">
+
+  <!-- Primary Meta Tags -->
+  <title>Pusat Riset Pasar Modal — KSPM UNSOED</title>
+  <meta name="title" content="Pusat Riset Pasar Modal — KSPM UNSOED">
+  <meta name="description" content="Publikasi laporan riset ekuitas independen, tinjauan emiten [INVESTORY], dan outlook makroekonomi KSPM UNSOED.">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kspmunsoed.com/research.html">
+  <meta property="og:title" content="Pusat Riset Pasar Modal — KSPM UNSOED">
+  <meta property="og:description" content="Publikasi laporan riset ekuitas independen, tinjauan emiten [INVESTORY], dan outlook makroekonomi KSPM UNSOED.">
+  <meta property="og:image" content="assets/logo-gi-unsoed.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Pusat Riset Pasar Modal — KSPM UNSOED">
+  <meta property="twitter:description" content="Publikasi laporan riset ekuitas independen, tinjauan emiten [INVESTORY], dan outlook makroekonomi KSPM UNSOED.">
+  <meta property="twitter:image" content="assets/logo-gi-unsoed.png">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#FEF2F2',
+              100: '#FEE2E2',
+              200: '#FECACA',
+              300: '#FCA5A5',
+              400: '#F87171',
+              500: '#EF4444',
+              600: '#DC2626',
+              700: '#B91C1C',
+              800: '#991B1B',
+              900: '#7F1D1D',
+              950: '#450A0A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Clean White Background with Neutral Architectural Grid & Subtle Red Ambient Glow */
+    body {
+      background-color: #FFFFFF;
+      background-image: 
+        radial-gradient(circle at 5% 15%, rgba(220, 38, 38, 0.045) 0%, transparent 35%),
+        radial-gradient(circle at 95% 42%, rgba(185, 28, 28, 0.038) 0%, transparent 32%),
+        radial-gradient(circle at 8% 75%, rgba(220, 38, 38, 0.045) 0%, transparent 35%),
+        radial-gradient(circle at 92% 90%, rgba(185, 28, 28, 0.04) 0%, transparent 35%);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(15, 23, 42, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.032) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    .hero-h1-red {
+      background: linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Nexaris-style Top Ambient Ellipse Glow & Noise Overlay */
+    .hero-noise-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      mask-image: radial-gradient(at center top, rgb(0, 0, 0) 15%, rgba(0, 0, 0, 0) 80%);
+      -webkit-mask-image: radial-gradient(at center top, rgb(0, 0, 0) 15%, rgba(0, 0, 0, 0) 80%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* BEM Unsoed-style Hero Architectural Dark Grid */
+    .hero-dark-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 50% 45%, black 40%, transparent 90%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 45%, black 40%, transparent 90%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Footer Ambient Red Glow Orbs & Grid */
+    .footer-unsoed {
+      position: relative;
+      overflow: hidden;
+      background-color: #120205;
+      background-image: 
+        radial-gradient(circle at 15% -20%, rgba(220, 38, 38, 0.40) 0%, transparent 55%),
+        radial-gradient(circle at 85% 120%, rgba(185, 28, 28, 0.30) 0%, transparent 55%);
+    }
+    .footer-unsoed::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 85%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 85%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Levitation Keyframes */
+    @keyframes levitate1 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(0.6deg); }
+    }
+    @keyframes levitate2 {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(8px) rotate(-0.6deg); }
+    }
+    .animate-levitate-1 { animation: levitate1 5s ease-in-out infinite; }
+    .animate-levitate-2 { animation: levitate2 6.5s ease-in-out infinite 0.7s; }
+
+    /* Ultra-Smooth 60/120fps GPU-Accelerated Light Sweep */
+    .light-sweep {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+    .light-sweep::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      bottom: -60%;
+      left: 0;
+      width: 55%;
+      background: linear-gradient(
+        105deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 48%,
+        rgba(220, 38, 38, 0.08) 53%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: translate3d(-160%, 0, 0) skewX(-20deg);
+      will-change: transform;
+      pointer-events: none;
+      z-index: 15;
+      opacity: 0;
+      transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    }
+    .light-sweep:hover::after {
+      opacity: 1;
+      transform: translate3d(300%, 0, 0) skewX(-20deg);
+    }
+
+    /* Scroll Pop-Up Animation Styles */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(32px) scale(0.96);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Clean Minimal Light Preloader */
+    .preloader-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    /* Tactile Micro-Interactions for Buttons */
+    .btn-tactile,
+    button:not(#navToggle),
+    .event-filter-btn {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease !important;
+      will-change: transform;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn-tactile:hover,
+    button:not(#navToggle):hover {
+      transform: translateY(-2px);
+    }
+    .btn-tactile:active,
+    button:not(#navToggle):active {
+      transform: translateY(1px) scale(0.96) !important;
+    }
+
+  
+  /* Unified Slanted Shimmer-Slide Effect (One Continuous Diagonal Beam) */
+    .hero-h1-shimmer {
+      -webkit-text-fill-color: transparent;
+      background: linear-gradient(
+        115deg,
+        #ffffff 0%,
+        #ffffff 35%,
+        #EF4444 45%,
+        #FEE2E2 50%,
+        #EF4444 55%,
+        #ffffff 65%,
+        #ffffff 100%
+      ) 0 0 / 240% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: 6s linear infinite shimmer-slide;
+      display: inline-block;
+      will-change: background-position;
+    }
+    @keyframes shimmer-slide {
+      0% {
+        background-position: 240% 0;
+      }
+      to {
+        background-position: -240% 0;
+      }
+    }
+  /* Safety Auto-Dismiss Preloader: Guaranteed to NEVER stick on white screen */
+    #preloader {
+      animation: autoDismissPreloader 0.4s ease 0.6s forwards;
+    }
+    @keyframes autoDismissPreloader {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+  </style>
+  <!-- Supabase CDN & Backend Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+</head>
+<body class="text-[#0A0F2D] antialiased">
+
+  <!-- Clean Minimal Preloader (Light Mode) -->
+  <div id="preloader" class="fixed inset-0 z-[99999] flex items-center justify-center bg-white transition-opacity duration-350 ease-out select-none">
+    <img src="assets/logo-gi-unsoed.png" alt="Galeri Investasi FEB UNSOED" class="w-20 h-20 object-contain">
+  </div>
+
+  <!-- Floating Header Navigation (Gabrun Style) -->
+    <!-- Fixed Full-Width Navigation Bar (Non-Floating Header) -->
+      <!-- MINIMALIST SPLIT HEADER (#2 Minimalist Cheat Sheet Layout) -->
+  <nav class="fixed top-0 left-0 right-0 z-[1000] bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.03)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 h-[68px] flex items-center justify-between">
+      
+      <!-- LEFT WING: Primary Content Links -->
+      <div class="hidden md:flex items-center gap-1 w-1/3 justify-start">
+        <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:scale-95 transition-all duration-200 block">Home</a>
+        <a href="about.html" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:scale-95 transition-all duration-200 block">About</a>
+      </div>
+
+      <!-- CENTER: Prominent Centered Logomark & Brand (Style #2) -->
+      <div class="flex items-center justify-center md:w-1/3 shrink-0">
+        <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer py-1 px-3 rounded-2xl hover:bg-slate-50/80 transition-all">
+          <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-9 h-9 object-contain rounded-full bg-white p-0.5 shadow-xs border border-slate-100 group-hover:scale-105 transition-transform">
+          <div class="flex flex-col text-left">
+            <span class="text-slate-900 text-sm font-black tracking-tight leading-none">
+              KSPM <span class="text-brand-700 font-black">UNSOED</span>
+            </span>
+            <span class="text-slate-400 text-[9px] tracking-wider uppercase font-semibold mt-0.5">
+              Universitas Jenderal Soedirman
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- RIGHT WING: Secondary Links & Minimalist Action Button -->
+      <div class="hidden md:flex items-center gap-2.5 w-1/3 justify-end">
+        <a href="event.html" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:scale-95 transition-all duration-200 block">Events</a>
+        <a href="research.html" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-900 bg-slate-100/90 border border-slate-200/60 shadow-2xs transition-all duration-200 block">Research</a>
+        <a href="index.html#contact-section" class="ml-1 px-4 py-2 rounded-xl border border-brand-700/80 text-brand-700 hover:bg-brand-700 hover:text-white text-xs font-bold transition-all shadow-xs hover:shadow-[0_4px_12px_rgba(185,28,28,0.2)] btn-tactile">
+          Partnership
+        </a>
+      </div>
+
+      <!-- MOBILE CONTROLS (Hamburger on Right) -->
+      <div class="flex md:hidden items-center">
+        <button id="navToggle" class="flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-2" aria-label="Toggle Navigation">
+          <span class="block w-[22px] h-[2px] bg-slate-800 rounded-sm transition-all duration-300"></span>
+          <span class="block w-[22px] h-[2px] bg-slate-800 rounded-sm transition-all duration-300"></span>
+          <span class="block w-[22px] h-[2px] bg-slate-800 rounded-sm transition-all duration-300"></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer (Clean Minimalist Dropdown) -->
+    <div id="mobileDrawer" class="hidden md:hidden bg-white/98 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex flex-col gap-1 text-sm font-semibold shadow-lg">
+      <a href="index.html" class="py-2.5 px-3 rounded-lg text-slate-700 hover:text-brand-700 hover:bg-slate-50 transition-colors">Home</a>
+      <a href="about.html" class="py-2.5 px-3 rounded-lg text-slate-700 hover:text-brand-700 hover:bg-slate-50 transition-colors">About</a>
+      <a href="event.html" class="py-2.5 px-3 rounded-lg text-slate-700 hover:text-brand-700 hover:bg-slate-50 transition-colors">Events</a>
+      <a href="research.html" class="py-2.5 px-3 rounded-lg text-brand-700 font-bold bg-brand-50 transition-colors">Research</a>
+      <div class="pt-2 mt-1 border-t border-slate-100">
+        <a href="index.html#contact-section" class="block py-2.5 px-3 rounded-lg bg-brand-700 text-white text-center font-bold text-xs shadow-xs">
+          Partnership
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  <div class="pt-[78px] px-3 sm:px-3.5 w-full">
+    <section class="relative min-h-[46vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#120205] via-[#2A050B] to-[#7F1D1D] py-16 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl">
+
+    <div class="absolute rounded-full pointer-events-none blur-[90px] w-[500px] h-[500px] bg-brand-600/20 -top-[100px] -right-[100px]"></div>
+    <div class="absolute rounded-full pointer-events-none blur-[90px] w-[400px] h-[400px] bg-brand-950/70 -bottom-[50px] -left-[50px]"></div>
+
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+        <span class="text-white/60 text-[0.75rem] font-semibold tracking-[0.25em] uppercase">Riset & Analisis Pasar Modal</span>
+      </div>
+      <h1 class="text-[clamp(2.2rem,5vw,3.8rem)] font-black text-white leading-[1.1] tracking-tight mb-4 uppercase font-display">
+        <span class="hero-h1-shimmer">In-Depth Capital<br>Market Insights</span>
+      </h1>
+      <p class="text-white/55 text-[1rem] font-medium mt-2">
+        KSPM · Universitas Jenderal Soedirman
+      </p>
+    </div>
+  
+    </section>
+  </div>
+
+  <!-- METRICS STRIP & CONTENT SECTION -->
+  <section class="py-20 bg-transparent relative z-10">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
+      
+      <!-- Stat Strip (Identical to YI Unpad) -->
+      <div class="flex flex-wrap gap-8 sm:gap-14 mb-16 pb-8 border-b border-slate-200">
+        <div class="flex flex-col">
+          <span class="text-3xl font-black leading-none text-brand-700">25+</span>
+          <label class="text-xs text-[#6B7AA0] font-semibold tracking-wide mt-1">Market Insights</label>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-3xl font-black leading-none text-brand-700">12+</span>
+          <label class="text-xs text-[#6B7AA0] font-semibold tracking-wide mt-1">Equity Reports</label>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-3xl font-black leading-none text-brand-700">4+</span>
+          <label class="text-xs text-[#6B7AA0] font-semibold tracking-wide mt-1">Market Outlooks</label>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-3xl font-black leading-none text-brand-700">100%</span>
+          <label class="text-xs text-[#6B7AA0] font-semibold tracking-wide mt-1">Independent Analysis</label>
+        </div>
+      </div>
+
+      <!-- BLOCK 1: EQUITY RESEARCH REPORTS -->
+      <div class="bg-white border-[1.5px] border-[#E4E8F5] border-t-[3px] border-t-brand-700 rounded-3xl p-6 sm:p-10 shadow-sm mb-12">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-center shadow-2xs">
+            <svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+          </div>
+          <div>
+            <span class="block text-[0.7rem] font-bold tracking-[1.5px] uppercase text-brand-700 mb-0.5">
+              EQUITY RESEARCH
+            </span>
+            <h3 class="text-xl font-extrabold text-[#0A0F2D]">Equity Research Reports</h3>
+          </div>
+        </div>
+        <p class="text-[#6B7AA0] text-sm mb-8 max-w-3xl leading-relaxed">
+          Kajian fundamental terperinci, valuasi DCF &amp; PE multiple, serta analisis risiko untuk memandu keputusan investasi yang rasional.
+        </p>
+
+                <!-- Reports Grid (Workflow Builder Card Style) -->
+        <div id="researchGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 mb-4 items-stretch">
+          <!-- Card: AMMN -->
+          <a href="research-detail.html?id=ammn" class="bg-white border border-[#E4E8F5] rounded-3xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group light-sweep">
+            <div>
+              <div class="w-full aspect-[16/10] bg-gradient-to-b from-[#F5F6FA] to-[#E9ECF3] rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner mb-4">
+                <img src="https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80" alt="AMMN Research" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                  <span class="bg-brand-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
+                    [INVESTORY]
+                  </span>
+                  <span class="bg-slate-900 text-white text-[9px] font-black px-2.5 py-0.5 rounded-md tracking-wider uppercase">
+                    BUY
+                  </span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-black text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">AMMN</span>
+                <span class="text-[11px] font-bold text-slate-400">PT Amman Mineral Internasional Tbk</span>
+              </div>
+              <h4 class="text-base font-extrabold text-[#0A0F2D] leading-snug tracking-tight mb-2 group-hover:text-brand-700 transition-colors font-display">
+                Top 50 Tambang Dunia &amp; Komersialisasi Smelter Emas-Tembaga
+              </h4>
+              <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2 mb-4">
+                Kajian valuasi DCF dan katalis ekspansi hilirisasi fasilitas smelter Sumbawa Barat di tengah rekor harga komoditas emas.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[9px] text-slate-400 font-bold block uppercase">Target Price</span>
+                <span class="text-xs font-black text-slate-900">Rp 12.800 <span class="text-brand-800 text-[10px] font-black">(+32.6%)</span></span>
+              </div>
+              <div class="flex items-center -space-x-2">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Raka Pratama">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Dimas Setiawan">
+                <span class="w-7 h-7 rounded-full bg-slate-100 border-2 border-white text-[9px] font-bold text-slate-600 flex items-center justify-center">+1</span>
+              </div>
+            </div>
+          </a>
+          <!-- Card: BRPT -->
+          <a href="research-detail.html?id=brpt" class="bg-white border border-[#E4E8F5] rounded-3xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group light-sweep">
+            <div>
+              <div class="w-full aspect-[16/10] bg-gradient-to-b from-[#F5F6FA] to-[#E9ECF3] rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner mb-4">
+                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="BRPT Research" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                  <span class="bg-brand-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
+                    [INVESTORY]
+                  </span>
+                  <span class="bg-slate-900 text-white text-[9px] font-black px-2.5 py-0.5 rounded-md tracking-wider uppercase">
+                    BUY
+                  </span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-black text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">BRPT</span>
+                <span class="text-[11px] font-bold text-slate-400">PT Barito Pacific Tbk</span>
+              </div>
+              <h4 class="text-base font-extrabold text-[#0A0F2D] leading-snug tracking-tight mb-2 group-hover:text-brand-700 transition-colors font-display">
+                Ekspansi Kilang Singapura &amp; Optimalisasi Geotermal Star Energy
+              </h4>
+              <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2 mb-4">
+                Pertumbuhan arus kas operasional energi terbarukan dan kembalinya dividen tunai bagi pemegang saham publik.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[9px] text-slate-400 font-bold block uppercase">Target Price</span>
+                <span class="text-xs font-black text-slate-900">Rp 1.450 <span class="text-brand-800 text-[10px] font-black">(+26.1%)</span></span>
+              </div>
+              <div class="flex items-center -space-x-2">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Ilham Kurnia">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Tiara Amanda">
+              </div>
+            </div>
+          </a>
+          <!-- Card: BBCA -->
+          <a href="research-detail.html?id=bbca" class="bg-white border border-[#E4E8F5] rounded-3xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group light-sweep">
+            <div>
+              <div class="w-full aspect-[16/10] bg-gradient-to-b from-[#F5F6FA] to-[#E9ECF3] rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner mb-4">
+                <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80" alt="BBCA Research" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                  <span class="bg-brand-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
+                    [INVESTORY]
+                  </span>
+                  <span class="bg-slate-900 text-white text-[9px] font-black px-2.5 py-0.5 rounded-md tracking-wider uppercase">
+                    BUY
+                  </span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-xs font-black text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">BBCA</span>
+                <span class="text-[11px] font-bold text-slate-400">PT Bank Central Asia Tbk</span>
+              </div>
+              <h4 class="text-base font-extrabold text-[#0A0F2D] leading-snug tracking-tight mb-2 group-hover:text-brand-700 transition-colors font-display">
+                Solid NIM amidst Digital Expansion &amp; High CASA Franchise
+              </h4>
+              <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2 mb-4">
+                Dominasi rasio CASA di atas 81% menopang Net Interest Margin yang kokoh serta pertumbuhan pendapatan komisi transaksi digital.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[9px] text-slate-400 font-bold block uppercase">Target Price</span>
+                <span class="text-xs font-black text-slate-900">Rp 11.200 <span class="text-brand-800 text-[10px] font-black">(+13.7%)</span></span>
+              </div>
+              <div class="flex items-center -space-x-2">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Farhan Maulana">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Aisyah Putri">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BLOCK 2: MARKET OUTLOOK -->
+      <div class="bg-white border-[1.5px] border-[#E4E8F5] border-t-[3px] border-t-brand-700 rounded-3xl p-6 sm:p-10 shadow-sm mb-12 reveal-on-scroll">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-center shadow-2xs">
+            <svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+          </div>
+          <div>
+            <span class="block text-[0.7rem] font-bold tracking-[1.5px] uppercase text-brand-700 mb-0.5">
+              MACRO &amp; INDUSTRY
+            </span>
+            <h3 class="text-xl font-extrabold text-[#0A0F2D]">Market Outlook Reports</h3>
+          </div>
+        </div>
+        <p class="text-[#6B7AA0] text-sm mb-8 max-w-3xl leading-relaxed">
+          Tinjauan makroekonomi komprehensif: inflasi, neraca perdagangan, suku bunga bank sentral, dan proyeksi indeks IHSG.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-transparent relative z-10 border border-[#E4E8F5] p-6 rounded-2xl">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-1 rounded">
+              OUTLOOK VOL. 1
+            </span>
+            <h4 class="text-base font-bold text-[#0A0F2D] mt-3 mb-2 leading-snug">
+              Arah Suku Bunga Global &amp; Arus Modal Asing di Pasar Modal RI
+            </h4>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-4">
+              Menilai korelasi kebijakan The Fed terhadap penguatan yield SBN dan pergerakan dana investor asing di bursa.
+            </p>
+            <span class="text-xs font-bold text-brand-700 cursor-pointer hover:underline">Baca Analisis Lengkap →</span>
+          </div>
+
+          <div class="bg-transparent relative z-10 border border-[#E4E8F5] p-6 rounded-2xl">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-1 rounded">
+              OUTLOOK VOL. 2
+            </span>
+            <h4 class="text-base font-bold text-[#0A0F2D] mt-3 mb-2 leading-snug">
+              Hilirisasi Mineral &amp; Sentimen Komoditas Logam Dasar
+            </h4>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-4">
+              Dampak ekspansi smelter nikel dan rantai pasok kendaraan listrik terhadap kinerja emiten tambang IDX.
+            </p>
+            <span class="text-xs font-bold text-brand-700 cursor-pointer hover:underline">Baca Analisis Lengkap →</span>
+          </div>
+
+          <div class="bg-transparent relative z-10 border border-[#E4E8F5] p-6 rounded-2xl">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-1 rounded">
+              OUTLOOK VOL. 3
+            </span>
+            <h4 class="text-base font-bold text-[#0A0F2D] mt-3 mb-2 leading-snug">
+              Stabilitas Fiskal APBN &amp; Proyeksi Target IHSG
+            </h4>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-4">
+              Peluang window dressing akhir tahun serta katalis positif dari stimulus belanja infrastruktur domestik.
+            </p>
+            <span class="text-xs font-bold text-brand-700 cursor-pointer hover:underline">Baca Analisis Lengkap →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCK 3: INVESTORY SERIES NEWSLETTER -->
+      <div class="bg-gradient-to-br from-[#120205] to-[#7F1D1D] rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-md">
+        <div class="max-w-xl">
+          <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 bg-white/10 rounded-full border border-white/20 text-brand-200 mb-4 inline-block">
+            INVESTORY INSTAGRAM SERIES
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mb-3 leading-snug">
+            Dapatkan Rangkuman Riset &amp; Edukasi Setiap Pekan
+          </h3>
+          <p class="text-white/70 text-sm leading-relaxed">
+            Ikuti media sosial resmi KSPM Unsoed untuk mengakses infografis edukasi saham mingguan dan bedah istilah finansial praktis.
+          </p>
+        </div>
+        <div class="shrink-0 flex flex-col sm:flex-row gap-3">
+          <a href="https://instagram.com/kspm.unsoed" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-xl bg-white text-brand-700 font-bold text-xs hover:bg-slate-100 transition-all text-center shadow">
+            Instagram @kspm.unsoed
+          </a>
+          <a href="index.html#contact-section" class="px-6 py-3 rounded-xl bg-white/15 border border-white/25 text-white font-bold text-xs hover:bg-white/25 transition-all text-center">
+            Hubungi Tim Riset
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+    <!-- FOOTER -->
+  <footer class="footer-unsoed text-[#9CA3AF] py-16 px-6 sm:px-8 border-t border-red-500/15 relative z-10 overflow-hidden">
+        <!-- Subtle Institutional Vector GI Logo Watermark -->
+    <div class="absolute -right-8 -bottom-12 w-80 sm:w-[420px] md:w-[460px] pointer-events-none select-none text-white opacity-[0.11] z-1 overflow-hidden" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="currentColor">
+  <!-- Solid 1-Color Vector GI Logo (G Arch, i-Dot, and Inner Monogram all solid) -->
+  <path d="M 220.5 30.0 L 244.0 29.5 L 272.0 32.5 L 301.0 39.5 L 320.0 46.5 L 366.0 71.5 L 391.0 91.5 L 399.5 102.0 L 398.0 103.5 L 369.0 104.5 L 302.0 102.5 L 237.0 102.5 L 212.0 104.5 L 178.0 112.5 L 153.0 124.5 L 130.0 141.5 L 116.5 155.0 L 100.5 177.0 L 90.5 197.0 L 82.5 224.0 L 79.5 245.0 L 81.5 289.0 L 91.5 321.0 L 111.5 354.0 L 139.0 380.5 L 176.0 401.5 L 208.0 410.5 L 249.0 411.5 L 280.0 405.5 L 308.0 392.5 L 314.0 391.5 L 315.5 393.0 L 315.5 496.0 L 314.0 498.5 L 293.0 480.5 L 248.0 485.5 L 214.0 485.5 L 182.0 480.5 L 141.0 466.5 L 110.0 449.5 L 89.0 434.5 L 68.5 416.0 L 40.5 379.0 L 19.5 337.0 L 7.5 295.0 L 4.5 273.0 L 4.5 239.0 L 10.5 204.0 L 17.5 181.0 L 30.5 152.0 L 55.5 115.0 L 83.0 86.5 L 124.0 57.5 L 144.0 47.5 L 172.0 37.5 L 200.0 31.5 L 220.5 30.0 Z" />
+  <path d="M 445.5 116.0 L 459.0 117.5 L 470.0 123.5 L 478.5 133.0 L 484.5 150.0 L 481.5 166.0 L 475.5 176.0 L 470.0 181.5 L 459.0 187.5 L 446.0 189.5 L 432.0 186.5 L 423.0 180.5 L 416.5 173.0 L 410.5 158.0 L 411.5 143.0 L 417.5 131.0 L 429.0 120.5 L 445.5 116.0 Z" />
+  <path d="M 380.5 207.0 L 463.0 206.5 L 488.0 207.5 L 489.5 209.0 L 469.5 233.0 L 475.5 272.0 L 476.5 301.0 L 473.5 331.0 L 462.5 371.0 L 449.5 400.0 L 437.5 421.0 L 421.5 443.0 L 405.0 458.5 L 402.5 458.0 L 402.5 275.0 L 401.0 273.5 L 287.0 272.5 L 275.0 273.5 L 262.0 278.5 L 253.5 287.0 L 248.5 299.0 L 246.5 323.0 L 247.5 342.0 L 313.0 342.5 L 314.5 346.0 L 303.0 358.5 L 291.0 366.5 L 275.0 373.5 L 258.0 377.5 L 239.0 377.5 L 224.0 374.5 L 215.0 371.5 L 196.0 360.5 L 184.5 350.0 L 174.5 336.0 L 168.5 324.0 L 163.5 304.0 L 162.5 291.0 L 164.5 275.0 L 168.5 261.0 L 175.5 247.0 L 192.0 227.5 L 212.0 215.5 L 228.0 210.5 L 249.0 207.5 L 380.5 207.0 Z" />
+</svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16 relative z-10">
+      <div class="lg:pr-8 flex flex-col justify-center">
+        <div class="flex items-center gap-2 mb-4">
+          <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-7 h-7 object-contain rounded-full bg-white p-0.5 shadow-sm">
+          <span class="text-white font-bold text-sm tracking-tight">KSPM UNSOED</span>
+        </div>
+        <p class="text-[0.95rem] leading-[1.8] mb-6 text-[#9CA3AF]">
+          Building a generation of smart, ethical, and rational investors through education, research, and financial literacy.
+        </p>
+        <p class="text-[0.85rem] text-[#9CA3AF]/60">
+          Universitas Jenderal Soedirman · Galeri Investasi BEI
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-[1.1rem] mb-6">Navigation</h4>
+        <ul class="space-y-4 text-[0.95rem]">
+          <li><a class="hover:text-white transition-colors" href="index.html">Home</a></li>
+          <li><a class="hover:text-white transition-colors" href="about.html">About</a></li>
+          <li><a class="hover:text-white transition-colors" href="event.html">Programs &amp; Event</a></li>
+          <li><a class="hover:text-white transition-colors" href="research.html">Research</a></li>
+                  </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-[1.1rem] mb-6">Contact</h4>
+        <ul class="space-y-4 text-[0.95rem] leading-relaxed">
+          <li>Laboratorium Terpadu Lantai 1 FEB Unsoed</li>
+          <li>Jl. Prof. DR. HR Boenyamin No.708, Purwokerto</li>
+          <li><a href="mailto:officialkspmfebunsoed@gmail.com" class="hover:text-white transition-colors">officialkspmfebunsoed@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold text-[1.1rem] mb-6">Follow Us</h4>
+        <ul class="space-y-4 text-[0.95rem]">
+          <li><a class="hover:text-white transition-colors" href="https://instagram.com/kspm.unsoed" target="_blank" rel="noreferrer">Instagram (@kspm.unsoed)</a></li>
+          <li><a class="hover:text-white transition-colors" href="https://instagram.com/siw_kspmunsoed" target="_blank" rel="noreferrer">Instagram SIW (@siw_kspmunsoed)</a></li>
+          <li><a class="hover:text-white transition-colors" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn KSPM Unsoed</a></li>
+          <li><a class="hover:text-white transition-colors" href="https://youtube.com" target="_blank" rel="noreferrer">YouTube KSPM Unsoed</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#9CA3AF]/60 gap-4 relative z-10">
+      <p>© 2026 KSPM Universitas Jenderal Soedirman. All rights reserved.</p>
+      <p>Develop by Department of Media and Technology</p>
+    </div>
+  </footer>
+
+  <script>
+    
+  
+    // Scroll Reveal Intersection Observer
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.08
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+        scrollObserver.observe(el);
+      });
+    });
+    // In case DOM is already parsed
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      scrollObserver.observe(el);
+    });
+
+  
+    // Preloader Dismiss
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        setTimeout(() => {
+          preloader.classList.add('preloader-hidden');
+          setTimeout(() => {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 700);
+        }, 600);
+      }
+    });
+
+  
+    // Navigation Mobile Drawer Toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    if (navToggle && mobileDrawer) {
+      navToggle.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('hidden');
+      });
+      mobileDrawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobileDrawer.classList.add('hidden'));
+      });
+    }
+
+
+    // CMS Dynamic Research Reports Synchronization (Live Cloud & Fallback)
+    async function syncCMSResearch() {
+      let list = [];
+      try {
+        if (window.kspmDB) {
+          const cloudList = await window.kspmDB.getResearch();
+          if (cloudList && cloudList.length > 0) list = cloudList;
+        }
+        if (list.length === 0) {
+          const savedResearch = localStorage.getItem('kspm_research');
+          if (savedResearch) list = JSON.parse(savedResearch);
+        }
+      } catch(e) {
+        console.warn('Research sync error:', e);
+      }
+
+      const container = document.getElementById('researchGridContainer');
+      if (container && list && list.length > 0) {
+        container.innerHTML = list.map(r => {
+          const ticker = (r.ticker || 'EMITEN').toUpperCase();
+          const rec = (r.rec || r.recommendation || 'BUY').toUpperCase();
+          const recClass = rec === 'BUY' ? 'bg-slate-900 text-white' : rec === 'HOLD' ? 'bg-amber-600 text-white' : 'bg-red-700 text-white';
+          const slug = (r.id || ticker).toLowerCase();
+          const coverImg = r.coverImage || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80';
+          const upside = r.upside || '+12.5%';
+
+          return `
+            <a href="research-detail.html?id=${slug}" class="bg-white border border-[#E4E8F5] rounded-3xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group light-sweep">
+              <div>
+                <div class="w-full aspect-[16/10] bg-gradient-to-b from-[#F5F6FA] to-[#E9ECF3] rounded-2xl overflow-hidden relative border border-slate-200/70 shadow-inner mb-4">
+                  <img src="${coverImg}" alt="${ticker} Research" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    <span class="bg-brand-700 text-white text-[10px] font-black px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
+                      [INVESTORY]
+                    </span>
+                    <span class="${recClass} text-[9px] font-black px-2.5 py-0.5 rounded-md tracking-wider uppercase">
+                      ${rec}
+                    </span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-xs font-black text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">${ticker}</span>
+                  <span class="text-[11px] font-bold text-slate-400 truncate">${r.company || 'Emiten BEI'}</span>
+                </div>
+                <h4 class="text-base font-extrabold text-[#0A0F2D] leading-snug tracking-tight mb-2 group-hover:text-brand-700 transition-colors font-display line-clamp-2">
+                  ${r.title}
+                </h4>
+                <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2 mb-4">
+                  ${r.desc || (r.thesis && r.thesis[0]) || 'Kajian fundamental independen dan analisis valuasi emiten terdaftar di Bursa Efek Indonesia.'}
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span class="text-[9px] text-slate-400 font-bold block uppercase">Target Price</span>
+                  <span class="text-xs font-black text-slate-900">${r.targetPrice || '-'} <span class="text-brand-800 text-[10px] font-black">(${upside})</span></span>
+                </div>
+                <div class="flex items-center -space-x-2">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Raka Pratama">
+                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" class="w-7 h-7 rounded-full border-2 border-white object-cover" title="Aisyah Putri">
+                  <span class="w-7 h-7 rounded-full bg-slate-100 border-2 border-white text-[9px] font-bold text-slate-600 flex items-center justify-center">+1</span>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', syncCMSResearch);
+
+  </script>
+</body>
+</html>

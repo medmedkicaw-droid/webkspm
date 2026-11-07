@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#0369A1"/>
+  <circle cx="50" cy="50" r="44" fill="#FFFFFF"/>
+  <!-- UNS Cakra flower -->
+  <circle cx="50" cy="46" r="18" fill="none" stroke="#0369A1" stroke-width="4"/>
+  <circle cx="50" cy="46" r="8" fill="#0369A1"/>
+  <path d="M50 22 L50 70 M26 46 L74 46" stroke="#0369A1" stroke-width="3"/>
+  <text x="50" y="85" text-anchor="middle" fill="#0369A1" font-family="sans-serif" font-size="8.5" font-weight="extrabold" letter-spacing="1">KSPM UNS</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#FBBF24"/>
+  <circle cx="50" cy="50" r="44" fill="#0F172A"/>
+  <!-- UI Makara stylized flame/tree -->
+  <path d="M50 16 C40 30, 32 42, 32 56 C32 68, 40 76, 50 76 C60 76, 68 68, 68 56 C68 42, 60 30, 50 16 Z" fill="#FBBF24"/>
+  <circle cx="50" cy="56" r="8" fill="#0F172A"/>
+  <path d="M50 28 L50 48 M42 40 L58 40" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="50" y="90" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="9" font-weight="bold" letter-spacing="1">KSPM UI</text>
+</svg>

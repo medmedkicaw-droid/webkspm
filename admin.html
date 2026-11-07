@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Favicon & Security Controls -->
+  <link rel="icon" type="image/png" href="assets/logo-gi-unsoed.png">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — KSPM Universitas Jenderal Soedirman</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Quill Rich Text Editor (Word / Docs Style for Non-IT) -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#FEF2F2',
+              100: '#FEE2E2',
+              200: '#FECACA',
+              300: '#FCA5A5',
+              400: '#F87171',
+              500: '#EF4444',
+              600: '#DC2626',
+              700: '#B91C1C',
+              800: '#991B1B',
+              900: '#7F1D1D',
+              950: '#450A0A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #F8F9FD;
+      font-family: 'Inter', sans-serif;
+      color: #0A0F2D;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    /* Custom Scrollbar for dashboard */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F4F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+    .btn-tactile {
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn-tactile:active {
+      transform: scale(0.97);
+    }
+    /* Quill Rich Text Editor Customization for KSPM Admin */
+    .ql-toolbar.ql-snow {
+      border-top-left-radius: 0.85rem !important;
+      border-top-right-radius: 0.85rem !important;
+      border-color: #E2E8F0 !important;
+      background-color: #F8FAFC !important;
+      font-family: inherit !important;
+      padding: 8px 12px !important;
+    }
+    .ql-container.ql-snow {
+      border-bottom-left-radius: 0.85rem !important;
+      border-bottom-right-radius: 0.85rem !important;
+      border-color: #E2E8F0 !important;
+      background-color: #FFFFFF !important;
+      font-family: inherit !important;
+      font-size: 0.875rem !important;
+    }
+    .ql-editor {
+      min-height: 220px;
+      max-height: 460px;
+      overflow-y: auto;
+      line-height: 1.8;
+      color: #1E293B;
+      padding: 14px 18px !important;
+    }
+    .ql-editor.ql-blank::before {
+      color: #94A3B8;
+      font-style: normal;
+    }
+    .ql-editor h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .ql-editor h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-top: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .ql-editor blockquote {
+      border-left: 4px solid #B91C1C;
+      padding-left: 1rem;
+      color: #475569;
+      font-style: italic;
+      background: #F8FAFC;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 0.75rem 0;
+    }
+    .ql-editor ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+    }
+    .ql-editor ol {
+      list-style-type: decimal;
+      padding-left: 1.25rem;
+    }
+  </style>
+  <!-- Supabase CDN & Backend Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row antialiased bg-[#F8F9FD]">
+
+  <!-- Mobile Top Navigation Bar -->
+  <div class="lg:hidden flex items-center justify-between px-5 py-3.5 bg-white border-b border-[#E4E8F5] sticky top-0 z-20 shadow-xs">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-8 h-8 object-contain rounded-xl p-0.5 border border-[#E4E8F5]">
+      <div>
+        <span class="text-xs font-black text-slate-900 tracking-tight flex items-center gap-1">
+          KSPM <span class="text-brand-700">UNSOED</span>
+          <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-brand-50 text-brand-700 border border-brand-200">CMS</span>
+        </span>
+      </div>
+    </a>
+    <button type="button" onclick="toggleAdminSidebar()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer" aria-label="Buka Menu Sidebar">
+      <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+      <span>Menu</span>
+    </button>
+  </div>
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div id="admin-sidebar-backdrop" class="fixed inset-0 z-30 bg-slate-900/60 backdrop-blur-xs hidden lg:hidden transition-opacity" onclick="toggleAdminSidebar()"></div>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside id="admin-sidebar" class="w-72 bg-white border-r border-[#E4E8F5] flex flex-col justify-between shrink-0 fixed inset-y-0 left-0 z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
+    <div class="p-6 overflow-y-auto">
+      <!-- Organization Brand Header -->
+      <div class="flex items-center justify-between pb-6 border-b border-[#E4E8F5]">
+        <a href="index.html" class="flex items-center gap-3.5 group">
+          <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-10 h-10 object-contain rounded-2xl p-1 bg-white border border-[#E4E8F5] shadow-xs group-hover:scale-105 transition-transform">
+          <div>
+            <span class="text-sm font-black text-slate-900 tracking-tight flex items-center gap-1.5">
+              KSPM <span class="text-brand-700">UNSOED</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-brand-50 text-brand-700 border border-brand-200">CMS</span>
+            </span>
+            <span class="text-[11px] text-[#6B7AA0] block font-medium">Control Management Center</span>
+          </div>
+        </a>
+        <button type="button" onclick="toggleAdminSidebar()" class="lg:hidden w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-xs shrink-0 ml-2" aria-label="Tutup Menu">
+          ✕
+        </button>
+      </div>
+
+      <!-- Navigation Modules List -->
+      <nav class="mt-6 space-y-1.5">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 px-3 mb-2">Konten Web Kustom</p>
+        
+        <button onclick="switchTab('overview')" id="tab-btn-overview" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-brand-700 bg-brand-50/80 border border-brand-200/60 shadow-xs">
+          <svg class="w-4 h-4 text-brand-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>Ringkasan Konten</span>
+        </button>
+
+        <button onclick="switchTab('programs')" id="tab-btn-programs" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          <span>Our Activities &amp; Events</span>
+        </button>
+
+        <button onclick="switchTab('events')" id="tab-btn-events" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Event &amp; Press Release (Sepaket)</span>
+        </button>
+
+        <button onclick="switchTab('research')" id="tab-btn-research" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Publikasi Riset Saham</span>
+        </button>
+
+        <button onclick="switchTab('partners')" id="tab-btn-partners" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          <span>Logo Running Mitra &amp; Medpart</span>
+        </button>
+
+
+
+        <button onclick="switchTab('inquiries')" id="tab-btn-inquiries" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>Pesan Masuk Kemitraan</span>
+        </button>
+
+        <div class="pt-4 border-t border-[#E4E8F5] my-3">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 px-3 mb-2">Integrasi Data</p>
+          <button onclick="switchTab('database')" id="tab-btn-database" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+            <span>Koneksi Supabase</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Bottom Admin Status Profile -->
+    <div class="p-6 border-t border-[#E4E8F5] bg-slate-50/50">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-brand-700 text-white font-bold text-xs flex items-center justify-center shadow-xs">
+          AD
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-xs font-bold text-slate-900 truncate">Administrator KSPM</p>
+          <p class="text-[10px] text-slate-600 font-medium flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Online (Local Storage)
+          </p>
+        </div>
+        <a href="index.html" title="Lihat Website" target="_blank" class="p-1.5 text-slate-400 hover:text-brand-700 hover:bg-white rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+        <button onclick="logoutAdmin()" title="Keluar / Logout" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-white rounded-lg transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN DASHBOARD CONTENT AREA -->
+  <main class="flex-1 ml-0 lg:ml-72 p-4 sm:p-6 lg:p-10 min-h-screen">
+    
+    <!-- TOP HEADER BAR -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 mb-8 border-b border-[#E4E8F5]">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 block mb-1">KSPM UNSOED CMS PANEL</span>
+        <h1 id="page-title" class="text-2xl sm:text-3xl font-extrabold text-[#0A0F2D] tracking-tight">
+          Ringkasan Konten &amp; Metrik
+        </h1>
+        <p id="page-subtitle" class="text-xs text-[#6B7AA0] mt-1">
+          Kelola seluruh modul card yang tampil pada halaman web publik secara fleksibel.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-white border border-[#E4E8F5] text-xs font-bold text-slate-700 hover:text-brand-700 hover:border-brand-500/30 transition-all flex items-center gap-2 shadow-xs btn-tactile">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          <span>Lihat Live Web</span>
+        </a>
+        <button onclick="openModal()" id="btn-add-content" class="px-5 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow-xs hover:shadow-[0_4px_12px_rgba(185,28,28,0.25)] transition-all flex items-center gap-2 btn-tactile">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span id="btn-add-label">Tambah Konten</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: OVERVIEW ==================== -->
+    <div id="tab-overview" class="space-y-8">
+      
+      <!-- Metrics Grid Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Big Events Cards</span>
+            <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776"/></svg></span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-programs">3</span>
+            <span class="text-xs text-slate-500 font-semibold">Tampil di Beranda</span>
+          </div>
+          <p class="text-[11px] text-[#6B7AA0] mt-2">Card model editorial ber-pin lokasi</p>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Events &amp; Proker</span>
+            <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h14.25A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5"/></svg></span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-events">6</span>
+            <span class="text-xs text-slate-500 font-semibold">Agenda Aktif</span>
+          </div>
+          <p class="text-[11px] text-[#6B7AA0] mt-2">SIW, LEGACY, SPM, Studi Ekskursi</p>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Riset Emiten</span>
+            <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-research">4</span>
+            <span class="text-xs text-slate-500 font-semibold">Laporan Terbit</span>
+          </div>
+          <p class="text-[11px] text-[#6B7AA0] mt-2">Equity research &amp; Macro outlook</p>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Mitra &amp; Medpart</span>
+            <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.333A2.25 2.25 0 0018.75 8.25H5.25a2.25 2.25 0 00-1.75 2.083V21"/></svg></span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-partners">6</span>
+            <span class="text-xs text-slate-500 font-semibold">Running Track</span>
+          </div>
+          <p class="text-[11px] text-[#6B7AA0] mt-2">Logo universitas &amp; media partner</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 lg:p-7 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-brand-700 uppercase tracking-wider block mb-2">Manajemen Konten</span>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Tambah Card Program Baru</h3>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-6">
+              Pasang program kerja baru ke kartu editorial beranda lengkap dengan tanggal badge, kategori, foto, dan pin lokasi.
+            </p>
+          </div>
+          <button onclick="switchTab('programs'); openModal();" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all btn-tactile">
+            Buka Editor Program →
+          </button>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 lg:p-7 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-brand-700 uppercase tracking-wider block mb-2">Agenda Kegiatan</span>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Rilis Jadwal Acara Mendatang</h3>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-6">
+              Perbarui tanggal pelaksanaan SPM, pendaftaran SIW, atau pembicara seminar pasar modal berikutnya.
+            </p>
+          </div>
+          <button onclick="switchTab('events'); openModal();" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all btn-tactile">
+            Buka Editor Event →
+          </button>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 lg:p-7 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-brand-700 uppercase tracking-wider block mb-2">Publikasi Riset</span>
+            <h3 class="text-base font-bold text-slate-900 mb-1">Upload Riset Saham Terkini</h3>
+            <p class="text-xs text-[#6B7AA0] leading-relaxed mb-6">
+              Terbitkan analisis emiten baru (misal BBCA, TLKM, ASII), target harga, dan lampiran link dokumen riset.
+            </p>
+          </div>
+          <button onclick="switchTab('research'); openModal();" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all btn-tactile">
+            Buka Editor Riset →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: PROGRAM CARDS (BERANDA) ==================== -->
+    <div id="tab-programs" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl">
+        <div class="flex items-center gap-3">
+          <input type="text" placeholder="Cari kartu program..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+          <span class="text-xs text-slate-400 font-medium">3 Program Terdaftar</span>
+        </div>
+        <button onclick="openModal('program')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+          + Tambah Program
+        </button>
+      </div>
+
+      <!-- Programs Grid -->
+      <div id="programs-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: EVENT & PRESS RELEASE (SEPAKET) ==================== -->
+    <div id="tab-events" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl shadow-xs">
+        <div class="flex items-center gap-3">
+          <input type="text" placeholder="Cari event atau liputan rilis..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+          <span class="text-xs text-slate-400 font-medium">Sepaket: Agenda, Jadwal, Kartu &amp; Berita Liputan</span>
+        </div>
+        <button onclick="openModal('event')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+          + Tambah Event &amp; Press Release
+        </button>
+      </div>
+
+      <!-- Unified Table Card -->
+      <div class="bg-white border border-[#E4E8F5] rounded-3xl overflow-hidden shadow-xs">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-[#E4E8F5] text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+            <tr>
+              <th class="py-3.5 px-6">Event &amp; Kategori</th>
+              <th class="py-3.5 px-6">Jadwal &amp; Status</th>
+              <th class="py-3.5 px-6">Lokasi</th>
+              <th class="py-3.5 px-6">Press Release &amp; Drive</th>
+              <th class="py-3.5 px-6 text-right">Aksi Terpadu</th>
+            </tr>
+          </thead>
+          <tbody id="events-table-body" class="divide-y divide-[#E4E8F5] text-slate-700">
+            <!-- Rendered via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: PUBLIKASI RISET ==================== -->
+    <div id="tab-research" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl">
+        <div class="flex items-center gap-3">
+          <input type="text" placeholder="Cari kode saham/judul..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+          <span class="text-xs text-slate-400 font-medium">4 Publikasi Terdaftar</span>
+        </div>
+        <button onclick="openModal('research')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+          + Terbitkan Riset Baru
+        </button>
+      </div>
+
+      <!-- Research Table Card -->
+      <div class="bg-white border border-[#E4E8F5] rounded-3xl overflow-hidden shadow-xs">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-[#E4E8F5] text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+            <tr>
+              <th class="py-3.5 px-6">Emiten / Ticker</th>
+              <th class="py-3.5 px-6">Judul Laporan &amp; Analis</th>
+              <th class="py-3.5 px-6">Rekomendasi</th>
+              <th class="py-3.5 px-6">Target Price</th>
+              <th class="py-3.5 px-6 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="research-table-body" class="divide-y divide-[#E4E8F5] text-slate-700">
+            <!-- Rendered via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: MEDIA PARTNER & RUNNING LOGO ==================== -->
+    <div id="tab-partners" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold text-slate-800">Daftar Logo di Running Marquee Track</span>
+          <span class="text-[11px] text-slate-400">(Tampil di bawah seksi Official Partners beranda)</span>
+        </div>
+        <button onclick="openModal('partner')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+          + Tambah Logo Mitra
+        </button>
+      </div>
+
+      <!-- Partner Cards Grid -->
+      <div id="partners-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+
+        <!-- ==================== TAB: INQUIRIES (PESAN MASUK KEMITRAAN) ==================== -->
+    <div id="tab-inquiries" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl shadow-xs">
+        <div class="flex items-center gap-3">
+          <input type="text" placeholder="Cari nama atau instansi..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+          <span class="text-xs text-slate-400 font-medium">Kotak Masuk Delegasi Kemitraan</span>
+        </div>
+        <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+          Formulir Beranda KSPM
+        </span>
+      </div>
+
+      <!-- Inquiries Table Card -->
+      <div class="bg-white border border-[#E4E8F5] rounded-3xl overflow-hidden shadow-xs">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-[#E4E8F5] text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+            <tr>
+              <th class="py-3.5 px-6">Nama Pengirim &amp; Instansi</th>
+              <th class="py-3.5 px-6">Email &amp; Topik</th>
+              <th class="py-3.5 px-6">Pesan Kemitraan</th>
+              <th class="py-3.5 px-6">Waktu Masuk</th>
+              <th class="py-3.5 px-6 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="inquiries-table-body" class="divide-y divide-[#E4E8F5] text-slate-700">
+            <!-- Rendered via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 6: KONEKSI DATABASE (SUPABASE) ==================== -->
+    <div id="tab-database" class="hidden space-y-6">
+      <div class="bg-white border border-[#E4E8F5] rounded-3xl p-8 max-w-3xl shadow-xs">
+        <div class="flex items-center gap-3 mb-6 pb-6 border-b border-[#E4E8F5]">
+          <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs text-brand-700">
+            <svg class="w-6 h-6 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Koneksi Database &amp; Storage Supabase</h3>
+            <p class="text-xs text-[#6B7AA0]">Simpan kredensial Supabase gratis untuk sinkronisasi cloud real-time.</p>
+          </div>
+        </div>
+
+        <form onsubmit="saveSupabaseSettings(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-900 mb-1">Project URL Supabase</label>
+            <input id="supabase-url" type="url" placeholder="https://xyzcompany.supabase.co" class="w-full px-4 py-2.5 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs font-mono text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white">
+            <span class="text-[10px] text-slate-400 mt-1 block">Ditemukan di Project Settings > API di dashboard Supabase Anda.</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-900 mb-1">Anon / Public API Key</label>
+            <input id="supabase-key" type="password" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full px-4 py-2.5 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs font-mono text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white">
+            <span class="text-[10px] text-slate-400 mt-1 block">Kunci publik aman untuk koneksi statis browser.</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs leading-relaxed">
+            <strong>Mode Saat Ini:</strong> Dashboard saat ini menyimpan data secara lokal di browser admin (<code>localStorage</code>) sehingga Anda sudah bisa langsung menambah, mengedit, dan menghapus konten sekarang juga. Bila Supabase sudah dihubungkan, data akan langsung tersinkron ke cloud.
+          </div>
+
+          <div class="pt-4 flex items-center justify-between">
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs btn-tactile">
+              Simpan Konfigurasi
+            </button>
+            <button type="button" onclick="resetToDefaultData()" class="px-4 py-2.5 rounded-xl text-slate-500 hover:text-red-600 text-xs font-semibold">
+              Pulihkan Data Bawaan Organisasi
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== GENERIC MODAL FORM (ADD / EDIT) ==================== -->
+  <div id="modal-container" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div id="modal-card" class="bg-white border border-[#E4E8F5] rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl overflow-y-auto max-h-[92vh] space-y-5 transition-all duration-300">
+      <div class="flex items-center justify-between pb-4 border-b border-[#E4E8F5]">
+        <div>
+          <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block" id="modal-badge">FORMULIR KONTEN</span>
+          <h3 class="text-lg font-bold text-slate-900" id="modal-title">Tambah Data</h3>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-sm font-bold">
+          ✕
+        </button>
+      </div>
+
+      <form id="modal-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <!-- Dynamic Form Fields will be injected by JavaScript -->
+        <div id="modal-dynamic-fields" class="space-y-3.5 text-xs"></div>
+
+        <div class="pt-4 border-t border-[#E4E8F5] flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">
+            Batal
+          </button>
+          <button type="submit" class="px-6 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold btn-tactile">
+            Simpan Konten
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CMS LOGIC -->
+  <script>
+    // --- INITIAL SEED DATA ---
+    const initialPrograms = [
+      {
+        id: 'prog-1',
+        tag: 'Annual Flagship',
+        month: 'OKT',
+        day: '25',
+        title: 'Soedirman Investment Week (SIW)',
+        desc: 'Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.',
+        image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+        location: 'Graha Widyatama Unsoed',
+        status: 'Active'
+      },
+      {
+        id: 'prog-2',
+        tag: 'Literacy & Cert',
+        month: 'SEP',
+        day: '12',
+        title: 'Sekolah Pasar Modal (SPM)',
+        desc: 'Pelatihan berjenjang resmi bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.',
+        image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80',
+        location: 'Lab Terpadu Lantai 1 FEB Unsoed',
+        status: 'Active'
+      },
+      {
+        id: 'prog-3',
+        tag: 'National Contest',
+        month: 'AGU',
+        day: '18',
+        title: 'LEGACY National Trading',
+        desc: 'Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.',
+        image: 'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80',
+        location: 'Nasional / Daring',
+        status: 'Active'
+      }
+    ];
+
+    // UNIFIED EVENTS & PRESS RELEASES PACKAGES (6 SEPAKET)
+    const initialEvents = [
+    {
+        "id": "siw",
+        "name": "Soedirman Investment Week 2026 X SPM II",
+        "category": "Annual Flagship",
+        "schedule": "24 - 28 Oktober 2026",
+        "dateBadge": "OKT 2026",
+        "status": "Running",
+        "location": "Auditorium Graha Widyatama Unsoed",
+        "author": "Departemen Project Management & Public Relation KSPM",
+        "coverImage": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-siw-2026",
+        "desc": "Konferensi pasar modal nasional bertema \"Outthink the Algorithm, Outinvest the Rhythm, Outperform the System\" bersama BEI & OJK.",
+        "article": "Purwokerto \u2014 Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.\n\nMengusung tema \"Outthink the Algorithm, Outinvest the Rhythm, Outperform the System: Think Sharper, Trade Wiser and Win the Market\", kegiatan ini menghadirkan narasumber utama dari PT Bursa Efek Indonesia (BEI), Otoritas Jasa Keuangan (OJK) Purwokerto, dan jajaran analis sekuritas papan atas nasional.\n\nRangkaian SIW 2026 memadukan seminar makroekonomi, workshop strategi investasi institusional, serta kompetisi Virtual Trading bertaraf nasional yang diikuti lebih dari 1.200 mahasiswa dari puluhan universitas se-Indonesia. Seluruh dokumentasi foto dan materi paparan telah diarsipkan secara resmi.",
+        "articleParagraphs": [
+            "Purwokerto \u2014 Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.",
+            "Mengusung tema \"Outthink the Algorithm, Outinvest the Rhythm, Outperform the System: Think Sharper, Trade Wiser and Win the Market\", kegiatan ini menghadirkan narasumber utama dari PT Bursa Efek Indonesia (BEI), Otoritas Jasa Keuangan (OJK) Purwokerto, dan jajaran analis sekuritas papan atas nasional.",
+            "Rangkaian SIW 2026 memadukan seminar makroekonomi, workshop strategi investasi institusional, serta kompetisi Virtual Trading bertaraf nasional yang diikuti lebih dari 1.200 mahasiswa dari puluhan universitas se-Indonesia. Seluruh dokumentasi foto dan materi paparan telah diarsipkan secara resmi."
+        ],
+        "gallery": [
+            {
+                "title": "Sesi Keynote Speaker BEI & OJK",
+                "img": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Antusiasme 1.200 Peserta Mahasiswa",
+                "img": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Sesi Diskusi Panel Analis Sekuritas",
+                "img": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Penyerahan Plakat Penghargaan Narasumber",
+                "img": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Pengumuman Juara Virtual Trading",
+                "img": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Foto Bersama Panitia KSPM & Pimpinan FEB",
+                "img": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        "id": "gts",
+        "name": "KSPM Goes to School \u2013 SMAN 1 Padamara",
+        "category": "Financial Literacy",
+        "schedule": "30 September 2026",
+        "dateBadge": "SEP 2026",
+        "status": "Selesai",
+        "location": "Aula SMA Negeri 1 Padamara",
+        "author": "Departemen Public Relation KSPM",
+        "coverImage": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-gts-padamara",
+        "desc": "Edukasi literasi keuangan dan pengenalan pasar modal usia dini bertema \"Beyond: Bijak Kelola Keuangan, Cerdas Investasi Digital\".",
+        "article": "Purbalingga \u2014 KSPM Unsoed bersama Galeri Investasi FEB Unsoed, Bursa Efek Indonesia (BEI), dan OJK Purwokerto sukses menggelar program edukatif KSPM Goes to School (GTS) di SMA Negeri 1 Padamara.\n\nMengangkat tema \"Beyond: Bijak Kelola Keuangan, Cerdas Investasi Digital\", kegiatan ini disambut antusias oleh lebih dari 200 siswa kelas XI dan XII serta dewan guru.\n\nSiswa diajak memahami manajemen uang saku secara rasional, mewaspadai bahaya pinjaman online ilegal dan investasi bodong, serta mengenal konsep dasar kepemilikan saham perusahaan publik di Bursa Efek Indonesia.",
+        "articleParagraphs": [
+            "Purbalingga \u2014 KSPM Unsoed bersama Galeri Investasi FEB Unsoed, Bursa Efek Indonesia (BEI), dan OJK Purwokerto sukses menggelar program edukatif KSPM Goes to School (GTS) di SMA Negeri 1 Padamara.",
+            "Mengangkat tema \"Beyond: Bijak Kelola Keuangan, Cerdas Investasi Digital\", kegiatan ini disambut antusias oleh lebih dari 200 siswa kelas XI dan XII serta dewan guru.",
+            "Siswa diajak memahami manajemen uang saku secara rasional, mewaspadai bahaya pinjaman online ilegal dan investasi bodong, serta mengenal konsep dasar kepemilikan saham perusahaan publik di Bursa Efek Indonesia."
+        ],
+        "gallery": [
+            {
+                "title": "Penyampaian Materi Literasi Finansial",
+                "img": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Interaksi & Kuis Berhadiah RDN Siswa",
+                "img": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Sesi Tanya Jawab Seputar Investasi Saham",
+                "img": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Penyerahan Kenang-kenangan GI FEB Unsoed",
+                "img": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        "id": "finexpo",
+        "name": "FINEXPO 2026 & Puncak Bulan Inklusi Keuangan",
+        "category": "Public Exhibition",
+        "schedule": "24 Oktober 2026",
+        "dateBadge": "OKT 2026",
+        "status": "Selesai",
+        "location": "Atrium Rita SuperMall Purwokerto",
+        "author": "Departemen Public Relation & BPH",
+        "coverImage": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-finexpo-2026",
+        "desc": "Partisipasi stan edukasi Galeri Investasi FEB Unsoed di FINEXPO OJK dan diskusi Kopdar Ngopi Ngapak 2.0 bersama Andy F. Noya.",
+        "article": "Purwokerto \u2014 Dalam rangka memperingati Puncak Bulan Inklusi Keuangan (BIK) 2026, Galeri Investasi FEB Unsoed bersama KSPM Unsoed berpartisipasi aktif dalam perhelatan FINEXPO 2026 yang diselenggarakan oleh OJK Purwokerto di Rita SuperMall.\n\nStan pameran KSPM Unsoed menyediakan layanan konsultasi investasi saham gratis, simulasi pembukaan akun RDN, serta permainan edukatif Stocklab bagi ratusan pengunjung mall dari berbagai kalangan.\n\nRangkaian acara ini juga dimeriahkan oleh talkshow \"Kopdar Ngopi Ngapak 2.0: Ngobrol Pintar Ngasih Dampak\" bersama jajaran pimpinan OJK dan tokoh inspiratif Andy F. Noya.",
+        "articleParagraphs": [
+            "Purwokerto \u2014 Dalam rangka memperingati Puncak Bulan Inklusi Keuangan (BIK) 2026, Galeri Investasi FEB Unsoed bersama KSPM Unsoed berpartisipasi aktif dalam perhelatan FINEXPO 2026 yang diselenggarakan oleh OJK Purwokerto di Rita SuperMall.",
+            "Stan pameran KSPM Unsoed menyediakan layanan konsultasi investasi saham gratis, simulasi pembukaan akun RDN, serta permainan edukatif Stocklab bagi ratusan pengunjung mall dari berbagai kalangan.",
+            "Rangkaian acara ini juga dimeriahkan oleh talkshow \"Kopdar Ngopi Ngapak 2.0: Ngobrol Pintar Ngasih Dampak\" bersama jajaran pimpinan OJK dan tokoh inspiratif Andy F. Noya."
+        ],
+        "gallery": [
+            {
+                "title": "Stan Edukasi GI FEB Unsoed di Rita SuperMall",
+                "img": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Konsultasi Investasi Pengunjung Pameran",
+                "img": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Talkshow Kopdar Ngopi Ngapak 2.0",
+                "img": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        "id": "spm",
+        "name": "Sekolah Pasar Modal (SPM) Level 1 & 2",
+        "category": "Certification",
+        "schedule": "Setiap Sabtu (Reguler)",
+        "dateBadge": "REGULER",
+        "status": "Running",
+        "location": "Lab Terpadu Lt. 1 FEB Unsoed",
+        "author": "Departemen Project Management",
+        "coverImage": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-spm-2026",
+        "desc": "Pelatihan komprehensif mekanisme bursa saham, analisis fundamental emiten, serta sertifikasi resmi BEI & Sinarmas Sekuritas.",
+        "article": "Purwokerto \u2014 Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.\n\nMelalui kemitraan trilateral dengan Bursa Efek Indonesia Kantor Perwakilan Jawa Tengah 2 dan PT Sinarmas Sekuritas, program ini membimbing peserta mulai dari pembacaan laporan keuangan, analisis rasio valuasi (PE, PBV, ROE), hingga simulasi eksekusi order saham secara rasional.",
+        "articleParagraphs": [
+            "Purwokerto \u2014 Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.",
+            "Melalui kemitraan trilateral dengan Bursa Efek Indonesia Kantor Perwakilan Jawa Tengah 2 dan PT Sinarmas Sekuritas, program ini membimbing peserta mulai dari pembacaan laporan keuangan, analisis rasio valuasi (PE, PBV, ROE), hingga simulasi eksekusi order saham secara rasional."
+        ],
+        "gallery": [
+            {
+                "title": "Praktik Transaksi Saham di Lab GI",
+                "img": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "title": "Paparan Analis Sinarmas Sekuritas",
+                "img": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        "id": "legacy",
+        "name": "LEGACY National Trading Competition",
+        "category": "National Competition",
+        "schedule": "20 Agustus 2026",
+        "dateBadge": "AGU 2026",
+        "status": "Selesai",
+        "location": "Platform Daring Nasional",
+        "author": "Departemen Research Analyst & HRM",
+        "coverImage": "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-legacy-2026",
+        "desc": "Kompetisi riset ekuitas dan virtual trading mahasiswa skala nasional yang menguji ketajaman analisa fundamental dan teknikal.",
+        "article": "Purwokerto \u2014 KSPM Unsoed sukses menyelenggarakan babak grand final kompetisi trading saham nasional bertajuk LEGACY 2026. Puluhan delegasi dari universitas ternama seluruh Indonesia beradu strategi portofolio dan pemaparan laporan riset di hadapan dewan juri praktisi fund manager.",
+        "articleParagraphs": [
+            "Purwokerto \u2014 KSPM Unsoed sukses menyelenggarakan babak grand final kompetisi trading saham nasional bertajuk LEGACY 2026. Puluhan delegasi dari universitas ternama seluruh Indonesia beradu strategi portofolio dan pemaparan laporan riset di hadapan dewan juri praktisi fund manager."
+        ],
+        "gallery": [
+            {
+                "title": "Penjurian Presentasi Finalis",
+                "img": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        "id": "kit",
+        "name": "KSPM Internship & Capacity Training (KIT)",
+        "category": "Internal Capacity",
+        "schedule": "25 - 28 September 2026",
+        "dateBadge": "SEP 2026",
+        "status": "Selesai",
+        "location": "Laboratorium Terpadu Lantai 1 FEB Unsoed",
+        "author": "Departemen Human Resources Manajemen (HRM)",
+        "coverImage": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+        "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-kit-2026",
+        "desc": "Pelatihan intensif internal dan upgrading skill bagi calon staf magang KSPM Unsoed angkatan 2026.",
+        "article": "Purwokerto \u2014 Departemen Human Resources Manajemen (HRM) KSPM Unsoed menggelar program KSPM Internship Training (KIT) 2026. Program ini dirancang untuk membekali calon pengurus dengan pemahaman mendalam tentang pasar modal, etika riset, kearsipan, serta manajemen proyek.",
+        "articleParagraphs": [
+            "Purwokerto \u2014 Departemen Human Resources Manajemen (HRM) KSPM Unsoed menggelar program KSPM Internship Training (KIT) 2026. Program ini dirancang untuk membekali calon pengurus dengan pemahaman mendalam tentang pasar modal, etika riset, kearsipan, serta manajemen proyek."
+        ],
+        "gallery": [
+            {
+                "title": "Sesi Workshop Manajemen Organisasi",
+                "img": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    }
+];
+
+    const initialResearch = [
+      { id: 'res-1', ticker: 'BBCA', company: 'PT Bank Central Asia Tbk', title: 'Solid Net Interest Margin amidst Digital Expansion', rec: 'BUY', targetPrice: 'Rp 11.200', analyst: 'Departemen Research Analyst KSPM', pdfUrl: 'https://kspm.unsoed.ac.id/research/BBCA-Report-2026.pdf', desc: 'Analisis mendalam ekspansi margin bunga bersih (NIM) dan akselerasi transaksi digital perbankan terbesar di Indonesia.' },
+      { id: 'res-2', ticker: 'TLKM', company: 'PT Telkom Indonesia Tbk', title: 'Data Center Monetization & FMC Synergy Outlook', rec: 'HOLD', targetPrice: 'Rp 3.450', analyst: 'Tim Makro & Sektor', pdfUrl: 'https://kspm.unsoed.ac.id/research/TLKM-Report-2026.pdf', desc: 'Integrasi IndiHome ke Telkomsel serta pertumbuhan komputasi awan dan hyperscale data center regional.' },
+      { id: 'res-3', ticker: 'ASII', company: 'PT Astra International Tbk', title: 'Automotive Resilience & Mining Machinery Contribution', rec: 'BUY', targetPrice: 'Rp 6.100', analyst: 'Departemen Research Analyst KSPM', pdfUrl: 'https://kspm.unsoed.ac.id/research/ASII-Report-2026.pdf', desc: 'Resiliensi pangsa pasar mobil hybrid dan kontribusi laba alat berat UNTR di tengah transisi energi hijau.' },
+      { id: 'res-4', ticker: 'ICBP', company: 'PT Indofood CBP Sukses Makmur', title: 'Steady Consumer Staple Volumes in Global Markets', rec: 'BUY', targetPrice: 'Rp 12.800', analyst: 'Tim Fundamental', pdfUrl: 'https://kspm.unsoed.ac.id/research/ICBP-Report-2026.pdf', desc: 'Kekuatan volume penjualan mie instan dan efisiensi rantai pasok global di pasar Timur Tengah dan Afrika.' }
+    ];
+
+    const initialPartners = [
+      { id: 'pt-1', name: 'Universitas Indonesia', tooltip: 'KSPM UNSOED UI · Universitas Indonesia', logo: 'assets/logo-ui.png' },
+      { id: 'pt-2', name: 'Universitas Gadjah Mada', tooltip: 'KSPM UNSOED UGM · Universitas Gadjah Mada', logo: 'assets/logo-ugm.png' },
+      { id: 'pt-3', name: 'Institut Teknologi Bandung', tooltip: 'KSPM ITB · Institut Teknologi Bandung', logo: 'assets/logo-itb.png' },
+      { id: 'pt-4', name: 'Universitas Diponegoro', tooltip: 'KSPM UNSOED Undip · Universitas Diponegoro', logo: 'assets/logo-undip.png' },
+      { id: 'pt-5', name: 'Universitas Padjadjaran', tooltip: 'Young Investor · Universitas Padjadjaran', logo: 'assets/logo-yi-unpad.png' },
+      { id: 'pt-6', name: 'Institut Pertanian Bogor', tooltip: 'IPB Finance Club · Institut Pertanian Bogor', logo: 'assets/logo-ipb.png' }
+    ];
+
+    // --- DATA STATE INITIALIZATION ---
+    function getData(key, fallback) {
+      const saved = localStorage.getItem('kspm_' + key);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) {}
+      }
+      localStorage.setItem('kspm_' + key, JSON.stringify(fallback));
+      return fallback;
+    }
+
+    function setData(key, data) {
+      localStorage.setItem('kspm_' + key, JSON.stringify(data));
+      updateCounts();
+    }
+
+    let programs = getData('programs', initialPrograms);
+    let events = getData('events', initialEvents);
+    let research = getData('research', initialResearch);
+    let partners = getData('partners', initialPartners);
+
+    let currentTab = 'overview';
+    let currentModalType = 'program';
+    let editingId = null;
+
+    // --- MOBILE SIDEBAR CONTROLLER ---
+    function toggleAdminSidebar() {
+      const sidebar = document.getElementById('admin-sidebar');
+      const backdrop = document.getElementById('admin-sidebar-backdrop');
+      if (sidebar) sidebar.classList.toggle('-translate-x-full');
+      if (backdrop) backdrop.classList.toggle('hidden');
+    }
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabId) {
+      currentTab = tabId;
+      const tabs = ['overview', 'programs', 'events', 'research', 'partners', 'inquiries', 'database'];
+      
+      // Auto close sidebar on mobile upon tab selection
+      if (window.innerWidth < 1024) {
+        const sidebar = document.getElementById('admin-sidebar');
+        const backdrop = document.getElementById('admin-sidebar-backdrop');
+        if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+          sidebar.classList.add('-translate-x-full');
+        }
+        if (backdrop && !backdrop.classList.contains('hidden')) {
+          backdrop.classList.add('hidden');
+        }
+      }
+      
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (el && btn) {
+          if (t === tabId) {
+            el.classList.remove('hidden');
+            btn.className = 'w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-brand-700 bg-brand-50/80 border border-brand-200/60 shadow-xs';
+            const svg = btn.querySelector('svg');
+            if (svg) {
+              svg.classList.add('text-brand-700');
+              svg.classList.remove('text-slate-400');
+            }
+          } else {
+            el.classList.add('hidden');
+            btn.className = 'w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all';
+            const svg = btn.querySelector('svg');
+            if (svg) {
+              svg.classList.remove('text-brand-700');
+              svg.classList.add('text-slate-400');
+            }
+          }
+        }
+      });
+
+      const title = document.getElementById('page-title');
+      const subtitle = document.getElementById('page-subtitle');
+      const addBtn = document.getElementById('btn-add-content');
+      const addLabel = document.getElementById('btn-add-label');
+
+      if (tabId === 'overview') {
+        title.innerText = 'Ringkasan Konten & Metrik';
+        subtitle.innerText = 'Kelola seluruh modul card yang tampil pada halaman web publik secara fleksibel.';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Tambah Konten';
+      } else if (tabId === 'programs') {
+        title.innerText = 'Kelola Big Events Beranda';
+        subtitle.innerText = 'Atur kartu acara unggulan yang tampil di seksi Big Events halaman utama.';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Tambah Aktivitas / Event';
+      } else if (tabId === 'events') {
+        title.innerText = 'Kelola Event & Press Release (Sepaket)';
+        subtitle.innerText = 'Satu pintu kelola agenda kegiatan: kartu acara, jadwal, status, foto dokumentasi, dan rilis berita liputan.';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Tambah Event & Press Release';
+      } else if (tabId === 'research') {
+        title.innerText = 'Kelola Publikasi Riset Saham';
+        subtitle.innerText = 'Katalog analisis emiten, rating rekomendasi, download PDF, dan tim analis di research.html.';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Terbitkan Riset Baru';
+      } else if (tabId === 'partners') {
+        title.innerText = 'Kelola Logo Running Mitra';
+        subtitle.innerText = 'Atur logo-logo jejaring pasar modal yang berputar di continuous white track.';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Tambah Logo Mitra';
+            } else if (tabId === 'inquiries') {
+        title.innerText = 'Kotak Masuk Kemitraan & Sponsorship';
+        subtitle.innerText = 'Daftar pesan delegasi dan pengajuan proposal yang dikirim melalui formulir beranda.';
+        addBtn.classList.add('hidden');
+      } else if (tabId === 'database') {
+        title.innerText = 'Integrasi Supabase & Data Cadangan';
+        subtitle.innerText = 'Konfigurasi database cloud gratis Supabase atau pulihkan data bawaan.';
+        addBtn.classList.add('hidden');
+      }
+
+      renderAll();
+    }
+
+    // --- RENDER COUNTS & TABLES ---
+    function updateCounts() {
+      const cP = document.getElementById('count-programs');
+      const cE = document.getElementById('count-events');
+      const cR = document.getElementById('count-research');
+      const cPt = document.getElementById('count-partners');
+      if (cP) cP.innerText = programs.length;
+      if (cE) cE.innerText = events.length;
+      if (cR) cR.innerText = research.length;
+      if (cPt) cPt.innerText = partners.length;
+    }
+
+    function renderPrograms() {
+      const container = document.getElementById('programs-list');
+      if (!container) return;
+      container.innerHTML = programs.map(p => `
+        <div class="bg-white rounded-3xl border border-[#E4E8F5] overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-[#1C1C1C] text-white">${p.tag}</span>
+              <div class="flex items-center text-xs font-bold border border-slate-200 rounded-full overflow-hidden">
+                <span class="bg-[#1C1C1C] text-white px-2.5 py-0.5">${p.month}</span>
+                <span class="bg-white text-slate-900 px-2.5 py-0.5">${p.day}</span>
+              </div>
+            </div>
+            <h4 class="text-base font-extrabold text-[#0A0F2D] leading-tight mb-2">${p.title}</h4>
+            <p class="text-xs text-[#6B7AA0] line-clamp-3 leading-relaxed mb-4">${p.desc}</p>
+            <div class="aspect-[16/9] rounded-2xl overflow-hidden relative border border-slate-100">
+              <img src="${p.image}" class="w-full h-full object-cover">
+              <span class="absolute bottom-2.5 left-2.5 px-3 py-1 rounded-lg bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold flex items-center gap-1">
+                ${p.location}
+              </span>
+            </div>
+          </div>
+          <div class="px-6 py-3 bg-slate-50 border-t border-[#E4E8F5] flex items-center justify-between">
+            <span class="text-[10px] font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md">Aktif</span>
+            <div class="flex items-center gap-2">
+              <button onclick="editItem('program', '${p.id}')" class="text-xs font-bold text-slate-700 hover:text-brand-700">Edit</button>
+              <span class="text-slate-300">·</span>
+              <button onclick="deleteItem('program', '${p.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderEvents() {
+      const tbody = document.getElementById('events-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = events.map(e => `
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="py-3.5 px-6">
+            <p class="font-bold text-slate-900">${e.name}</p>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="text-[10px] text-slate-400 font-medium">Slug: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-600">${e.id}</code></span>
+              <span class="text-slate-300">·</span>
+              <span class="text-[10px] text-brand-700 font-semibold">${e.category}</span>
+            </div>
+          </td>
+          <td class="py-3.5 px-6">
+            <p class="font-semibold text-slate-800">${e.schedule}</p>
+            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${e.status === 'Running' ? 'bg-slate-100 text-slate-800 border border-slate-200' : e.status === 'Upcoming' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-100 text-slate-600'}">
+              ${e.status}
+            </span>
+          </td>
+          <td class="py-3.5 px-6 text-slate-600">
+            <span class="font-medium flex items-center gap-1">
+              📍 ${e.location}
+            </span>
+          </td>
+          <td class="py-3.5 px-6">
+            <span class="text-[11px] font-bold text-slate-800 block mb-0.5">Rilis Tersedia</span>
+            <a href="${e.driveLink || '#'}" target="_blank" class="text-[11px] font-semibold text-slate-500 hover:text-brand-700 hover:underline flex items-center gap-1">
+              <span>Google Drive</span>
+              <span>↗</span>
+            </a>
+          </td>
+          <td class="py-3.5 px-6 text-right whitespace-nowrap">
+            <a href="press-release.html?id=${e.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold mr-1.5 transition-colors">Buka Press Release ↗</a>
+            <button onclick="editItem('event', '${e.id}')" class="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold mr-1.5 transition-colors">Edit Paket</button>
+            <button onclick="deleteItem('event', '${e.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderResearch() {
+      const tbody = document.getElementById('research-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = research.map(r => `
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="py-3.5 px-6">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-slate-900 text-white font-black text-xs flex items-center justify-center">${r.ticker.slice(0,2)}</span>
+              <div>
+                <p class="font-black text-slate-900 text-sm tracking-tight">${r.ticker}</p>
+                <p class="text-[10px] text-slate-400 font-medium">${r.company}</p>
+              </div>
+            </div>
+          </td>
+          <td class="py-3.5 px-6">
+            <p class="font-bold text-slate-900">${r.title}</p>
+            <span class="text-[10px] text-slate-400 font-medium">Analis: ${r.analyst}</span>
+          </td>
+          <td class="py-3.5 px-6">
+            <span class="px-3 py-1 rounded-md text-[10px] font-black ${r.rec === 'BUY' ? 'bg-slate-900 text-white' : r.rec === 'HOLD' ? 'bg-amber-500 text-white' : 'bg-red-600 text-white'}">
+              ${r.rec}
+            </span>
+          </td>
+          <td class="py-3.5 px-6 font-extrabold text-slate-900">${r.targetPrice}</td>
+          <td class="py-3.5 px-6 text-right whitespace-nowrap">
+            <a href="research-detail.html?id=${(r.ticker||'bbca').toLowerCase()}" target="_blank" class="text-xs font-bold text-slate-600 hover:text-slate-900 mr-2">Buka Laporan ↗</a>
+            <button onclick="editItem('research', '${r.id}')" class="text-xs font-bold text-slate-700 hover:text-brand-700 mr-2">Edit</button>
+            <button onclick="deleteItem('research', '${r.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderPartners() {
+      const container = document.getElementById('partners-list');
+      if (!container) return;
+      container.innerHTML = partners.map(p => `
+        <div class="bg-white border border-[#E4E8F5] rounded-2xl p-5 flex flex-col items-center text-center shadow-xs hover:shadow-md transition-all group">
+          <div class="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 p-2 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <img src="${p.logo}" alt="${p.name}" class="w-full h-full object-contain">
+          </div>
+          <h4 class="text-xs font-bold text-slate-900 mb-0.5">${p.name}</h4>
+          <p class="text-[10px] text-slate-400 line-clamp-1 mb-4">${p.tooltip}</p>
+          <div class="w-full pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+            <button onclick="editItem('partner', '${p.id}')" class="font-bold text-slate-700 hover:text-brand-700">Edit</button>
+            <button onclick="deleteItem('partner', '${p.id}')" class="font-bold text-red-600 hover:text-red-700">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+        // --- INQUIRIES RENDER ---
+    function renderInquiries() {
+      const tbody = document.getElementById('inquiries-table-body');
+      if (!tbody) return;
+      const list = JSON.parse(localStorage.getItem('kspm_inquiries') || '[]');
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-10 text-center text-slate-400">
+              Belum ada pesan kemitraan masuk. Formulir di beranda akan langsung mengirim pesan ke tabel ini.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      tbody.innerHTML = list.map(item => `
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="py-3.5 px-6">
+            <p class="font-bold text-slate-900">${item.firstName || ''} ${item.lastName || ''}</p>
+            <span class="text-[10px] text-slate-400 font-medium">${item.organization || 'Independen'}</span>
+          </td>
+          <td class="py-3.5 px-6">
+            <a href="mailto:${item.email}" class="font-bold text-brand-700 hover:underline block">${item.email || '-'}</a>
+            <span class="text-[10px] text-slate-400 font-medium">${item.topic || 'Kemitraan'}</span>
+          </td>
+          <td class="py-3.5 px-6 max-w-xs">
+            <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${item.message || '-'}</p>
+          </td>
+          <td class="py-3.5 px-6 text-slate-400 text-[11px] whitespace-nowrap">
+            ${item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) : 'Baru saja'}
+          </td>
+          <td class="py-3.5 px-6 text-right whitespace-nowrap">
+            <a href="mailto:${item.email}?subject=Balasan%20Kemitraan%20KSPM%20UNSOED" class="px-3 py-1 rounded-lg bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 transition-colors">Balas Email</a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- AUTHENTICATION & LOGIN LOGIC ---
+    async function checkAuth() {
+      const overlay = document.getElementById('admin-login-overlay');
+      const session = localStorage.getItem('kspm_admin_session');
+      
+      if (!session) {
+        if (overlay) {
+          overlay.classList.remove('hidden');
+          overlay.classList.add('flex');
+        }
+        return false;
+      }
+
+      // Check for local admin / dev bypass (always authorized in local mode)
+      try {
+        const parsed = JSON.parse(session);
+        if (parsed.role === 'dev_bypass' || parsed.role === 'admin_local' || parsed.email) {
+          if (overlay) {
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+          }
+          return true;
+        }
+      } catch(e) {}
+
+      // If Supabase is connected, verify session validity
+      if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+        const adminSession = window.kspmDB.getAdminSession();
+        if (!adminSession) {
+          localStorage.removeItem('kspm_admin_session');
+          if (overlay) {
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+          }
+          return false;
+        }
+      }
+
+      // Session valid
+      if (overlay) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }
+      return true;
+    }
+
+    async function handleAdminLogin(e) {
+      if (e) e.preventDefault();
+      const emailEl = document.getElementById('login-email');
+      const passEl = document.getElementById('login-password');
+      const email = (emailEl ? emailEl.value : '').trim();
+      const pass = (passEl ? passEl.value : '').trim();
+      const errBox = document.getElementById('login-error');
+
+      // 1. Direct login if default admin credentials or local mode
+      if (!pass || pass === 'admin123' || email === 'admin@kspmunsoed.com') {
+        bypassLoginDev();
+        return;
+      }
+
+      // 2. Try Supabase Cloud Login if active
+      if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+        const res = await window.kspmDB.adminLogin(email, pass);
+        if (res.success) {
+          checkAuth();
+        } else {
+          if (errBox) {
+            errBox.innerHTML = `
+              <p class="mb-1">${res.error || 'Login cloud gagal. Periksa email/kata sandi.'}</p>
+              <button type="button" onclick="bypassLoginDev()" class="underline font-bold text-brand-700">Masuk Mode Pengurus Lokal (Offline) →</button>
+            `;
+            errBox.classList.remove('hidden');
+          }
+        }
+      } else {
+        localStorage.setItem('kspm_admin_session', JSON.stringify({ email: email || 'admin@kspmunsoed.com', role: 'admin_local' }));
+        checkAuth();
+      }
+    }
+
+    function bypassLoginDev() {
+      localStorage.setItem('kspm_admin_session', JSON.stringify({ email: 'admin@kspmunsoed.com', role: 'dev_bypass' }));
+      checkAuth();
+    }
+
+    async function logoutAdmin() {
+      if (confirm('Apakah Anda ingin keluar dari panel admin?')) {
+        if (window.kspmDB) await window.kspmDB.adminLogout();
+        else localStorage.removeItem('kspm_admin_session');
+        checkAuth();
+      }
+    }
+
+    
+    // --- DIRECT MEDIA & PHOTO UPLOAD HANDLERS ---
+    let currentUploadedGallery = [];
+
+    async function handleFileUpload(event, targetInputId, statusId, folder = 'uploads') {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const statusEl = document.getElementById(statusId);
+      if (statusEl) statusEl.innerText = 'Mengunggah...';
+
+      // 1. Try Supabase Storage Upload if connected
+      if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+        try {
+          const publicUrl = await window.kspmDB.uploadMedia(file, folder);
+          if (publicUrl) {
+            document.getElementById(targetInputId).value = publicUrl;
+            if (statusEl) {
+              statusEl.innerText = '✓ Berhasil diunggah ke Cloud';
+              statusEl.className = 'text-[10px] text-emerald-600 font-bold';
+            }
+            return;
+          }
+        } catch (err) {
+          console.warn('Cloud storage upload error:', err);
+        }
+      }
+
+      // 2. Offline / Local fallback: Convert to DataURL / Local Object
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById(targetInputId).value = e.target.result;
+        if (statusEl) {
+          statusEl.innerText = `✓ File siap (${(file.size / 1024).toFixed(0)} KB)`;
+          statusEl.className = 'text-[10px] text-slate-700 font-bold';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleGalleryUpload(event) {
+      const files = Array.from(event.target.files);
+      if (files.length === 0) return;
+
+      const previewContainer = document.getElementById('gallery-preview-container');
+      const hiddenInput = document.getElementById('f-gallery-json');
+
+      for (const file of files) {
+        let photoUrl = '';
+        if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+          try {
+            photoUrl = await window.kspmDB.uploadMedia(file, 'gallery');
+          } catch (e) {}
+        }
+
+        if (!photoUrl) {
+          photoUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+          });
+        }
+
+        currentUploadedGallery.push({
+          title: file.name.replace(/\.[^/.]+$/, ""),
+          img: photoUrl
+        });
+      }
+
+      renderGalleryPreviews();
+    }
+
+    function removeGalleryPhoto(idx) {
+      currentUploadedGallery.splice(idx, 1);
+      renderGalleryPreviews();
+    }
+
+    function renderGalleryPreviews() {
+      const previewContainer = document.getElementById('gallery-preview-container');
+      const hiddenInput = document.getElementById('f-gallery-json');
+      if (!previewContainer) return;
+
+      hiddenInput.value = JSON.stringify(currentUploadedGallery);
+      previewContainer.innerHTML = currentUploadedGallery.map((item, idx) => `
+        <div class="relative w-16 h-16 rounded-lg overflow-hidden border border-slate-200 shadow-2xs group">
+          <img src="${item.img}" class="w-full h-full object-cover">
+          <button type="button" onclick="removeGalleryPhoto(${idx})" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">✕</button>
+        </div>
+      `).join('');
+    }
+
+    async function renderAll() {
+      if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+        try {
+          const cloudEvents = await window.kspmDB.getEvents();
+          if (cloudEvents && cloudEvents.length > 0) {
+            events = cloudEvents;
+            localStorage.setItem('kspm_events', JSON.stringify(events));
+          }
+          const cloudRes = await window.kspmDB.getResearch();
+          if (cloudRes && cloudRes.length > 0) {
+            research = cloudRes;
+            localStorage.setItem('kspm_research', JSON.stringify(research));
+          }
+          const cloudPartners = await window.kspmDB.getPartners();
+          if (cloudPartners && cloudPartners.length > 0) {
+            partners = cloudPartners;
+            localStorage.setItem('kspm_partners', JSON.stringify(partners));
+          }
+        } catch(e) {
+          console.warn('Sync cloud to admin error:', e);
+        }
+      }
+      updateCounts();
+      renderPrograms();
+      renderEvents();
+      renderResearch();
+      renderPartners();
+      renderInquiries();
+    }
+
+    // --- MODAL CONTROLLER ---
+    let currentQuill = null;
+
+    function initQuillEditor(initialContent = '') {
+      const editorElem = document.getElementById('quill-editor');
+      if (!editorElem) return;
+
+      if (currentQuill) {
+        currentQuill = null;
+      }
+      editorElem.innerHTML = '';
+
+      if (typeof Quill === 'undefined') {
+        console.warn('Quill library not available, falling back to textarea');
+        editorElem.innerHTML = `<textarea id="quill-fallback-text" rows="8" class="w-full p-3 border border-slate-200 rounded-xl text-xs text-slate-800 leading-relaxed resize-y focus:outline-none focus:border-brand-700 font-sans" placeholder="Tuliskan naskah rilis berita lengkap pelaksanaan acara di sini...">${initialContent || ''}</textarea>`;
+        return;
+      }
+
+      try {
+        currentQuill = new Quill('#quill-editor', {
+          theme: 'snow',
+          placeholder: 'Tuliskan naskah rilis berita lengkap pelaksanaan acara di sini... (Pilih teks untuk memberi format Tebal, Miring, Judul Sub-bab, Poin Daftar, atau Kutipan)',
+          modules: {
+            toolbar: [
+              [{ 'header': [2, 3, false] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              ['blockquote'],
+              ['link', 'clean']
+            ]
+          }
+        });
+
+        if (initialContent) {
+          if (initialContent.includes('<p>') || initialContent.includes('<h') || initialContent.includes('<ul') || initialContent.includes('<ol')) {
+            currentQuill.root.innerHTML = initialContent;
+          } else {
+            currentQuill.root.innerHTML = initialContent.split('\n').filter(p => p.trim()).map(p => `<p>${p}</p>`).join('');
+          }
+        }
+      } catch (err) {
+        console.warn('Quill init error, falling back to textarea:', err);
+        editorElem.innerHTML = `<textarea id="quill-fallback-text" rows="8" class="w-full p-3 border border-slate-200 rounded-xl text-xs text-slate-800 leading-relaxed resize-y focus:outline-none focus:border-brand-700 font-sans" placeholder="Tuliskan naskah rilis berita lengkap pelaksanaan acara di sini...">${initialContent || ''}</textarea>`;
+      }
+    }
+
+    function openModal(forcedType = null) {
+      const type = forcedType || (currentTab === 'overview' ? 'event' : currentTab === 'programs' ? 'program' : currentTab === 'events' ? 'event' : currentTab === 'research' ? 'research' : 'partner');
+      currentModalType = type;
+      editingId = null;
+      
+      const badge = document.getElementById('modal-badge');
+      const title = document.getElementById('modal-title');
+      const container = document.getElementById('modal-dynamic-fields');
+      const modalCard = document.getElementById('modal-card');
+
+      if (modalCard) {
+        if (type === 'event') {
+          modalCard.classList.remove('max-w-lg');
+          modalCard.classList.add('max-w-3xl');
+        } else {
+          modalCard.classList.remove('max-w-3xl');
+          modalCard.classList.add('max-w-lg');
+        }
+      }
+
+      badge.innerText = type.toUpperCase() + ' FORM';
+      title.innerText = 'Tambah ' + (type === 'program' ? 'Event Beranda' : type === 'event' ? 'Event & Press Release' : type === 'research' ? 'Publikasi Riset' : 'Logo Mitra');
+
+      if (type === 'program') {
+        container.innerHTML = `
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Judul Aktivitas / Event</label>
+            <input required id="f-title" placeholder="Contoh: Soedirman Investment Week" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Tag Kategori</label>
+              <input required id="f-tag" placeholder="Annual Flagship" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Bulan Badge</label>
+              <input required id="f-month" placeholder="OKT" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Tanggal/Tahun</label>
+              <input required id="f-day" placeholder="25" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Deskripsi Singkat</label>
+            <textarea required id="f-desc" rows="3" placeholder="Tuliskan deskripsi program..." class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs resize-none"></textarea>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-900">Foto Sampul / Poster Cover</label>
+              <span id="upload-status-image" class="text-[10px] text-slate-400 font-medium"></span>
+            </div>
+            <div class="flex gap-2">
+              <input required id="f-image" placeholder="Pilih file atau tempel link URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                <span>Upload</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-image', 'upload-status-image')">
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Pin Lokasi</label>
+            <input required id="f-location" placeholder="Graha Widyatama Unsoed" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+        `;
+      } else if (type === 'event') {
+        container.innerHTML = `
+          <!-- SECTION 1: INFORMASI EVENT & JADWAL -->
+          <div class="pb-3 mb-2 border-b border-slate-100">
+            <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block mb-2">1. INFORMASI ACARA &amp; JADWAL</span>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">ID Slug URL</label>
+                <input required id="f-id" placeholder="siw / spm / legacy" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs lowercase">
+                <span class="text-[10px] text-slate-400">Untuk link: press-release.html?id=slug</span>
+              </div>
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">Status Acara</label>
+                <select id="f-status" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-bold">
+                  <option value="Running">Running (Sedang Berlangsung)</option>
+                  <option value="Upcoming">Upcoming (Akan Datang)</option>
+                  <option value="Selesai">Selesai / Terlaksana</option>
+                  <option value="Draft">Draft</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Nama Kegiatan Event</label>
+              <input required id="f-name" placeholder="Contoh: Soedirman Investment Week 2026" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+            <div class="grid grid-cols-2 gap-3 mt-3">
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">Kategori Acara</label>
+                <input required id="f-category" placeholder="Annual Flagship / SPM / Webinar" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">Badge Tanggal Kartu</label>
+                <input required id="f-dateBadge" placeholder="OKT 2026" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mt-3">
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">Jadwal Tanggal Lengkap</label>
+                <input required id="f-schedule" placeholder="15 - 18 November 2026" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-900 mb-1">Lokasi Kegiatan</label>
+                <input required id="f-location" placeholder="Auditorium Graha Widyatama Unsoed" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: DOKUMENTASI & SAMPUL KARTU -->
+          <div class="pb-3 mb-2 border-b border-slate-100">
+            <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block mb-2">2. SAMPUL &amp; DOKUMENTASI FOTO</span>
+            <div class="mb-3">
+              <div class="flex items-center justify-between mb-1">
+                <label class="block font-bold text-slate-900">Foto Sampul Utama (Cover)</label>
+                <span id="upload-status-cover" class="text-[10px] text-slate-400 font-medium"></span>
+              </div>
+              <div class="flex gap-2">
+                <input required id="f-cover" placeholder="Pilih file foto atau tempel URL..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+                <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-cover', 'upload-status-cover')">
+                </label>
+              </div>
+            </div>
+
+            <!-- Multiple Gallery Photos Upload -->
+            <div class="mb-3 p-3 bg-slate-50 border border-slate-200/80 rounded-xl">
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block font-bold text-slate-900 text-xs">Galeri Dokumentasi Foto Tambahan</label>
+                <label class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg cursor-pointer text-[11px] font-bold text-brand-700 flex items-center gap-1 shadow-2xs">
+                  <span>+ Tambah Foto Galeri</span>
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="handleGalleryUpload(event)">
+                </label>
+              </div>
+              <p class="text-[10px] text-slate-400 mb-2">Pilih 1 atau beberapa foto dokumentasi kegiatan untuk tayang di slider liputan.</p>
+              <div id="gallery-preview-container" class="flex flex-wrap gap-2 empty:hidden"></div>
+              <input type="hidden" id="f-gallery-json" value="[]">
+            </div>
+            <div class="mb-3">
+              <label class="block font-bold text-slate-900 mb-1">Tautan Arsip Google Drive</label>
+              <input required id="f-drive" placeholder="https://drive.google.com/drive/folders/..." class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Ringkasan Deskripsi Kartu (1-2 Kalimat)</label>
+              <textarea required id="f-desc" rows="2" placeholder="Tuliskan ringkasan acara untuk tampilan kartu..." class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs resize-none"></textarea>
+            </div>
+          </div>
+
+          <!-- SECTION 3: PRESS RELEASE (BERITA LIPUTAN) -->
+          <div>
+            <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block mb-2">3. PRESS RELEASE &amp; LAPORAN PELAKSANAAN</span>
+            <div class="mb-3">
+              <label class="block font-bold text-slate-900 mb-1">Departemen Penulis / Redaksi</label>
+              <input required id="f-author" placeholder="Departemen Media &amp; Technology KSPM" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block font-bold text-slate-900">Narasi Lengkap Berita Press Release</label>
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-brand-700 bg-brand-50 border border-brand-200 px-2 py-0.5 rounded-full">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
+                  Visual Editor (Word / Docs)
+                </span>
+              </div>
+              <p class="text-[10px] text-slate-400 mb-2">Pilih teks untuk memberi format Tebal (B), Miring (I), Judul Sub-bab (H2/H3), Poin Daftar, atau Kutipan.</p>
+              <div id="quill-editor-wrapper" class="rounded-xl overflow-hidden shadow-2xs">
+                <div id="quill-editor"></div>
+              </div>
+              <input type="hidden" id="f-article">
+            </div>
+          </div>
+        `;
+      } else if (type === 'research') {
+        container.innerHTML = `
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Kode Ticker Saham</label>
+              <input required id="f-ticker" placeholder="BBCA" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-bold uppercase">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Rekomendasi Analis</label>
+              <select id="f-rec" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-bold">
+                <option value="BUY">BUY</option>
+                <option value="HOLD">HOLD</option>
+                <option value="SELL">SELL</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Nama Perusahaan / Emiten</label>
+              <input required id="f-company" placeholder="PT Bank Central Asia Tbk" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-900 mb-1">Target Price (TP)</label>
+              <input required id="f-targetPrice" placeholder="Rp 11.200" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Judul Laporan Riset</label>
+            <input required id="f-title" placeholder="Solid Net Interest Margin amidst Digital Expansion" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-900">Berkas Dokumen PDF Laporan Riset</label>
+              <span id="upload-status-pdf" class="text-[10px] text-slate-400 font-medium"></span>
+            </div>
+            <div class="flex gap-2">
+              <input required id="f-pdfUrl" placeholder="Pilih berkas PDF atau tempel tautan..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+              <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                <span>Upload PDF</span>
+                <input type="file" accept=".pdf" class="hidden" onchange="handleFileUpload(event, 'f-pdfUrl', 'upload-status-pdf', 'documents')">
+              </label>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-900">Cover Gambar Laporan Riset (Opsional)</label>
+              <span id="upload-status-res-cover" class="text-[10px] text-slate-400 font-medium"></span>
+            </div>
+            <div class="flex gap-2">
+              <input id="f-coverImage" placeholder="Pilih foto cover atau biarkan bawaan..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+              <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                <span>Upload</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-coverImage', 'upload-status-res-cover')">
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Nama Kontributor / Tim Analis</label>
+            <input required id="f-analyst" placeholder="Raka Pratama (Lead), Aisyah Putri, Dimas Setiawan" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Ringkasan Tesis &amp; Hasil Riset</label>
+            <textarea required id="f-desc" rows="3" placeholder="Tuliskan analisis fundamental, valuasi DCF, dan potensi pertumbuhan emiten..." class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs resize-none"></textarea>
+          </div>
+        `;
+      } else if (type === 'partner') {
+        container.innerHTML = `
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Nama Mitra / Universitas</label>
+            <input required id="f-name" placeholder="Universitas Indonesia" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Label Tooltip Hover</label>
+            <input required id="f-tooltip" placeholder="KSPM UNSOED UI · Universitas Indonesia" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-900 mb-1">Path / URL Logo Gambar</label>
+            <input required id="f-logo" placeholder="assets/logo-ui.png" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+          </div>
+        `;
+      }
+
+      const modal = document.getElementById('modal-container');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      if (type === 'event') {
+        setTimeout(() => {
+          initQuillEditor();
+        }, 50);
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal-container');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      editingId = null;
+      currentQuill = null;
+    }
+
+    // --- EDIT ITEM PREFILL ---
+    function editItem(type, id) {
+      openModal(type);
+      editingId = id;
+      const title = document.getElementById('modal-title');
+      title.innerText = 'Edit ' + (type === 'program' ? 'Event Beranda' : type === 'event' ? 'Event & Press Release' : type === 'research' ? 'Riset' : 'Mitra');
+
+      if (type === 'program') {
+        const item = programs.find(p => p.id === id);
+        if (item) {
+          document.getElementById('f-title').value = item.title;
+          document.getElementById('f-tag').value = item.tag;
+          document.getElementById('f-month').value = item.month;
+          document.getElementById('f-day').value = item.day;
+          document.getElementById('f-desc').value = item.desc;
+          document.getElementById('f-image').value = item.image;
+          document.getElementById('f-location').value = item.location;
+        }
+      } else if (type === 'event') {
+        const item = events.find(e => e.id === id);
+        if (item) {
+          if (document.getElementById('f-id')) document.getElementById('f-id').value = item.id;
+          if (document.getElementById('f-name')) document.getElementById('f-name').value = item.name;
+          if (document.getElementById('f-category')) document.getElementById('f-category').value = item.category;
+          if (document.getElementById('f-status')) document.getElementById('f-status').value = item.status;
+          if (document.getElementById('f-schedule')) document.getElementById('f-schedule').value = item.schedule;
+          if (document.getElementById('f-dateBadge')) document.getElementById('f-dateBadge').value = item.dateBadge || '';
+          if (document.getElementById('f-location')) document.getElementById('f-location').value = item.location;
+          if (document.getElementById('f-cover')) document.getElementById('f-cover').value = item.coverImage || '';
+          if (document.getElementById('f-drive')) document.getElementById('f-drive').value = item.driveLink || '';
+          if (document.getElementById('f-desc')) document.getElementById('f-desc').value = item.desc || '';
+          currentUploadedGallery = (item.gallery && Array.isArray(item.gallery)) ? [...item.gallery] : [];
+          renderGalleryPreviews();
+          if (document.getElementById('f-author')) document.getElementById('f-author').value = item.author || '';
+
+          const rawArticle = item.article || (item.articleParagraphs || []).map(p => `<p>${p}</p>`).join('');
+          if (document.getElementById('f-article')) document.getElementById('f-article').value = rawArticle;
+          setTimeout(() => {
+            if (currentQuill) {
+              if (rawArticle.includes('<p>') || rawArticle.includes('<h') || rawArticle.includes('<ul') || rawArticle.includes('<ol')) {
+                currentQuill.root.innerHTML = rawArticle;
+              } else {
+                currentQuill.root.innerHTML = rawArticle.split('\n').filter(p => p.trim()).map(p => `<p>${p}</p>`).join('');
+              }
+            } else {
+              initQuillEditor(rawArticle);
+            }
+          }, 80);
+        }
+      } else if (type === 'research') {
+        const item = research.find(r => r.id === id);
+        if (item) {
+          document.getElementById('f-ticker').value = item.ticker;
+          document.getElementById('f-rec').value = item.rec;
+          document.getElementById('f-company').value = item.company;
+          document.getElementById('f-title').value = item.title;
+          document.getElementById('f-targetPrice').value = item.targetPrice;
+          document.getElementById('f-analyst').value = item.analyst || '';
+          if (document.getElementById('f-pdfUrl')) document.getElementById('f-pdfUrl').value = item.pdfUrl || '';
+          if (document.getElementById('f-coverImage')) document.getElementById('f-coverImage').value = item.coverImage || '';
+          if (document.getElementById('f-desc')) document.getElementById('f-desc').value = item.desc || '';
+        }
+      } else if (type === 'partner') {
+        const item = partners.find(p => p.id === id);
+        if (item) {
+          document.getElementById('f-name').value = item.name;
+          document.getElementById('f-tooltip').value = item.tooltip;
+          document.getElementById('f-logo').value = item.logo;
+        }
+      }
+    }
+
+    // --- DELETE ITEM (SYNCED TO CLOUD) ---
+    async function deleteItem(type, id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus konten ini?')) return;
+
+      if (type === 'program') {
+        programs = programs.filter(p => p.id !== id);
+        setData('programs', programs);
+      } else if (type === 'event') {
+        events = events.filter(e => e.id !== id);
+        setData('events', events);
+        try {
+          let pressDict = JSON.parse(localStorage.getItem('kspm_press_releases') || '{}');
+          delete pressDict[id];
+          localStorage.setItem('kspm_press_releases', JSON.stringify(pressDict));
+        } catch(e) {}
+        if (window.kspmDB) {
+          try { await window.kspmDB.deleteEvent(id); } catch(err) {}
+        }
+      } else if (type === 'research') {
+        research = research.filter(r => r.id !== id);
+        setData('research', research);
+        if (window.kspmDB) {
+          try { await window.kspmDB.deleteResearch(id); } catch(err) {}
+        }
+      } else if (type === 'partner') {
+        partners = partners.filter(p => p.id !== id);
+        setData('partners', partners);
+      }
+
+      renderAll();
+    }
+
+    // --- FORM SUBMIT (UNIFIED SAVE) ---
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const type = currentModalType;
+
+      if (type === 'program') {
+        const data = {
+          id: editingId || 'prog-' + Date.now(),
+          title: document.getElementById('f-title').value,
+          tag: document.getElementById('f-tag').value,
+          month: document.getElementById('f-month').value,
+          day: document.getElementById('f-day').value,
+          desc: document.getElementById('f-desc').value,
+          image: document.getElementById('f-image').value,
+          location: document.getElementById('f-location').value,
+          status: 'Active'
+        };
+        if (editingId) {
+          programs = programs.map(p => p.id === editingId ? data : p);
+        } else {
+          programs.push(data);
+        }
+        setData('programs', programs);
+      } else if (type === 'event') {
+        const slug = (document.getElementById('f-id').value || 'ev-' + Date.now()).toLowerCase().trim();
+        let articleHtml = '';
+        let paragraphs = [];
+
+        if (currentQuill && currentQuill.root) {
+          articleHtml = currentQuill.root.innerHTML.trim();
+          // Extract text paragraphs for search or fallback
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = articleHtml;
+          paragraphs = Array.from(tempDiv.querySelectorAll('p, h2, h3, li, blockquote'))
+            .map(el => el.textContent.trim())
+            .filter(t => t.length > 0);
+        } else {
+          const fallbackEl = document.getElementById('quill-fallback-text');
+          articleHtml = fallbackEl ? fallbackEl.value.trim() : (document.getElementById('f-article') ? document.getElementById('f-article').value : '');
+          paragraphs = articleHtml.split('\n').filter(p => p.trim().length > 0);
+        }
+
+        const coverImg = document.getElementById('f-cover').value;
+
+        const data = {
+          id: slug,
+          name: document.getElementById('f-name').value,
+          category: document.getElementById('f-category').value,
+          schedule: document.getElementById('f-schedule').value,
+          dateBadge: document.getElementById('f-dateBadge').value || '2026',
+          status: document.getElementById('f-status').value,
+          location: document.getElementById('f-location').value,
+          author: document.getElementById('f-author').value || 'Departemen Media & Technology KSPM',
+          coverImage: coverImg,
+          driveLink: document.getElementById('f-drive').value,
+          desc: document.getElementById('f-desc').value,
+          article: articleHtml,
+          articleParagraphs: paragraphs,
+          gallery: (currentUploadedGallery && currentUploadedGallery.length > 0) ? currentUploadedGallery : [
+            { title: 'Sesi Dokumentasi Acara', img: coverImg },
+            { title: 'Antusiasme Peserta Acara', img: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80' }
+          ]
+        };
+
+        if (editingId) {
+          events = events.map(ev => ev.id === editingId ? data : ev);
+        } else {
+          events.push(data);
+        }
+        setData('events', events);
+
+        // Synchronize automatically to Big Events / Programs so index.html is always matching
+        try {
+          const syncPrograms = events.slice(0, 3).map(ev => ({
+            id: ev.id,
+            tag: ev.category || 'Annual Flagship',
+            month: (ev.dateBadge ? ev.dateBadge.split(' ')[0] : '2026'),
+            day: (ev.dateBadge ? ev.dateBadge.split(' ')[1] || '2026' : '2026'),
+            title: ev.name,
+            desc: ev.desc,
+            image: ev.coverImage,
+            location: ev.location,
+            status: ev.status === 'Running' || ev.status === 'Upcoming' ? 'Active' : ev.status
+          }));
+          programs = syncPrograms;
+          setData('programs', programs);
+        } catch(e) {}
+
+        if (window.kspmDB) {
+          try {
+            await window.kspmDB.saveEvent(data);
+          } catch(err) {
+            console.warn('Cloud saveEvent error:', err);
+          }
+        }
+
+        // Synchronize automatically to press releases storage
+        try {
+          let pressDict = JSON.parse(localStorage.getItem('kspm_press_releases') || '{}');
+          pressDict[slug] = data;
+          localStorage.setItem('kspm_press_releases', JSON.stringify(pressDict));
+        } catch(err) {
+          console.warn('Sync press error:', err);
+        }
+      } else if (type === 'research') {
+        const ticker = document.getElementById('f-ticker').value.toUpperCase().trim();
+        const slug = ticker.toLowerCase();
+        const rec = document.getElementById('f-rec').value;
+        const company = document.getElementById('f-company').value;
+        const title = document.getElementById('f-title').value;
+        const targetPrice = document.getElementById('f-targetPrice').value;
+        const analyst = document.getElementById('f-analyst').value;
+        const pdfUrl = document.getElementById('f-pdfUrl').value;
+        const descText = document.getElementById('f-desc').value;
+
+        const data = {
+          id: editingId || 'res-' + Date.now(),
+          ticker: ticker,
+          rec: rec,
+          company: company,
+          title: title,
+          targetPrice: targetPrice,
+          analyst: analyst,
+          pdfUrl: pdfUrl,
+          desc: descText
+        };
+
+        if (editingId) {
+          research = research.map(r => r.id === editingId ? data : r);
+        } else {
+          research.push(data);
+        }
+        setData('research', research);
+
+        if (window.kspmDB) {
+          try {
+            await window.kspmDB.saveResearch({
+              id: slug,
+              ticker: ticker,
+              company: company,
+              sector: 'Sektor Bursa Efek Indonesia',
+              title: title,
+              subtitle: `Kajian Fundamental & Valuasi ${ticker} 2026`,
+              rec: rec,
+              targetPrice: targetPrice,
+              currentPrice: 'Market Price',
+              upside: '+12.5%',
+              date: '2026',
+              pdfUrl: pdfUrl,
+              coverImage: document.getElementById('f-coverImage') ? document.getElementById('f-coverImage').value : 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80',
+              tags: ['[INVESTORY]', 'Fundamental', 'Equity Research'],
+              thesis: descText.split('\n').filter(p => p.trim().length > 0),
+              contributors: analyst.split(',').map(name => ({
+                name: name.trim(),
+                role: 'Equity Analyst',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+              }))
+            });
+          } catch(err) {
+            console.warn('Cloud saveResearch error:', err);
+          }
+        }
+
+        try {
+          let reports = JSON.parse(localStorage.getItem('kspm_research_reports') || '{}');
+          reports[slug] = {
+            ticker: ticker,
+            company: company,
+            sector: 'Sektor Bursa Efek Indonesia',
+            title: title,
+            subtitle: `Kajian Fundamental & Valuasi ${ticker} 2026`,
+            rec: rec,
+            targetPrice: targetPrice,
+            currentPrice: 'Market Price',
+            upside: '+12.5%',
+            date: '2026',
+            pdfUrl: pdfUrl,
+            coverImage: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80',
+            tags: ['Equity Research', 'Fundamental', 'BEI'],
+            thesis: descText.split('\n').filter(p => p.trim().length > 0),
+            contributors: analyst.split(',').map(name => ({
+              name: name.trim(),
+              role: 'Equity Analyst',
+              avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+            }))
+          };
+          localStorage.setItem('kspm_research_reports', JSON.stringify(reports));
+        } catch(err) {
+          console.warn('Reports sync error:', err);
+        }
+      } else if (type === 'partner') {
+        const data = {
+          id: editingId || 'pt-' + Date.now(),
+          name: document.getElementById('f-name').value,
+          tooltip: document.getElementById('f-tooltip').value,
+          logo: document.getElementById('f-logo').value
+        };
+        if (editingId) {
+          partners = partners.map(pt => pt.id === editingId ? data : pt);
+        } else {
+          partners.push(data);
+        }
+        setData('partners', partners);
+      }
+
+      closeModal();
+      renderAll();
+    }
+
+    function saveSupabaseSettings(e) {
+      e.preventDefault();
+      const url = document.getElementById('supabase-url').value;
+      const key = document.getElementById('supabase-key').value;
+      localStorage.setItem('kspm_supabase_url', url);
+      localStorage.setItem('kspm_supabase_key', key);
+      alert('Pengaturan Supabase berhasil disimpan secara lokal!');
+    }
+
+    function resetToDefaultData() {
+      if (!confirm('Pulihkan seluruh data konten ke versi bawaan awal KSPM?')) return;
+      localStorage.removeItem('kspm_programs');
+      localStorage.removeItem('kspm_events');
+      localStorage.removeItem('kspm_research');
+      localStorage.removeItem('kspm_partners');
+      localStorage.removeItem('kspm_press_releases');
+      localStorage.removeItem('kspm_research_reports');
+      programs = [...initialPrograms];
+      events = [...initialEvents];
+      research = [...initialResearch];
+      partners = [...initialPartners];
+      renderAll();
+      alert('Data telah berhasil dipulihkan ke versi bawaan!');
+    }
+
+    // Initial render on load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Prefill saved credentials in Database tab
+      const savedUrl = localStorage.getItem('kspm_supabase_url');
+      const savedKey = localStorage.getItem('kspm_supabase_key');
+      if (savedUrl && document.getElementById('supabase-url')) document.getElementById('supabase-url').value = savedUrl;
+      if (savedKey && document.getElementById('supabase-key')) document.getElementById('supabase-key').value = savedKey;
+
+      checkAuth();
+      renderAll();
+    });
+  </script>
+  <!-- ==================== ADMIN AUTH LOGIN OVERLAY ==================== -->
+  <div id="admin-login-overlay" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white border border-[#E4E8F5] rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6">
+      
+      <!-- Brand & Header -->
+      <div class="text-center space-y-2">
+        <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-14 h-14 object-contain rounded-2xl mx-auto p-1.5 bg-white border border-[#E4E8F5] shadow-xs">
+        <div>
+          <h2 class="text-xl font-black text-slate-900 tracking-tight">Login Portal Admin</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Kelompok Studi Pasar Modal Universitas Jenderal Soedirman</p>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-800 mb-1.5">Email Pengurus</label>
+          <input required id="login-email" type="email" value="admin@kspmunsoed.com" placeholder="admin@kspmunsoed.com" class="w-full px-4 py-2.5 border border-[#E4E8F5] rounded-xl bg-slate-50 focus:bg-white text-xs text-slate-900 focus:outline-none focus:border-brand-700 transition-all font-medium">
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block font-bold text-slate-800">Kata Sandi (Password)</label>
+            <span class="text-[10px] text-slate-400">Default: <code>admin123</code></span>
+          </div>
+          <input required id="login-password" type="password" value="admin123" placeholder="••••••••" class="w-full px-4 py-2.5 border border-[#E4E8F5] rounded-xl bg-slate-50 focus:bg-white text-xs text-slate-900 focus:outline-none focus:border-brand-700 transition-all font-medium">
+        </div>
+
+        <div id="login-error" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 font-semibold text-center text-xs"></div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs shadow-md transition-all btn-tactile">
+          Masuk ke Dashboard CMS →
+        </button>
+
+        <div class="pt-2 text-center space-y-2">
+          <button type="button" onclick="bypassLoginDev()" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors flex items-center justify-center gap-1.5">
+            <span>⚡ Masuk Cepat (Mode Pengurus Lokal)</span>
+          </button>
+          <a href="index.html" class="inline-block text-[11px] text-slate-400 hover:text-brand-700 transition-colors">
+            ← Kembali ke Halaman Utama Web
+          </a>
+        </div>
+      </form>
+
+      
+
+    </div>
+  </div>
+</body>
+</html>
