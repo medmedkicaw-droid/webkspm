@@ -1860,6 +1860,21 @@
           programs.push(data);
         }
         setData('programs', programs);
+
+        // Bi-directional synchronization to events array and Supabase cloud
+        const evIndex = events.findIndex(e => e.id === data.id || (e.id === 'siw' && data.id === 'prog-1') || (e.id === 'spm' && data.id === 'prog-2') || (e.id === 'legacy' && data.id === 'prog-3') || e.name === data.title);
+        if (evIndex !== -1) {
+          events[evIndex].coverImage = data.image;
+          events[evIndex].name = data.title;
+          events[evIndex].desc = data.desc;
+          events[evIndex].location = data.location;
+          events[evIndex].category = data.tag;
+          events[evIndex].dateBadge = `${data.month} ${data.day}`;
+          setData('events', events);
+          if (window.kspmDB) {
+            try { window.kspmDB.saveEvent(events[evIndex]); } catch(err) {}
+          }
+        }
       } else if (type === 'event') {
         const slug = (document.getElementById('f-id').value || 'ev-' + Date.now()).toLowerCase().trim();
         let articleHtml = '';

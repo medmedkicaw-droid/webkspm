@@ -1398,8 +1398,13 @@
 
       // 1. Instant paint from local cache (0ms)
       try {
-        const saved = localStorage.getItem('kspm_events');
-        if (saved) renderPrograms(JSON.parse(saved));
+        const savedEvents = localStorage.getItem('kspm_events');
+        const savedPrograms = localStorage.getItem('kspm_programs');
+        if (savedEvents && JSON.parse(savedEvents).length > 0) {
+          renderPrograms(JSON.parse(savedEvents));
+        } else if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
+          renderPrograms(JSON.parse(savedPrograms));
+        }
       } catch (e) {}
 
       // 2. Background Cloud Sync with 1.5s timeout (never freezes page)
