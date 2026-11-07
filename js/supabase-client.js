@@ -204,7 +204,7 @@
             upside: item.upside || '+12.5%',
             release_date: item.date || '2026',
             pdf_url: item.pdfUrl,
-            cover_image: item.coverImage || 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80',
+            cover_image: item.coverImage || 'assets/team/aditya-rayhandi.webp',
             tags: item.tags || ['Equity Research', 'Fundamental'],
             thesis: item.thesis || [item.desc || ''],
             contributors: item.contributors || [],
