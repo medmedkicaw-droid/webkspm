@@ -2000,11 +2000,13 @@
 
     // Initial render on load
     window.addEventListener('DOMContentLoaded', () => {
-      // Prefill saved credentials in Database tab
-      const savedUrl = localStorage.getItem('kspm_supabase_url');
-      const savedKey = localStorage.getItem('kspm_supabase_key');
-      if (savedUrl && document.getElementById('supabase-url')) document.getElementById('supabase-url').value = savedUrl;
-      if (savedKey && document.getElementById('supabase-key')) document.getElementById('supabase-key').value = savedKey;
+      // Prefill saved credentials in Database tab (Default to KSPM Official Supabase)
+      const defaultUrl = 'https://belqchcnfirhlhjoquyz.supabase.co';
+      const defaultKey = 'sb_publishable_f_meYlYSxadNCdX_aGHzKw_MdFLdV4j';
+      const savedUrl = localStorage.getItem('kspm_supabase_url') || defaultUrl;
+      const savedKey = localStorage.getItem('kspm_supabase_key') || defaultKey;
+      if (document.getElementById('supabase-url')) document.getElementById('supabase-url').value = savedUrl;
+      if (document.getElementById('supabase-key')) document.getElementById('supabase-key').value = savedKey;
 
       checkAuth();
       renderAll();

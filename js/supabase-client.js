@@ -23,10 +23,14 @@
 
   let supabaseClient = null;
 
+  // Supabase Cloud Project Configuration (KSPM Official)
+  const DEFAULT_SUPABASE_URL = 'https://belqchcnfirhlhjoquyz.supabase.co';
+  const DEFAULT_SUPABASE_KEY = 'sb_publishable_f_meYlYSxadNCdX_aGHzKw_MdFLdV4j';
+
   // 1. Initial Connection Setup
   function initClient() {
-    const url = (localStorage.getItem('kspm_supabase_url') || '').trim();
-    const key = (localStorage.getItem('kspm_supabase_key') || '').trim();
+    const url = (localStorage.getItem('kspm_supabase_url') || DEFAULT_SUPABASE_URL).trim();
+    const key = (localStorage.getItem('kspm_supabase_key') || DEFAULT_SUPABASE_KEY).trim();
 
     if (!url || !key) {
       supabaseClient = null;
