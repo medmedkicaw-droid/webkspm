@@ -1852,7 +1852,8 @@
           desc: document.getElementById('f-desc').value,
           image: document.getElementById('f-image').value,
           location: document.getElementById('f-location').value,
-          status: 'Active'
+          status: 'Active',
+          updated_at: new Date().toISOString()
         };
         if (editingId) {
           programs = programs.map(p => p.id === editingId ? data : p);
@@ -1910,6 +1911,7 @@
           desc: document.getElementById('f-desc').value,
           article: articleHtml,
           articleParagraphs: paragraphs,
+          updated_at: new Date().toISOString(),
           gallery: (currentUploadedGallery && currentUploadedGallery.length > 0) ? currentUploadedGallery : [
             { title: 'Sesi Dokumentasi Acara', img: coverImg },
             { title: 'Antusiasme Peserta Acara', img: 'assets/team/groups/dsx09574.webp' }

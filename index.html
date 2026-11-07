@@ -1407,12 +1407,21 @@
         }
       } catch (e) {}
 
-      // 2. Background Cloud Sync with 1.5s timeout (never freezes page)
+      // 2. Background Cloud Sync with 1.5s timeout (never freezes page, preserves newest edit)
       if (window.kspmDB && window.kspmDB.isCloudConnected()) {
         try {
           const timeout = new Promise((_, rej) => setTimeout(() => rej('timeout'), 1500));
           const cloudEvents = await Promise.race([window.kspmDB.getEvents(), timeout]);
-          if (cloudEvents && cloudEvents.length > 0) renderPrograms(cloudEvents);
+          if (cloudEvents && cloudEvents.length > 0) {
+            const localRaw = localStorage.getItem('kspm_events');
+            const localProgramsRaw = localStorage.getItem('kspm_programs');
+            const localList = (localRaw ? JSON.parse(localRaw) : []).concat(localProgramsRaw ? JSON.parse(localProgramsRaw) : []);
+            const localLatest = Math.max(...localList.map(e => new Date(e.updated_at || 0).getTime()), 0);
+            const cloudLatest = Math.max(...cloudEvents.map(e => new Date(e.updated_at || 0).getTime()), 0);
+            if (cloudLatest >= localLatest || localLatest === 0) {
+              renderPrograms(cloudEvents);
+            }
+          }
         } catch (e) {}
       }
 
