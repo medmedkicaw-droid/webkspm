@@ -88,6 +88,8 @@ o y
       background-size: 56px 56px;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     h1,
@@ -105,15 +107,13 @@ o y
       -webkit-text-fill-color: transparent;
     }
 
-    /* Nexaris-style Top Ambient Ellipse Glow & Noise Overlay */
+    /* Nexaris-style Top Ambient Ellipse Glow (Optimized Pure CSS, Zero GPU Overhead) */
     .hero-noise-overlay {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-      mask-image: radial-gradient(at center top, rgb(0, 0, 0) 15%, rgba(0, 0, 0, 0) 80%);
-      -webkit-mask-image: radial-gradient(at center top, rgb(0, 0, 0) 15%, rgba(0, 0, 0, 0) 80%);
+      background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.15) 0%, transparent 60%);
       pointer-events: none;
       z-index: 1;
     }
@@ -317,9 +317,9 @@ o y
       }
     }
 
-    /* Safety Auto-Dismiss Preloader: Guaranteed to NEVER stick on white screen */
+    /* Fast Instant-Dismiss Preloader */
     #preloader {
-      animation: autoDismissPreloader 0.4s ease 0.6s forwards;
+      animation: autoDismissPreloader 0.25s ease 0.1s forwards;
     }
 
     @keyframes autoDismissPreloader {
@@ -684,22 +684,22 @@ o y
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09550.webp"
                     alt="Soedirman Investment Week 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09572.webp"
                     alt="Soedirman Investment Week 2" class="w-full h-full object-cover">
                 </div>
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img
-                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09626-1-.webp"
                     alt="Soedirman Investment Week" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -764,21 +764,21 @@ o y
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09414.webp"
                     alt="Sekolah Pasar Modal (SPM) 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                  <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09458.webp"
                     alt="Sekolah Pasar Modal (SPM) 2" class="w-full h-full object-cover">
                 </div>
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img
-                    src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09493.webp"
                     alt="Sekolah Pasar Modal (SPM)" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -843,21 +843,21 @@ o y
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09502.webp"
                     alt="LEGACY National Trading 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09503.webp"
                     alt="LEGACY National Trading 2" class="w-full h-full object-cover">
                 </div>
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img
-                    src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=800&q=80"
+                  <img loading="lazy" decoding="async"
+                    src="assets/team/groups/dsx09635.webp"
                     alt="LEGACY National Trading" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -1319,18 +1319,18 @@ o y
     });
 
 
-    // Preloader Dismiss
-    window.addEventListener('load', () => {
+    // Preloader Instant Dismiss
+    const dismissPreloader = () => {
       const preloader = document.getElementById('preloader');
       if (preloader) {
+        preloader.classList.add('preloader-hidden');
         setTimeout(() => {
-          preloader.classList.add('preloader-hidden');
-          setTimeout(() => {
-            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-          }, 700);
-        }, 600);
+          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        }, 300);
       }
-    });
+    };
+    if (document.readyState === 'complete') dismissPreloader();
+    else window.addEventListener('load', dismissPreloader);
 
 
     // Navigation Mobile Drawer Toggle
@@ -1346,71 +1346,70 @@ o y
     }
 
 
-    // CMS Dynamic Data Synchronization (LocalStorage)
+    // CMS Dynamic Data Synchronization (Non-blocking, Instant Local Render + Background Cloud Sync)
     async function syncCMSData() {
-      // 1. Events / Programs Synchronization (from Supabase cloud or localStorage)
-      let eventList = [];
-      if (window.kspmDB) {
-        try {
-          const cloudEvents = await window.kspmDB.getEvents();
-          if (cloudEvents && cloudEvents.length > 0) eventList = cloudEvents;
-        } catch (e) { }
-      }
-      if (eventList.length === 0) {
-        try {
-          const saved = localStorage.getItem('kspm_events');
-          if (saved) eventList = JSON.parse(saved);
-        } catch (e) { }
-      }
-
-      if (eventList.length > 0) {
+      const renderPrograms = (list) => {
         const container = document.getElementById('dynamic-programs-container');
-        if (container) {
-          container.innerHTML = eventList.slice(0, 3).map(p => `
-            <a href="press-release.html?id=${p.id || 'siw'}" class="event-card block bg-white rounded-[32px] p-6 border border-[#EBEBEB] shadow-[0_14px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_24px_55px_rgba(0,0,0,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group cursor-pointer light-sweep">
-              <div>
-                <div class="w-full aspect-[16/11] bg-gradient-to-b from-[#F3F4F7] to-[#E9EBF1] rounded-2xl p-3.5 relative overflow-hidden border border-slate-200/70 shadow-inner flex flex-col justify-between mb-5">
-                  <div class="relative w-full h-full flex items-center justify-center">
-                    <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                      <img src="${p.coverImage || p.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                      <img src="${p.coverImage || p.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                      <img src="${p.coverImage || p.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover">
-                    </div>
+        if (!container || !list || list.length === 0) return;
+        container.innerHTML = list.slice(0, 3).map(p => `
+          <a href="press-release.html?id=${p.id || 'siw'}" class="event-card block bg-white rounded-[32px] p-6 border border-[#EBEBEB] shadow-[0_14px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_24px_55px_rgba(0,0,0,0.09)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group cursor-pointer light-sweep">
+            <div>
+              <div class="w-full aspect-[16/11] bg-gradient-to-b from-[#F3F4F7] to-[#E9EBF1] rounded-2xl p-3.5 relative overflow-hidden border border-slate-200/70 shadow-inner flex flex-col justify-between mb-5">
+                <div class="relative w-full h-full flex items-center justify-center">
+                  <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
+                    <img loading="lazy" decoding="async" src="${p.coverImage || p.image || 'assets/team/groups/dsx09550.webp'}" class="w-full h-full object-cover">
                   </div>
-                  <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-30 pointer-events-none">
-                    <span class="bg-brand-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
-                      ${p.dateBadge || p.month || '2026'}
-                    </span>
-                    <span class="bg-white/95 backdrop-blur-xs text-slate-800 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-200/80 shadow-xs">
-                      ${p.category || p.tag || 'Big Event'}
-                    </span>
+                  <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
+                    <img loading="lazy" decoding="async" src="${p.coverImage || p.image || 'assets/team/groups/dsx09572.webp'}" class="w-full h-full object-cover">
+                  </div>
+                  <div class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
+                    <img loading="lazy" decoding="async" src="${p.coverImage || p.image || 'assets/team/groups/dsx09626-1-.webp'}" class="w-full h-full object-cover">
                   </div>
                 </div>
-                <div class="space-y-2">
-                  <h3 class="text-xl font-extrabold text-[#0A0F2D] tracking-tight leading-snug group-hover:text-brand-700 transition-colors font-display">
-                    ${p.name || p.title}
-                  </h3>
-                  <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2">
-                    ${p.desc || ''}
-                  </p>
+                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-30 pointer-events-none">
+                  <span class="bg-brand-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-xs uppercase tracking-wider">
+                    ${p.dateBadge || p.month || '2026'}
+                  </span>
+                  <span class="bg-white/95 backdrop-blur-xs text-slate-800 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-200/80 shadow-xs">
+                    ${p.category || p.tag || 'Big Event'}
+                  </span>
                 </div>
               </div>
-              <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span class="inline-flex items-center gap-1.5 text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
-                  <span class="text-brand-600 font-bold">📍</span> ${p.location}
-                </span>
-                <span class="text-xs font-bold text-slate-900 group-hover:text-brand-700 flex items-center gap-1 transition-colors">
-                  <span>Buka Press Release</span>
-                  <span>→</span>
-                </span>
+              <div class="space-y-2">
+                <h3 class="text-xl font-extrabold text-[#0A0F2D] tracking-tight leading-snug group-hover:text-brand-700 transition-colors font-display">
+                  ${p.name || p.title}
+                </h3>
+                <p class="text-xs text-[#6B7AA0] leading-relaxed line-clamp-2">
+                  ${p.desc || ''}
+                </p>
               </div>
-            </a>
-          `).join('');
-        }
+            </div>
+            <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="inline-flex items-center gap-1.5 text-slate-500 font-semibold bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+                <span class="text-brand-600 font-bold">📍</span> ${p.location}
+              </span>
+              <span class="text-xs font-bold text-slate-900 group-hover:text-brand-700 flex items-center gap-1 transition-colors">
+                <span>Buka Press Release</span>
+                <span>→</span>
+              </span>
+            </div>
+          </a>
+        `).join('');
+      };
+
+      // 1. Instant paint from local cache (0ms)
+      try {
+        const saved = localStorage.getItem('kspm_events');
+        if (saved) renderPrograms(JSON.parse(saved));
+      } catch (e) {}
+
+      // 2. Background Cloud Sync with 1.5s timeout (never freezes page)
+      if (window.kspmDB && window.kspmDB.isCloudConnected()) {
+        try {
+          const timeout = new Promise((_, rej) => setTimeout(() => rej('timeout'), 1500));
+          const cloudEvents = await Promise.race([window.kspmDB.getEvents(), timeout]);
+          if (cloudEvents && cloudEvents.length > 0) renderPrograms(cloudEvents);
+        } catch (e) {}
       }
 
       // 2. Running Logo Marquee Synchronization (from Supabase cloud or localStorage)
