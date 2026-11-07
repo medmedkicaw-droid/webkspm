@@ -316,22 +316,47 @@
     async testCloudConnection() {
       if (!isCloudConnected()) return { ok: false, message: 'Kredensial URL / Key belum terpasang' };
       try {
-        // Test Table: events
+        // 1. Test Table: events
         const { data: tableData, error: tableError } = await supabaseClient
           .from('events')
           .select('id')
           .limit(1);
 
-        // Test Storage: kspm-media
-        const { data: buckets, error: bucketError } = await supabaseClient.storage.listBuckets();
-        const hasMediaBucket = buckets && buckets.some(b => b.name === 'kspm-media');
+        // 2. Test Storage: kspm-media via direct bucket query (Works for Anon Client)
+        let bucketOk = false;
+        let bucketMsg = '';
+        try {
+          const { data: files, error: storageErr } = await supabaseClient.storage
+            .from('kspm-media')
+            .list('', { limit: 1 });
+
+          if (!storageErr) {
+            bucketOk = true;
+          } else if (storageErr.message && storageErr.message.toLowerCase().includes('not found')) {
+            bucketOk = false;
+            bucketMsg = 'Bucket "kspm-media" tidak ditemukan. Pastikan namanya persis kspm-media.';
+          } else if (storageErr.message && (storageErr.message.toLowerCase().includes('policy') || storageErr.message.toLowerCase().includes('security') || storageErr.message.toLowerCase().includes('permission') || storageErr.message.toLowerCase().includes('row-level'))) {
+            bucketOk = false;
+            bucketMsg = 'Bucket ada, tapi belum diberi Izin Akses (Storage Policy).';
+          } else {
+            // Check listBuckets fallback
+            const { data: buckets } = await supabaseClient.storage.listBuckets();
+            if (buckets && buckets.some(b => b.name === 'kspm-media')) {
+              bucketOk = true;
+            } else {
+              bucketMsg = storageErr.message || 'Perlu izin policy storage';
+            }
+          }
+        } catch(stErr) {
+          bucketMsg = stErr.message || String(stErr);
+        }
 
         return {
-          ok: !tableError && hasMediaBucket,
+          ok: !tableError && bucketOk,
           tableOk: !tableError,
           tableError: tableError ? tableError.message : null,
-          bucketOk: hasMediaBucket,
-          bucketError: !hasMediaBucket ? 'Bucket kspm-media belum dibuat di Supabase' : null
+          bucketOk: bucketOk,
+          bucketError: bucketMsg
         };
       } catch(e) {
         return { ok: false, error: e.message || String(e) };

@@ -2097,7 +2097,7 @@
             <p class="font-bold">⚠️ Perlu Menjalankan Skrip SQL di Dashboard Supabase</p>
             <ul class="text-[11px] list-disc list-inside space-y-0.5 text-amber-800">
               <li>Status Tabel (events): <strong>${res.tableOk ? '✓ Aktif' : 'Belum Dibuat (' + (res.tableError || 'Error') + ')'}</strong></li>
-              <li>Status Storage (kspm-media): <strong>${res.bucketOk ? '✓ Aktif' : 'Belum Dibuat / Belum Ada Bucket kspm-media'}</strong></li>
+              <li>Status Storage (kspm-media): <strong>${res.bucketOk ? '✓ Aktif' : (res.bucketError || 'Belum Ada Izin / Bucket')}</strong></li>
             </ul>
             <p class="text-[11px] text-slate-600 pt-1 leading-relaxed">
               <strong>Solusi Mudah (1 Menit):</strong> Buka menu <em>SQL Editor</em> di Supabase Anda, salin seluruh isi file <code>supabase_schema.sql</code>, lalu klik <strong>Run</strong>. Semua tabel &amp; izin upload foto langsung aktif seketika!
