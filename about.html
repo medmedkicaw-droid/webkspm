@@ -1479,8 +1479,11 @@
 
       const photoEl = document.getElementById('modalDeptPhotoContainer');
       if (photoEl) {
+        const transformStyle = (data.photoScale && data.photoScale > 1) 
+          ? `style="transform: scale(${data.photoScale}) translate(${data.photoX || 0}px, ${data.photoY || 0}px); transform-origin: center center;"` 
+          : '';
         photoEl.innerHTML = `
-          <img src="${data.photo || ''}" alt="${data.leader}" class="w-full h-full object-cover" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" loading="lazy">
+          <img src="${data.photo || ''}" alt="${data.leader}" class="w-full h-full object-cover" ${transformStyle} onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" loading="lazy">
           <div class="w-full h-full items-center justify-center text-brand-700 hidden">${data.icon || ''}</div>
         `;
       }
@@ -1499,10 +1502,16 @@
             const name = typeof s === 'string' ? s : s.name;
             const role = (typeof s === 'object' && s.role) ? s.role : 'Staff Fungsionaris';
             const photo = (typeof s === 'object' && s.photo) ? s.photo : '';
+            const photoScale = (typeof s === 'object' && s.photoScale) ? s.photoScale : 1;
+            const photoX = (typeof s === 'object' && s.photoX) ? s.photoX : 0;
+            const photoY = (typeof s === 'object' && s.photoY) ? s.photoY : 0;
+            const transformStyle = (photoScale > 1) 
+              ? `style="transform: scale(${photoScale}) translate(${photoX}px, ${photoY}px); transform-origin: center center;"` 
+              : '';
             return `
             <div class="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50/80 hover:bg-white border border-slate-100 hover:border-brand-200 hover:shadow-xs transition-all group/staff">
               <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 overflow-hidden shrink-0 shadow-2xs relative flex items-center justify-center">
-                ${photo ? `<img src="${photo}" alt="${name}" class="w-full h-full object-cover group-hover/staff:scale-105 transition-transform" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" loading="lazy">` : ''}
+                ${photo ? `<img src="${photo}" alt="${name}" class="w-full h-full object-cover group-hover/staff:scale-105 transition-transform" ${transformStyle} onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" loading="lazy">` : ''}
                 <div class="w-full h-full ${photo ? 'hidden' : 'flex'} items-center justify-center text-brand-700 font-black text-xs bg-brand-50">
                   ${name.charAt(0)}
                 </div>
@@ -1572,6 +1581,9 @@
               if (parsed[k].leader) deptDetails[k].leader = parsed[k].leader;
               if (parsed[k].leaderRole) deptDetails[k].leaderRole = parsed[k].leaderRole;
               if (parsed[k].photo) deptDetails[k].photo = parsed[k].photo;
+              if (parsed[k].photoScale) deptDetails[k].photoScale = parsed[k].photoScale;
+              if (parsed[k].photoX !== undefined) deptDetails[k].photoX = parsed[k].photoX;
+              if (parsed[k].photoY !== undefined) deptDetails[k].photoY = parsed[k].photoY;
               if (Array.isArray(parsed[k].staff)) deptDetails[k].staff = parsed[k].staff;
             }
           });
@@ -1589,7 +1601,15 @@
         const nameEl = document.getElementById('org-name-' + k);
         const roleEl = document.getElementById('org-role-' + k);
 
-        if (imgEl && d.photo) imgEl.src = d.photo;
+        if (imgEl && d.photo) {
+          imgEl.src = d.photo;
+          if (d.photoScale && d.photoScale > 1) {
+            imgEl.style.transform = `scale(${d.photoScale}) translate(${d.photoX || 0}px, ${d.photoY || 0}px)`;
+            imgEl.style.transformOrigin = 'center center';
+          } else {
+            imgEl.style.transform = '';
+          }
+        }
         if (nameEl && d.leader) nameEl.innerText = d.leader;
         if (roleEl && d.leaderRole) roleEl.innerText = d.leaderRole.toUpperCase();
 
@@ -1597,8 +1617,9 @@
           const subEl = document.getElementById('org-sub-' + k);
           if (subEl && d.staff && d.staff.length > 0) {
             const firstStaff = d.staff[0];
+            const subScale = (firstStaff.photoScale && firstStaff.photoScale > 1) ? `style="transform: scale(${firstStaff.photoScale}) translate(${firstStaff.photoX || 0}px, ${firstStaff.photoY || 0}px); transform-origin: center center;"` : '';
             subEl.innerHTML = `
-              <img src="${firstStaff.photo || 'assets/team/pres.webp'}" alt="${firstStaff.name}" class="w-4 h-4 rounded-full object-cover ring-1 ring-brand-300" loading="lazy">
+              <img src="${firstStaff.photo || 'assets/team/pres.webp'}" alt="${firstStaff.name}" class="w-4 h-4 rounded-full object-cover ring-1 ring-brand-300" ${subScale} loading="lazy">
               <span class="text-[11px] text-[#6B7AA0] font-medium truncate">${firstStaff.name}</span>
             `;
           }
@@ -1611,9 +1632,10 @@
           const displayAvatars = d.staff.slice(0, maxAvatars);
           const remaining = d.staff.length - maxAvatars;
 
-          let stackHtml = displayAvatars.map(s => `
-            <img src="${s.photo || 'assets/team/pres.webp'}" alt="${s.name}" class="inline-block w-5 h-5 rounded-full ring-2 ring-white object-cover" loading="lazy">
-          `).join('');
+          let stackHtml = displayAvatars.map(s => {
+            const sScale = (s.photoScale && s.photoScale > 1) ? `style="transform: scale(${s.photoScale}) translate(${s.photoX || 0}px, ${s.photoY || 0}px); transform-origin: center center;"` : '';
+            return `<img src="${s.photo || 'assets/team/pres.webp'}" alt="${s.name}" class="inline-block w-5 h-5 rounded-full ring-2 ring-white object-cover" ${sScale} loading="lazy">`;
+          }).join('');
 
           if (remaining > 0) {
             stackHtml += `<span class="inline-flex items-center justify-center w-5 h-5 rounded-full ring-2 ring-white bg-brand-50 text-[9px] font-bold text-brand-700">+${remaining}</span>`;
