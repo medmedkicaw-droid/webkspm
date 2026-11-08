@@ -2143,12 +2143,6 @@
       showAdminToast(`✓ Data & foto zoom ${name} berhasil disimpan!`, 'success');
     }
 
-      await saveDeptDetailsData();
-      closeStaffModal();
-      renderStaff();
-      showAdminToast(`✓ Data ${name} berhasil disimpan!`, 'success');
-    }
-
     async function deleteStaffMember(deptKey, staffIndex) {
       if (!deptDetails[deptKey] || !deptDetails[deptKey].staff[staffIndex]) return;
       const member = deptDetails[deptKey].staff[staffIndex];
