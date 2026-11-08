@@ -245,6 +245,37 @@
       return JSON.parse(localStorage.getItem('kspm_partners') || '[]');
     },
 
+    // --- DEPARTMENTS & STAFF ---
+    async getDepartments() {
+      if (isCloudConnected()) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('site_config')
+            .select('value')
+            .eq('key', 'dept_details')
+            .maybeSingle();
+          if (!error && data && data.value) {
+            localStorage.setItem('kspm_dept_details', JSON.stringify(data.value));
+            return data.value;
+          }
+        } catch (e) {}
+      }
+      const saved = localStorage.getItem('kspm_dept_details');
+      return saved ? JSON.parse(saved) : null;
+    },
+
+    async saveDepartments(dataObj) {
+      localStorage.setItem('kspm_dept_details', JSON.stringify(dataObj));
+      if (isCloudConnected()) {
+        try {
+          await supabaseClient
+            .from('site_config')
+            .upsert({ key: 'dept_details', value: dataObj, updated_at: new Date().toISOString() });
+        } catch (e) {}
+      }
+      return true;
+    },
+
     // --- HOMEPAGE PARTNERSHIP INQUIRIES SUBMIT ---
     async submitInquiry(formObj) {
       // Always store locally as well

@@ -73,11 +73,19 @@ CREATE TABLE IF NOT EXISTS public.inquiries (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 6. ROW LEVEL SECURITY (RLS) KEAMANAN DATA
+-- 6. TABEL: SITE CONFIG (STRUKTUR ORGANISASI, FOTO STAF & PENGATURAN)
+CREATE TABLE IF NOT EXISTS public.site_config (
+    key TEXT PRIMARY KEY,
+    value JSONB NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 7. ROW LEVEL SECURITY (RLS) KEAMANAN DATA
 ALTER TABLE public.events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.research_reports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.partners ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inquiries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.site_config ENABLE ROW LEVEL SECURITY;
 
 -- Hak Akses Lengkap Publik & Anon (Memungkinkan Panel Admin Frontend mengelola data via API Anon / Publishable Key)
 DROP POLICY IF EXISTS "Public Read Events" ON public.events;
@@ -100,7 +108,12 @@ DROP POLICY IF EXISTS "Admin Full Inquiries" ON public.inquiries;
 DROP POLICY IF EXISTS "Full Access Inquiries" ON public.inquiries;
 CREATE POLICY "Full Access Inquiries" ON public.inquiries FOR ALL USING (true) WITH CHECK (true);
 
--- 7. STORAGE BUCKET: MEDIA, FOTO DOKUMENTASI & PDF RISET (GRATIS, MAX 10MB)
+DROP POLICY IF EXISTS "Public Read Site Config" ON public.site_config;
+DROP POLICY IF EXISTS "Admin Full Site Config" ON public.site_config;
+DROP POLICY IF EXISTS "Full Access Site Config" ON public.site_config;
+CREATE POLICY "Full Access Site Config" ON public.site_config FOR ALL USING (true) WITH CHECK (true);
+
+-- 8. STORAGE BUCKET: MEDIA, FOTO DOKUMENTASI & PDF RISET (GRATIS, MAX 10MB)
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types) 
 VALUES (
   'kspm-media',

@@ -216,6 +216,11 @@
           <span>Logo Running Mitra &amp; Medpart</span>
         </button>
 
+        <button onclick="switchTab('staff')" id="tab-btn-staff" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span>Pengurus &amp; Foto Staf</span>
+        </button>
+
 
 
         <button onclick="switchTab('inquiries')" id="tab-btn-inquiries" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
@@ -286,7 +291,7 @@
     <div id="tab-overview" class="space-y-8">
       
       <!-- Metrics Grid Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
         
         <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all">
           <div class="flex items-center justify-between mb-3">
@@ -334,6 +339,18 @@
             <span class="text-xs text-slate-500 font-semibold">Running Track</span>
           </div>
           <p class="text-[11px] text-[#6B7AA0] mt-2">Logo universitas &amp; media partner</p>
+        </div>
+
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs hover:shadow-md transition-all cursor-pointer" onclick="switchTab('staff')">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Pengurus &amp; Staf</span>
+            <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-staff">33</span>
+            <span class="text-xs text-slate-500 font-semibold">Fungsionaris</span>
+          </div>
+          <p class="text-[11px] text-[#6B7AA0] mt-2">BPH &amp; 5 Departemen (about.html)</p>
         </div>
       </div>
 
@@ -478,6 +495,49 @@
       </div>
     </div>
 
+    <!-- ==================== TAB: PENGURUS & FOTO STAF ==================== -->
+    <div id="tab-staff" class="hidden space-y-6">
+      <!-- Top Action & Info Bar -->
+      <div class="bg-white border border-[#E4E8F5] rounded-3xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-50 text-brand-700 border border-brand-100 uppercase tracking-wider">Struktur Organisasi</span>
+            <span class="text-xs text-slate-400">•</span>
+            <span id="staff-summary-stat" class="text-xs font-bold text-slate-700">33 Fungsionaris Terdaftar</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Koreksi Foto &amp; Personel Staf Organisasi</h3>
+          <p class="text-xs text-[#6B7AA0]">Ganti foto staf langsung dengan klik tombol kamera pada kartu, atau klik edit untuk mengubah nama &amp; jabatan. Perubahan langsung aktif di <a href="about.html" target="_blank" class="text-brand-700 underline font-semibold">about.html</a>.</p>
+        </div>
+
+        <div class="flex items-center gap-2.5 shrink-0 flex-wrap">
+          <button type="button" onclick="openStaffModal(null)" class="px-4 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all btn-tactile">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            <span>Tambah Anggota Staf</span>
+          </button>
+          <button type="button" onclick="resetStaffToDefault()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 text-slate-600 text-xs font-bold transition-all flex items-center gap-1.5" title="Kembalikan semua foto staf ke bawaan">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+            <span>Reset Bawaan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Chips & Search Controls -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none" id="staff-dept-filters">
+          <!-- Rendered via JS -->
+        </div>
+        <div class="relative w-full sm:w-64 shrink-0">
+          <input type="text" id="staff-search-input" oninput="handleStaffSearch(this.value)" placeholder="Cari nama atau jabatan..." class="w-full pl-9 pr-4 py-2 border border-[#E4E8F5] rounded-xl bg-white text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-700 transition-all">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        </div>
+      </div>
+
+      <!-- Main Department Container -->
+      <div id="staff-container" class="space-y-6">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
         <!-- ==================== TAB: INQUIRIES (PESAN MASUK KEMITRAAN) ==================== -->
     <div id="tab-inquiries" class="hidden space-y-6">
       <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl shadow-xs">
@@ -589,6 +649,112 @@
           </button>
           <button type="submit" class="px-6 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold btn-tactile">
             Simpan Konten
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: EDIT / TAMBAH FUNGSIOANRIS ==================== -->
+  <div id="modal-staff-edit" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white border border-[#E4E8F5] rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl overflow-y-auto max-h-[92vh] space-y-4 transition-all duration-300 animate-fade-in" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between pb-4 border-b border-[#E4E8F5]">
+        <div>
+          <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block" id="modal-staff-badge">FORMULIR FUNGSIOANRIS</span>
+          <h3 class="text-lg font-bold text-slate-900" id="modal-staff-title">Koreksi Data Fungsionaris</h3>
+        </div>
+        <button type="button" onclick="closeStaffModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-sm font-bold">
+          ✕
+        </button>
+      </div>
+
+      <form id="modal-staff-form" onsubmit="saveStaffMember(event)" class="space-y-4">
+        <input type="hidden" id="sf-mode" value="edit"> <!-- 'edit' or 'create' -->
+        <input type="hidden" id="sf-target-dept" value="">
+        <input type="hidden" id="sf-is-leader" value="false">
+        <input type="hidden" id="sf-staff-index" value="-1">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block font-bold text-slate-800 mb-1">Departemen / Divisi</label>
+            <select id="sf-dept" class="w-full px-3 py-2 border border-[#E4E8F5] rounded-xl bg-slate-50 text-xs text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white" onchange="handleStaffDeptChange(this.value)">
+              <option value="pres">Director (Pimpinan Utama)</option>
+              <option value="vp">Vice Director (Operasional)</option>
+              <option value="sec">Secretary (Kesekretariatan)</option>
+              <option value="fin">Finance (Perbendaharaan)</option>
+              <option value="hrm">Human Resources Management (HRM)</option>
+              <option value="pm">Project Management (PM)</option>
+              <option value="ra">Research Analyst (RA)</option>
+              <option value="mt">Media &amp; Technology (MT)</option>
+              <option value="pr">Public Relation (PR)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-800 mb-1">Posisi Jabatan</label>
+            <select id="sf-role-type" class="w-full px-3 py-2 border border-[#E4E8F5] rounded-xl bg-slate-50 text-xs text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white">
+              <option value="staff">Anggota Staf Fungsionaris</option>
+              <option value="leader">Leader / Pimpinan</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-xs">
+          <label class="block font-bold text-slate-800 mb-1">Nama Lengkap</label>
+          <input required id="sf-name" type="text" placeholder="Contoh: Muhammad Naufal Akbar" class="w-full px-3 py-2.5 border border-[#E4E8F5] rounded-xl bg-slate-50 text-xs text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white font-medium">
+        </div>
+
+        <div class="text-xs">
+          <label class="block font-bold text-slate-800 mb-1">Peran / Sub-Jabatan</label>
+          <input required id="sf-role" type="text" placeholder="Contoh: Staff Riset &amp; Analisis / Web Developer" class="w-full px-3 py-2.5 border border-[#E4E8F5] rounded-xl bg-slate-50 text-xs text-slate-800 focus:outline-none focus:border-brand-700 focus:bg-white">
+        </div>
+
+        <!-- Foto Profile Upload & Preview -->
+        <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 text-xs">
+          <div class="flex items-center justify-between">
+            <label class="font-bold text-slate-800">Foto Profil</label>
+            <span id="sf-upload-status" class="text-[10px] text-slate-400">WebP / JPG / PNG otomatis dikompres</span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <!-- Live Preview -->
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-brand-200 overflow-hidden shrink-0 shadow-xs relative flex items-center justify-center">
+              <img id="sf-preview-img" src="" alt="Preview" class="w-full h-full object-cover hidden" onerror="this.classList.add('hidden'); if(this.nextElementSibling) this.nextElementSibling.classList.remove('hidden');">
+              <div id="sf-preview-fallback" class="w-full h-full flex items-center justify-center text-brand-700 font-black text-xs bg-brand-50">
+                Foto
+              </div>
+            </div>
+
+            <!-- Upload File Input -->
+            <div class="flex-1 min-w-0">
+              <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-brand-600 text-slate-700 hover:text-brand-700 text-xs font-bold cursor-pointer transition-colors shadow-2xs">
+                <svg class="w-4 h-4 text-brand-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.5V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                <span>Pilih Foto dari Komputer</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleStaffModalFile(this.files[0])">
+              </label>
+              <span class="text-[10px] text-slate-400 block mt-1.5 truncate">Atau pilih dari koleksi galeri lokal di bawah:</span>
+            </div>
+          </div>
+
+          <!-- URL / Local Preset Dropdown & Path Input -->
+          <div class="space-y-2 pt-1">
+            <input id="sf-photo-url" type="text" placeholder="assets/team/nama-file.webp atau URL foto..." class="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white text-xs font-mono text-slate-800 focus:outline-none focus:border-brand-700" oninput="updateStaffPreview(this.value)">
+
+            <!-- Quick pick from preset local files -->
+            <div class="flex items-center gap-2 pt-1">
+              <span class="text-[10px] font-bold text-slate-500 shrink-0">Pilihan Galeri:</span>
+              <select id="sf-preset-select" class="flex-1 text-[11px] px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 focus:outline-none focus:border-brand-700" onchange="if(this.value) { document.getElementById('sf-photo-url').value = this.value; updateStaffPreview(this.value); }">
+                <option value="">-- Pilih dari Koleksi assets/team/ --</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#E4E8F5] flex items-center justify-end gap-3">
+          <button type="button" onclick="closeStaffModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">
+            Batal
+          </button>
+          <button type="submit" class="px-6 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold btn-tactile">
+            Simpan Fungsionaris
           </button>
         </div>
       </form>
@@ -863,6 +1029,160 @@
     let research = getData('research', initialResearch);
     let partners = getData('partners', initialPartners);
 
+    // --- INITIAL DEPARTMENTS & STAFF SEED DATA ---
+    const initialDeptDetails = {
+      'pres': {
+        category: 'Pimpinan Utama',
+        title: 'Director',
+        leader: 'Muhammad Adi Nugroho',
+        leaderRole: 'Director',
+        photo: 'assets/team/muhammad-adi-nugroho.webp',
+        staff: [],
+        icon: 'pres'
+      },
+      'vp': {
+        category: 'Pimpinan Operasional',
+        title: 'Vice Director',
+        leader: 'Ridha Aulia',
+        leaderRole: 'Vice Director',
+        photo: 'assets/team/ridha-aulia.webp',
+        staff: [],
+        icon: 'vp'
+      },
+      'sec': {
+        category: 'Departemen Kesekretariatan',
+        title: 'Department of Secretary',
+        leader: 'Mira Rosa Canina',
+        leaderRole: 'Leader',
+        photo: 'assets/team/mira-rosa-canina.webp',
+        staff: [
+          { name: 'Finna Erlinda', role: 'Staff Kesekretariatan', photo: 'assets/team/finna-erlinda.webp' }
+        ],
+        icon: 'sec'
+      },
+      'fin': {
+        category: 'Departemen Perbendaharaan',
+        title: 'Department of Finance',
+        leader: 'Neva Cantika',
+        leaderRole: 'Leader',
+        photo: 'assets/team/neva-cantika.webp',
+        staff: [
+          { name: 'Fidela Prastika Salsabila', role: 'Staff Perbendaharaan', photo: 'assets/team/fidela-prastika-salsabila.webp' }
+        ],
+        icon: 'fin'
+      },
+      'pm': {
+        category: 'Departemen Program Unggulan',
+        title: 'Department of Project Management',
+        leader: 'Alfio Fiqih Saputra',
+        leaderRole: 'Leader',
+        photo: 'assets/team/alfio-fiqih-saputra.webp',
+        staff: [
+          { name: 'Febrianto', role: 'Staff Project Management', photo: 'assets/team/febrianto.webp' },
+          { name: 'Ari Dwi Cesariano', role: 'Staff Project Management', photo: 'assets/team/ari-dwi-cesariano.webp' },
+          { name: 'Safia Yunindya Putri', role: 'Staff Project Management', photo: 'assets/team/safia-yunindya-putri.webp' },
+          { name: 'Violetta Maylita Saffana', role: 'Staff Project Management', photo: 'assets/team/violetta-maylita-saffana.webp' },
+          { name: 'Naisya Sherra Maksum', role: 'Staff Project Management', photo: 'assets/team/naisya-sherra-maksum.webp' },
+          { name: 'Eka Setya Ramadhan', role: 'Staff Project Management', photo: 'assets/team/eka-setya-ramadhan.webp' }
+        ],
+        icon: 'pm'
+      },
+      'ra': {
+        category: 'Departemen Riset & Analisis',
+        title: 'Department of Research Analyst',
+        leader: 'Aditya Rayhandi',
+        leaderRole: 'Leader',
+        photo: 'assets/team/aditya-rayhandi.webp',
+        staff: [
+          { name: 'Athaya Nasywa Brilian Nazwir', role: 'Staff Riset & Analisis', photo: 'assets/team/athaya-nasywa-brilian-nazwir.webp' },
+          { name: 'Devano Kefanya Reihand Alvaro', role: 'Staff Riset & Analisis', photo: 'assets/team/devano-kefanya-reihand-alvaro-.webp' },
+          { name: 'Allfaritzy Putra Januar', role: 'Staff Riset & Analisis', photo: 'assets/team/allfaritzy-putra-januar-.webp' }
+        ],
+        icon: 'ra'
+      },
+      'mt': {
+        category: 'Departemen Media & Teknologi',
+        title: 'Department of Media & Technology',
+        leader: 'Adjani Putri Anelis',
+        leaderRole: 'Leader',
+        photo: 'assets/team/adjani-putri-anelis.webp',
+        staff: [
+          { name: 'Muhammad Abdur Rosyid', role: 'Staff Media & Teknologi', photo: 'assets/team/muhammad-abdur-rosyid.webp' },
+          { name: 'Naswa Alia', role: 'Staff Media & Teknologi', photo: 'assets/team/naswa-alia.webp' },
+          { name: 'Zulfikar Alkindi', role: 'Staff Media & Teknologi', photo: 'assets/team/zulfikar-alkindi.webp' },
+          { name: 'Muhammad Naufal Akbar', role: 'Staff Media & Teknologi', photo: 'assets/team/muhammad-naufal-akbar.png' }
+        ],
+        icon: 'mt'
+      },
+      'pr': {
+        category: 'Departemen Hubungan Masyarakat',
+        title: 'Department of Public Relation',
+        leader: 'Evelyn Helena Rastika',
+        leaderRole: 'Leader',
+        photo: 'assets/team/evelyn-helena-rastika.webp',
+        staff: [
+          { name: 'Mohammad Raffi Ramadhan', role: 'Staff Public Relation', photo: 'assets/team/mohammad-raffi-ramadhan.webp' },
+          { name: 'Annaba Wulandara', role: 'Staff Public Relation', photo: 'assets/team/annaba-wulandara.webp' },
+          { name: 'Melisa', role: 'Staff Public Relation', photo: 'assets/team/melisa.webp' },
+          { name: 'Fatma Ayu Lestari', role: 'Staff Public Relation', photo: 'assets/team/fatma-ayu-lestari.webp' },
+          { name: 'Muhammad Hasby Nabil Ayyasy', role: 'Staff Public Relation', photo: 'assets/team/muhammad-hasby-nabil-ayyasy.webp' }
+        ],
+        icon: 'pr'
+      },
+      'hrm': {
+        category: 'Departemen Sumber Daya Manusia',
+        title: 'Department of Human Resources Management',
+        leader: 'Nadhira Syifa',
+        leaderRole: 'Leader',
+        photo: 'assets/team/nadhira.webp',
+        staff: [
+          { name: 'Elmira Firzana Ghaisani', role: 'Staff Human Resources', photo: 'assets/team/elmira-firzana-ghaisani-.webp' },
+          { name: 'Benawa Kalam Marwa', role: 'Staff Human Resources', photo: 'assets/team/benawa-kalam-ma-wa-.webp' },
+          { name: 'Bakian Benzenna Wardiansyah', role: 'Staff Human Resources', photo: 'assets/team/bakian-benzenna-wardiansyah.webp' },
+          { name: 'Mashara Raka Wicaksana', role: 'Staff Human Resources', photo: 'assets/team/mashara-raka-wicaksana-.webp' }
+        ],
+        icon: 'hrm'
+      }
+    };
+
+    const availableTeamPresets = [
+      { name: 'Muhammad Adi Nugroho (Director)', path: 'assets/team/muhammad-adi-nugroho.webp' },
+      { name: 'Ridha Aulia (Vice Director)', path: 'assets/team/ridha-aulia.webp' },
+      { name: 'Mira Rosa Canina (Secretary)', path: 'assets/team/mira-rosa-canina.webp' },
+      { name: 'Finna Erlinda (Secretary)', path: 'assets/team/finna-erlinda.webp' },
+      { name: 'Neva Cantika (Finance)', path: 'assets/team/neva-cantika.webp' },
+      { name: 'Fidela Prastika Salsabila (Finance)', path: 'assets/team/fidela-prastika-salsabila.webp' },
+      { name: 'Alfio Fiqih Saputra (PM Leader)', path: 'assets/team/alfio-fiqih-saputra.webp' },
+      { name: 'Ari Dwi Cesariano (PM)', path: 'assets/team/ari-dwi-cesariano.webp' },
+      { name: 'Eka Setya Ramadhan (PM)', path: 'assets/team/eka-setya-ramadhan.webp' },
+      { name: 'Febrianto (PM)', path: 'assets/team/febrianto.webp' },
+      { name: 'Naisya Sherra Maksum (PM)', path: 'assets/team/naisya-sherra-maksum.webp' },
+      { name: 'Safia Yunindya Putri (PM)', path: 'assets/team/safia-yunindya-putri.webp' },
+      { name: 'Violetta Maylita Saffana (PM)', path: 'assets/team/violetta-maylita-saffana.webp' },
+      { name: 'Aditya Rayhandi (RA Leader)', path: 'assets/team/aditya-rayhandi.webp' },
+      { name: 'Allfaritzy Putra Januar (RA)', path: 'assets/team/allfaritzy-putra-januar-.webp' },
+      { name: 'Athaya Nasywa Brilian Nazwir (RA)', path: 'assets/team/athaya-nasywa-brilian-nazwir.webp' },
+      { name: 'Devano Kefanya Reihand Alvaro (RA)', path: 'assets/team/devano-kefanya-reihand-alvaro-.webp' },
+      { name: 'Adjani Putri Anelis (MT Leader)', path: 'assets/team/adjani-putri-anelis.webp' },
+      { name: 'Muhammad Abdur Rosyid (MT)', path: 'assets/team/muhammad-abdur-rosyid.webp' },
+      { name: 'Naswa Alia (MT)', path: 'assets/team/naswa-alia.webp' },
+      { name: 'Zulfikar Alkindi (MT)', path: 'assets/team/zulfikar-alkindi.webp' },
+      { name: 'Muhammad Naufal Akbar (MT)', path: 'assets/team/muhammad-naufal-akbar.png' },
+      { name: 'Evelyn Helena Rastika (PR Leader)', path: 'assets/team/evelyn-helena-rastika.webp' },
+      { name: 'Annaba Wulandara (PR)', path: 'assets/team/annaba-wulandara.webp' },
+      { name: 'Fatma Ayu Lestari (PR)', path: 'assets/team/fatma-ayu-lestari.webp' },
+      { name: 'Melisa (PR)', path: 'assets/team/melisa.webp' },
+      { name: 'Mohammad Raffi Ramadhan (PR)', path: 'assets/team/mohammad-raffi-ramadhan.webp' },
+      { name: 'Muhammad Hasby Nabil Ayyasy (PR)', path: 'assets/team/muhammad-hasby-nabil-ayyasy.webp' },
+      { name: 'Nadhira Syifa (HRM Leader)', path: 'assets/team/nadhira.webp' },
+      { name: 'Bakian Benzenna Wardiansyah (HRM)', path: 'assets/team/bakian-benzenna-wardiansyah.webp' },
+      { name: 'Benawa Kalam Marwa (HRM)', path: 'assets/team/benawa-kalam-ma-wa-.webp' },
+      { name: 'Elmira Firzana Ghaisani (HRM)', path: 'assets/team/elmira-firzana-ghaisani-.webp' },
+      { name: 'Mashara Raka Wicaksana (HRM)', path: 'assets/team/mashara-raka-wicaksana-.webp' }
+    ];
+
+    let deptDetails = getData('dept_details', initialDeptDetails);
+
     let currentTab = 'overview';
     let currentModalType = 'program';
     let editingId = null;
@@ -878,7 +1198,7 @@
     // --- TAB SWITCHING ---
     function switchTab(tabId) {
       currentTab = tabId;
-      const tabs = ['overview', 'programs', 'events', 'research', 'partners', 'inquiries', 'database'];
+      const tabs = ['overview', 'programs', 'events', 'research', 'partners', 'staff', 'inquiries', 'database'];
       
       // Auto close sidebar on mobile upon tab selection
       if (window.innerWidth < 1024) {
@@ -946,7 +1266,12 @@
         subtitle.innerText = 'Atur logo-logo jejaring pasar modal yang berputar di continuous white track.';
         addBtn.classList.remove('hidden');
         addLabel.innerText = 'Tambah Logo Mitra';
-            } else if (tabId === 'inquiries') {
+      } else if (tabId === 'staff') {
+        title.innerText = 'Kelola Pengurus & Foto Staf Organisasi';
+        subtitle.innerText = 'Koreksi foto, nama, dan susunan fungsionaris BPH serta 5 departemen (about.html).';
+        addBtn.classList.remove('hidden');
+        addLabel.innerText = 'Tambah Anggota Staf';
+      } else if (tabId === 'inquiries') {
         title.innerText = 'Kotak Masuk Kemitraan & Sponsorship';
         subtitle.innerText = 'Daftar pesan delegasi dan pengajuan proposal yang dikirim melalui formulir beranda.';
         addBtn.classList.add('hidden');
@@ -959,16 +1284,512 @@
       renderAll();
     }
 
+    // --- STAFF & FUNCTIONARIES CONTROLLER ---
+    let currentStaffDeptFilter = 'all';
+    let currentStaffSearchQuery = '';
+
+    function showAdminToast(msg, type = 'info') {
+      let toastBox = document.getElementById('admin-toast-box');
+      if (!toastBox) {
+        toastBox = document.createElement('div');
+        toastBox.id = 'admin-toast-box';
+        toastBox.className = 'fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none';
+        document.body.appendChild(toastBox);
+      }
+      const toast = document.createElement('div');
+      const bg = type === 'success' ? 'bg-slate-900 border-emerald-500 text-white' : type === 'error' ? 'bg-red-900 border-red-500 text-white' : 'bg-slate-900 border-brand-500 text-white';
+      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+      toast.className = `${bg} border-l-4 px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center gap-3 transition-all transform translate-y-4 opacity-0 pointer-events-auto`;
+      toast.innerHTML = `<span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${type === 'success' ? 'bg-emerald-500/20 text-emerald-400' : type === 'error' ? 'bg-red-500/20 text-red-400' : 'bg-brand-500/20 text-brand-400'}">${icon}</span><span class="flex-1">${msg}</span>`;
+      toastBox.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-4');
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    }
+
+    function populateStaffPresets() {
+      const sel = document.getElementById('sf-preset-select');
+      if (!sel) return;
+      sel.innerHTML = '<option value="">-- Pilih dari Koleksi Tim (33 Foto Tersedia) --</option>' +
+        availableTeamPresets.map(p => `<option value="${p.path}">${p.name}</option>`).join('');
+    }
+
+    function handleStaffPresetSelect(path) {
+      if (!path) return;
+      const urlInput = document.getElementById('sf-photo-url');
+      if (urlInput) {
+        urlInput.value = path;
+        updateStaffPreview(path);
+      }
+    }
+
+    function renderStaffFilters() {
+      const container = document.getElementById('staff-dept-filters');
+      if (!container) return;
+      const depts = [
+        { key: 'all', label: 'Semua Divisi' },
+        { key: 'pres', label: 'Director' },
+        { key: 'vp', label: 'Vice Director' },
+        { key: 'sec', label: 'Secretary' },
+        { key: 'fin', label: 'Finance' },
+        { key: 'pm', label: 'Project Mgmt' },
+        { key: 'ra', label: 'Research' },
+        { key: 'mt', label: 'Media & Tech' },
+        { key: 'pr', label: 'Public Relation' },
+        { key: 'hrm', label: 'HRM' }
+      ];
+      container.innerHTML = depts.map(d => {
+        const isActive = currentStaffDeptFilter === d.key;
+        return `<button type="button" onclick="setStaffDeptFilter('${d.key}')" class="px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${isActive ? 'bg-brand-700 text-white shadow-xs' : 'bg-white text-slate-600 hover:text-slate-900 border border-[#E4E8F5] hover:bg-slate-50'}">${d.label}</button>`;
+      }).join('');
+    }
+
+    function setStaffDeptFilter(key) {
+      currentStaffDeptFilter = key;
+      renderStaffFilters();
+      renderStaff();
+    }
+
+    function handleStaffSearch(query) {
+      currentStaffSearchQuery = (query || '').toLowerCase().trim();
+      renderStaff();
+    }
+
+    function updateStaffPreview(url) {
+      const img = document.getElementById('sf-preview-img');
+      const fallback = document.getElementById('sf-preview-fallback');
+      if (!img || !fallback) return;
+      if (url && url.trim().length > 0) {
+        img.src = url.trim();
+        img.classList.remove('hidden');
+        fallback.classList.add('hidden');
+      } else {
+        img.src = '';
+        img.classList.add('hidden');
+        fallback.classList.remove('hidden');
+      }
+    }
+
+    function handleStaffDeptChange(deptVal) {
+      const isLeader = document.getElementById('sf-is-leader').value === 'true';
+      const roleInput = document.getElementById('sf-role');
+      if (!isLeader && deptDetails[deptVal] && roleInput) {
+        roleInput.value = 'Staff ' + deptDetails[deptVal].title.replace('Department of ', '');
+      }
+    }
+
+    async function handleStaffModalFile(file) {
+      if (!file) return;
+      const statusEl = document.getElementById('sf-upload-status');
+      if (statusEl) {
+        statusEl.innerText = 'Mengompres foto...';
+        statusEl.className = 'text-[10px] text-amber-600 font-bold';
+      }
+
+      try {
+        const { file: compFile, dataUrl } = await compressImageFile(file, 600, 0.85);
+        let photoUrl = dataUrl;
+
+        if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+          try {
+            if (statusEl) statusEl.innerText = 'Mengunggah ke Cloud Supabase...';
+            const uploaded = await window.kspmDB.uploadMedia(compFile, 'team');
+            if (uploaded) photoUrl = uploaded;
+          } catch(e) {
+            console.warn('Cloud upload failed, saving compressed local data URL:', e);
+          }
+        }
+
+        const urlInput = document.getElementById('sf-photo-url');
+        if (urlInput) urlInput.value = photoUrl;
+        updateStaffPreview(photoUrl);
+
+        if (statusEl) {
+          statusEl.innerText = `✓ Foto siap (${(compFile.size / 1024).toFixed(0)} KB)`;
+          statusEl.className = 'text-[10px] text-emerald-600 font-bold';
+        }
+      } catch (err) {
+        console.error(err);
+        if (statusEl) {
+          statusEl.innerText = 'Gagal mengompres: ' + err.message;
+          statusEl.className = 'text-[10px] text-red-600 font-bold';
+        }
+      }
+    }
+
+    async function saveDeptDetailsData() {
+      setData('dept_details', deptDetails);
+      if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+        try {
+          await window.kspmDB.saveDepartments(deptDetails);
+        } catch(err) {
+          console.warn('Cloud saveDepartments error:', err);
+        }
+      }
+      updateCounts();
+    }
+
+    async function quickUploadStaffPhoto(deptKey, staffIndex, file) {
+      if (!file) return;
+      showAdminToast('Mengompres dan memproses foto...', 'info');
+      try {
+        const { file: compFile, dataUrl } = await compressImageFile(file, 600, 0.85);
+        let photoUrl = dataUrl;
+        if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+          try {
+            const uploaded = await window.kspmDB.uploadMedia(compFile, 'team');
+            if (uploaded) photoUrl = uploaded;
+          } catch(e) {
+            console.warn('Cloud upload failed, fallback to local dataURL');
+          }
+        }
+        deptDetails[deptKey].staff[staffIndex].photo = photoUrl;
+        await saveDeptDetailsData();
+        renderStaff();
+        showAdminToast(`✓ Foto ${deptDetails[deptKey].staff[staffIndex].name} berhasil diperbarui!`, 'success');
+      } catch (err) {
+        console.error(err);
+        showAdminToast('Gagal memproses foto: ' + err.message, 'error');
+      }
+    }
+
+    async function quickUploadLeaderPhoto(deptKey, file) {
+      if (!file) return;
+      showAdminToast('Mengompres dan memproses foto pimpinan...', 'info');
+      try {
+        const { file: compFile, dataUrl } = await compressImageFile(file, 600, 0.85);
+        let photoUrl = dataUrl;
+        if (window.kspmDB && window.kspmDB.isCloudConnected && window.kspmDB.isCloudConnected()) {
+          try {
+            const uploaded = await window.kspmDB.uploadMedia(compFile, 'team');
+            if (uploaded) photoUrl = uploaded;
+          } catch(e) {
+            console.warn('Cloud upload failed, fallback to local dataURL');
+          }
+        }
+        deptDetails[deptKey].photo = photoUrl;
+        await saveDeptDetailsData();
+        renderStaff();
+        showAdminToast(`✓ Foto ${deptDetails[deptKey].leader} berhasil diperbarui!`, 'success');
+      } catch (err) {
+        console.error(err);
+        showAdminToast('Gagal memproses foto: ' + err.message, 'error');
+      }
+    }
+
+    function renderStaff() {
+      const container = document.getElementById('staff-container');
+      if (!container) return;
+      renderStaffFilters();
+
+      const deptKeys = ['pres', 'vp', 'sec', 'fin', 'pm', 'ra', 'mt', 'pr', 'hrm'];
+      const q = currentStaffSearchQuery;
+
+      const html = deptKeys.map(deptKey => {
+        const dept = deptDetails[deptKey];
+        if (!dept) return '';
+
+        // Filter by dept tab
+        if (currentStaffDeptFilter !== 'all' && currentStaffDeptFilter !== deptKey) {
+          return '';
+        }
+
+        // Leader match
+        const leaderMatches = !q || 
+          (dept.leader && dept.leader.toLowerCase().includes(q)) || 
+          (dept.leaderRole && dept.leaderRole.toLowerCase().includes(q)) || 
+          (dept.category && dept.category.toLowerCase().includes(q)) ||
+          (dept.title && dept.title.toLowerCase().includes(q));
+
+        // Staff matches
+        const staffList = (dept.staff || []).map((s, idx) => ({ ...s, originalIndex: idx }));
+        const filteredStaff = staffList.filter(s => {
+          if (!q) return true;
+          return (s.name && s.name.toLowerCase().includes(q)) || 
+                 (s.role && s.role.toLowerCase().includes(q));
+        });
+
+        // Skip entire dept if neither leader nor any staff matches query
+        if (q && !leaderMatches && filteredStaff.length === 0) {
+          return '';
+        }
+
+        return `
+          <div class="bg-white border border-[#E4E8F5] rounded-3xl p-5 sm:p-7 shadow-xs space-y-6">
+            <!-- Header Divisi -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E4E8F5]">
+              <div>
+                <span class="text-[11px] font-bold text-brand-700 tracking-wide uppercase">${dept.category}</span>
+                <h3 class="text-base sm:text-lg font-bold text-slate-900">${dept.title}</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200/60">
+                  ${(dept.staff ? dept.staff.length : 0) + (dept.leader ? 1 : 0)} Fungsionaris
+                </span>
+                <button type="button" onclick="openStaffModal('${deptKey}', false, null)" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                  <span>Tambah Anggota</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Leader Section -->
+            ${leaderMatches ? `
+              <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-brand-50/60 via-slate-50 to-white border border-brand-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border-2 border-brand-300 overflow-hidden shrink-0 shadow-sm relative group">
+                    <img src="${dept.photo || ''}" alt="${dept.leader}" class="w-full h-full object-cover" onerror="this.src='assets/team/pres.webp'">
+                    <label class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white cursor-pointer text-[10px] font-bold text-center p-1">
+                      <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.5V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                      Ganti Foto
+                      <input type="file" accept="image/*" class="hidden" onchange="quickUploadLeaderPhoto('${deptKey}', this.files[0])">
+                    </label>
+                  </div>
+                  <div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-brand-700 text-white mb-1">
+                      ${dept.leaderRole || 'LEADER'}
+                    </span>
+                    <h4 class="text-sm sm:text-base font-bold text-slate-900">${dept.leader}</h4>
+                    <p class="text-xs text-slate-500 font-mono text-[11px] mt-0.5 truncate max-w-xs sm:max-w-md">${dept.photo || '(Belum ada foto)'}</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 self-end sm:self-center">
+                  <label class="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold cursor-pointer transition-colors shadow-2xs flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"/></svg>
+                    <span>Ganti Foto</span>
+                    <input type="file" accept="image/*" class="hidden" onchange="quickUploadLeaderPhoto('${deptKey}', this.files[0])">
+                  </label>
+                  <button type="button" onclick="openStaffModal('${deptKey}', true, null)" class="px-3.5 py-2 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold transition-colors">
+                    Edit Detail
+                  </button>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Staff Grid -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-700">Daftar Anggota Staf Fungsionaris (${dept.staff ? dept.staff.length : 0})</span>
+              </div>
+
+              ${(dept.staff && dept.staff.length > 0) ? `
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+                  ${filteredStaff.map(s => `
+                    <div class="bg-slate-50/70 hover:bg-white border border-slate-200/80 hover:border-brand-200 rounded-2xl p-3.5 flex items-center justify-between gap-3 transition-all shadow-2xs hover:shadow-xs group">
+                      <div class="flex items-center gap-3 min-w-0">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 overflow-hidden shrink-0 relative group/img">
+                          <img src="${s.photo || ''}" alt="${s.name}" class="w-full h-full object-cover" onerror="this.src='assets/team/pres.webp'">
+                          <label class="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center text-white cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.5V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                            <input type="file" accept="image/*" class="hidden" onchange="quickUploadStaffPhoto('${deptKey}', ${s.originalIndex}, this.files[0])">
+                          </label>
+                        </div>
+                        <div class="min-w-0">
+                          <h5 class="text-xs font-bold text-slate-900 truncate group-hover:text-brand-700 transition-colors">${s.name}</h5>
+                          <p class="text-[10px] text-slate-500 truncate">${s.role}</p>
+                          <span class="text-[9px] text-slate-400 font-mono truncate block max-w-[120px] sm:max-w-[140px]">${s.photo ? s.photo.split('/').pop() : ''}</span>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-col gap-1 shrink-0">
+                        <button type="button" onclick="openStaffModal('${deptKey}', false, ${s.originalIndex})" class="p-1.5 rounded-lg text-slate-500 hover:text-brand-700 hover:bg-brand-50 transition-colors" title="Edit Data Staf">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
+                        </button>
+                        <button type="button" onclick="deleteStaffMember('${deptKey}', ${s.originalIndex})" class="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Hapus Staf">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : `
+                <div class="p-6 rounded-2xl border border-dashed border-slate-200 text-center text-xs text-slate-400">
+                  Belum ada staf terdaftar di divisi ini. Klik "Tambah Anggota" di atas untuk menambahkan.
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }).filter(h => h.length > 0).join('');
+
+      container.innerHTML = html || `
+        <div class="bg-white border border-[#E4E8F5] rounded-3xl p-12 text-center space-y-3">
+          <p class="text-sm font-bold text-slate-700">Tidak ada anggota staf yang cocok dengan pencarian "${q}"</p>
+          <button type="button" onclick="document.getElementById('staff-search-input').value=''; handleStaffSearch('');" class="px-4 py-2 rounded-xl bg-brand-50 text-brand-700 font-bold text-xs">
+            Reset Pencarian
+          </button>
+        </div>
+      `;
+    }
+
+    function openStaffModal(deptKey = null, isLeader = false, staffIndex = null) {
+      const modal = document.getElementById('modal-staff-edit');
+      if (!modal) return;
+      populateStaffPresets();
+
+      const badge = document.getElementById('modal-staff-badge');
+      const title = document.getElementById('modal-staff-title');
+      const modeInput = document.getElementById('sf-mode');
+      const targetDeptInput = document.getElementById('sf-target-dept');
+      const isLeaderInput = document.getElementById('sf-is-leader');
+      const staffIndexInput = document.getElementById('sf-staff-index');
+      const deptSelect = document.getElementById('sf-dept');
+      const roleTypeSelect = document.getElementById('sf-role-type');
+      const nameInput = document.getElementById('sf-name');
+      const roleInput = document.getElementById('sf-role');
+      const photoInput = document.getElementById('sf-photo-url');
+      const statusEl = document.getElementById('sf-upload-status');
+      if (statusEl) {
+        statusEl.innerText = 'WebP / JPG / PNG otomatis dikompres';
+        statusEl.className = 'text-[10px] text-slate-400';
+      }
+
+      if (deptKey && (isLeader || staffIndex !== null)) {
+        // Mode EDIT
+        modeInput.value = 'edit';
+        badge.innerText = 'KOREKSI FUNGSIOANRIS';
+        targetDeptInput.value = deptKey;
+        deptSelect.value = deptKey;
+        deptSelect.disabled = true;
+        isLeaderInput.value = isLeader ? 'true' : 'false';
+        staffIndexInput.value = staffIndex !== null ? staffIndex : '-1';
+        roleTypeSelect.value = isLeader ? 'leader' : 'staff';
+        roleTypeSelect.disabled = true;
+
+        if (isLeader) {
+          title.innerText = 'Koreksi Data Pimpinan (' + (deptDetails[deptKey].category || deptKey) + ')';
+          nameInput.value = deptDetails[deptKey].leader || '';
+          roleInput.value = deptDetails[deptKey].leaderRole || 'Leader';
+          photoInput.value = deptDetails[deptKey].photo || '';
+          updateStaffPreview(deptDetails[deptKey].photo || '');
+        } else {
+          const s = deptDetails[deptKey].staff[staffIndex];
+          title.innerText = 'Koreksi Data Staf: ' + (s.name || '');
+          nameInput.value = s.name || '';
+          roleInput.value = s.role || '';
+          photoInput.value = s.photo || '';
+          updateStaffPreview(s.photo || '');
+        }
+      } else {
+        // Mode TAMBAH BARU
+        modeInput.value = 'create';
+        badge.innerText = 'TAMBAH FUNGSIOANRIS BARU';
+        title.innerText = 'Tambah Fungsionaris Organisasi';
+        const defaultDept = deptKey || 'pm';
+        targetDeptInput.value = defaultDept;
+        deptSelect.value = defaultDept;
+        deptSelect.disabled = false;
+        isLeaderInput.value = 'false';
+        staffIndexInput.value = '-1';
+        roleTypeSelect.value = 'staff';
+        roleTypeSelect.disabled = false;
+        nameInput.value = '';
+        roleInput.value = 'Staff ' + (deptDetails[defaultDept] ? deptDetails[defaultDept].title.replace('Department of ', '') : '');
+        photoInput.value = '';
+        updateStaffPreview('');
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeStaffModal() {
+      const modal = document.getElementById('modal-staff-edit');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    async function saveStaffMember(e) {
+      if (e) e.preventDefault();
+      const mode = document.getElementById('sf-mode').value;
+      const deptKey = document.getElementById('sf-dept').value;
+      const isLeader = document.getElementById('sf-role-type').value === 'leader';
+      const staffIndex = parseInt(document.getElementById('sf-staff-index').value, 10);
+      const name = document.getElementById('sf-name').value.trim();
+      const role = document.getElementById('sf-role').value.trim();
+      const photo = document.getElementById('sf-photo-url').value.trim();
+
+      if (!deptDetails[deptKey]) {
+        alert('Departemen tidak valid.');
+        return;
+      }
+
+      if (isLeader) {
+        deptDetails[deptKey].leader = name;
+        deptDetails[deptKey].leaderRole = role;
+        if (photo) deptDetails[deptKey].photo = photo;
+      } else {
+        if (!Array.isArray(deptDetails[deptKey].staff)) {
+          deptDetails[deptKey].staff = [];
+        }
+        if (mode === 'edit' && staffIndex >= 0 && staffIndex < deptDetails[deptKey].staff.length) {
+          deptDetails[deptKey].staff[staffIndex] = {
+            name: name,
+            role: role,
+            photo: photo || deptDetails[deptKey].staff[staffIndex].photo || 'assets/team/pres.webp'
+          };
+        } else {
+          // Tambah baru
+          deptDetails[deptKey].staff.push({
+            name: name,
+            role: role,
+            photo: photo || 'assets/team/pres.webp'
+          });
+        }
+      }
+
+      await saveDeptDetailsData();
+      closeStaffModal();
+      renderStaff();
+      showAdminToast(`✓ Data ${name} berhasil disimpan!`, 'success');
+    }
+
+    async function deleteStaffMember(deptKey, staffIndex) {
+      if (!deptDetails[deptKey] || !deptDetails[deptKey].staff[staffIndex]) return;
+      const member = deptDetails[deptKey].staff[staffIndex];
+      if (!confirm(`Hapus anggota staf "${member.name}" dari ${deptDetails[deptKey].category}?`)) return;
+
+      deptDetails[deptKey].staff.splice(staffIndex, 1);
+      await saveDeptDetailsData();
+      renderStaff();
+      showAdminToast(`✓ Staf ${member.name} telah dihapus.`, 'info');
+    }
+
+    async function resetStaffToDefault() {
+      if (!confirm('Kembalikan seluruh susunan pengurus dan foto fungsionaris ke versi foto resmi bawaan?')) return;
+      deptDetails = JSON.parse(JSON.stringify(initialDeptDetails));
+      await saveDeptDetailsData();
+      renderStaff();
+      showAdminToast('✓ Susunan dan foto fungsionaris telah dipulihkan ke versi bawaan!', 'success');
+    }
+
     // --- RENDER COUNTS & TABLES ---
     function updateCounts() {
       const cP = document.getElementById('count-programs');
       const cE = document.getElementById('count-events');
       const cR = document.getElementById('count-research');
       const cPt = document.getElementById('count-partners');
+      const cS = document.getElementById('count-staff');
       if (cP) cP.innerText = programs.length;
       if (cE) cE.innerText = events.length;
       if (cR) cR.innerText = research.length;
       if (cPt) cPt.innerText = partners.length;
+
+      let totalStaff = 0;
+      Object.keys(deptDetails || {}).forEach(k => {
+        if (deptDetails[k].leader) totalStaff += 1;
+        if (Array.isArray(deptDetails[k].staff)) totalStaff += deptDetails[k].staff.length;
+      });
+      if (cS) cS.innerText = totalStaff + ' Fungsionaris';
+      const summaryStat = document.getElementById('staff-summary-stat');
+      if (summaryStat) summaryStat.innerText = totalStaff + ' Fungsionaris Terdaftar';
     }
 
     function renderPrograms() {
@@ -1381,6 +2202,11 @@
             partners = cloudPartners;
             localStorage.setItem('kspm_partners', JSON.stringify(partners));
           }
+          const cloudDepts = await window.kspmDB.getDepartments();
+          if (cloudDepts && Object.keys(cloudDepts).length > 0) {
+            deptDetails = cloudDepts;
+            localStorage.setItem('kspm_dept_details', JSON.stringify(deptDetails));
+          }
         } catch(e) {
           console.warn('Sync cloud to admin error:', e);
         }
@@ -1390,6 +2216,7 @@
       renderEvents();
       renderResearch();
       renderPartners();
+      renderStaff();
       renderInquiries();
     }
 
@@ -1440,6 +2267,10 @@
     }
 
     function openModal(forcedType = null) {
+      if (currentTab === 'staff') {
+        openStaffModal(null);
+        return;
+      }
       const type = forcedType || (currentTab === 'overview' ? 'event' : currentTab === 'programs' ? 'program' : currentTab === 'events' ? 'event' : currentTab === 'research' ? 'research' : 'partner');
       currentModalType = type;
       editingId = null;
@@ -2118,10 +2949,12 @@
       localStorage.removeItem('kspm_partners');
       localStorage.removeItem('kspm_press_releases');
       localStorage.removeItem('kspm_research_reports');
+      localStorage.removeItem('kspm_dept_details');
       programs = [...initialPrograms];
       events = [...initialEvents];
       research = [...initialResearch];
       partners = [...initialPartners];
+      deptDetails = JSON.parse(JSON.stringify(initialDeptDetails));
       renderAll();
       alert('Data telah berhasil dipulihkan ke versi bawaan!');
     }
