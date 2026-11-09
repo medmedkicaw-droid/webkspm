@@ -753,101 +753,124 @@
         </div>
 
         <!-- ==================== PHOTO ADJUSTER (ZOOM & POSITIONING) ==================== -->
-        <div id="sf-adjuster-section" class="p-4 sm:p-5 rounded-2xl bg-white border border-brand-200/90 shadow-xs space-y-3.5 text-xs">
-          <div class="flex items-center justify-between">
+        <div id="sf-adjuster-section" class="p-4 sm:p-5 rounded-2xl bg-white border border-brand-200 shadow-xs space-y-4 text-xs">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-100">
             <div class="flex items-center gap-2">
               <span class="w-7 h-7 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center shadow-2xs">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"/></svg>
               </span>
               <div>
-                <span class="font-bold text-slate-900 block leading-tight">2. Sesuaikan Skala & Posisi (Zoom Wajah)</span>
-                <span class="text-[10px] text-slate-500">Geser slider atau drag langsung di gambar agar wajah tampak lebih besar dan pas</span>
+                <span class="font-bold text-slate-900 block leading-tight">2. Sesuaikan Ukuran &amp; Posisi Wajah (Zoom &amp; Crop)</span>
+                <span class="text-[10px] text-slate-500">Geser zoom &amp; drag foto langsung untuk memusatkan wajah di dalam lingkaran</span>
               </div>
             </div>
-            <span id="sf-crop-status" class="text-[10px] text-slate-400 font-semibold"></span>
+            <span id="sf-crop-status" class="text-[11px] font-bold text-slate-400"></span>
           </div>
 
-          <!-- Interactive Viewport & Sliders Container -->
-          <div class="flex flex-col sm:flex-row items-center gap-5 pt-1">
-            <!-- Viewport with circular face guideline -->
-            <div class="relative w-44 h-44 sm:w-48 sm:h-48 rounded-3xl bg-slate-950 border-2 border-brand-400 overflow-hidden shrink-0 shadow-md flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-none group" id="sf-viewport" onmousedown="startPhotoDrag(event)" ontouchstart="startPhotoDragTouch(event)">
-              <!-- Draggable / Zoomable Image -->
-              <img id="sf-crop-img" src="" alt="Crop Preview" class="absolute max-w-none origin-center pointer-events-none transition-transform duration-75 hidden" style="transform: translate(0px, 0px) scale(1);" onerror="this.classList.add('hidden'); if(this.nextElementSibling) this.nextElementSibling.classList.remove('hidden');">
+          <!-- Main Adjuster Workspace -->
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            
+            <!-- Left: Interactive Cropper Viewport -->
+            <div class="flex flex-col items-center shrink-0">
+              <div class="relative w-56 h-56 rounded-3xl bg-slate-950 border-2 border-brand-500 overflow-hidden shadow-lg select-none cursor-grab active:cursor-grabbing touch-none flex items-center justify-center group"
+                   id="sf-viewport"
+                   onmousedown="startPhotoDrag(event)"
+                   ontouchstart="startPhotoDragTouch(event)">
+                
+                <!-- Scalable & Draggable Photo -->
+                <img id="sf-crop-img" src="" alt="Crop"
+                     class="absolute pointer-events-none transition-none hidden select-none max-w-none"
+                     style="top: 50%; left: 50%; transform: translate(-50%, -50%); transform-origin: center center;"
+                     onerror="handleCropImgError()">
 
-              <!-- Circular guideline overlay -->
-              <div class="absolute inset-2 sm:inset-3 rounded-full border-2 border-dashed border-white/70 pointer-events-none flex items-center justify-center shadow-sm">
-                <span class="text-[9px] font-black text-white/90 bg-black/60 px-2 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-xs">Fokus Wajah</span>
-              </div>
+                <!-- Circular Avatar Mask Overlay -->
+                <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  <div class="w-48 h-48 rounded-full border-2 border-white/90 shadow-[0_0_0_9999px_rgba(15,23,42,0.65)] pointer-events-none relative flex items-center justify-center">
+                    <div class="w-2 h-2 rounded-full bg-brand-400/60 shadow-2xs"></div>
+                  </div>
+                </div>
 
-              <!-- Fallback message -->
-              <div id="sf-crop-fallback" class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs text-center p-4">
-                Pilih atau unggah foto untuk mengatur zoom & posisi wajah
+                <!-- Fallback prompt when no image -->
+                <div id="sf-crop-fallback" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 text-xs text-center p-4 bg-slate-900 z-10">
+                  <svg class="w-8 h-8 text-slate-600 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                  <span>Pilih atau upload foto di atas untuk mulai mengatur zoom wajah</span>
+                </div>
               </div>
+              <span class="text-[10px] text-slate-400 mt-2 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59"/></svg>
+                Klik &amp; geser foto untuk memposisikan wajah
+              </span>
             </div>
 
-            <!-- Controls: Zoom & Offset Sliders -->
-            <div class="flex-1 w-full space-y-3">
-              <!-- Zoom Slider -->
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
-                    <span>🔍 Perbesar (Zoom):</span>
+            <!-- Right: Controls & Real-Time Previews -->
+            <div class="flex-1 w-full space-y-4">
+              
+              <!-- Zoom Slider & Buttons -->
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <label class="font-bold text-slate-800 flex items-center gap-1.5">
+                    <span>Tingkat Zoom:</span>
+                    <span id="sf-zoom-val" class="font-mono text-xs font-black text-brand-700 bg-brand-50 border border-brand-200 px-2 py-0.5 rounded-lg">100%</span>
                   </label>
-                  <span id="sf-zoom-val" class="text-[11px] font-black text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md">100%</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" onclick="adjustZoomStep(-15)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-black flex items-center justify-center text-xs transition-colors">
+                      −
+                    </button>
+                    <button type="button" onclick="adjustZoomStep(15)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-black flex items-center justify-center text-xs transition-colors">
+                      +
+                    </button>
+                  </div>
                 </div>
-                <input type="range" id="sf-zoom-slider" min="100" max="250" value="100" step="1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-700" oninput="updateCropTransform()">
-                <div class="flex justify-between text-[9px] text-slate-400 font-mono mt-0.5">
-                  <span>100% (Asli)</span>
-                  <span>150%</span>
-                  <span>200%</span>
-                  <span>250% (Maks)</span>
+
+                <input type="range" id="sf-zoom-slider" min="100" max="300" value="100" step="1"
+                       class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-700"
+                       oninput="onZoomSliderChange(this.value)">
+
+                <!-- Quick Preset Pills -->
+                <div class="flex items-center gap-1.5 flex-wrap pt-1">
+                  <span class="text-[10px] font-bold text-slate-400 mr-0.5">Preset:</span>
+                  <button type="button" onclick="setCropPreset(100, 0, 0)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition-all">
+                    100% (Penuh)
+                  </button>
+                  <button type="button" onclick="setCropPreset(135, 0, -15)" class="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-[10px] font-bold border border-brand-200/60 transition-all">
+                    🔍 135% (Wajah)
+                  </button>
+                  <button type="button" onclick="setCropPreset(170, 0, -30)" class="px-2.5 py-1 rounded-lg bg-brand-100 hover:bg-brand-200 text-brand-800 text-[10px] font-bold transition-all">
+                    🔍 170% (Close-Up)
+                  </button>
+                  <button type="button" onclick="setCropPreset(210, 0, -45)" class="px-2.5 py-1 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-[10px] font-bold transition-all">
+                    🔍 210% (Detail)
+                  </button>
+                  <button type="button" onclick="resetCropPositionOnly()" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] font-semibold transition-all">
+                    Pusatkan
+                  </button>
                 </div>
               </div>
 
-              <!-- Vertical (Y) Offset Slider -->
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="text-[11px] font-bold text-slate-700">↕️ Posisi Vertikal (Fokus Kepala/Dada):</label>
-                  <span id="sf-pos-y-val" class="text-[10px] text-slate-600 font-mono">0px</span>
+              <!-- Real-Time Previews (How it looks on the website) -->
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <!-- 64px Circular Avatar Preview -->
+                  <div class="relative w-16 h-16 rounded-2xl bg-white border-2 border-brand-300 overflow-hidden shadow-xs shrink-0 flex items-center justify-center">
+                    <img id="sf-live-preview-lg" src="" alt="Live Preview" class="absolute pointer-events-none hidden max-w-none" style="top: 50%; left: 50%; transform: translate(-50%, -50%); transform-origin: center center;">
+                    <span id="sf-live-fallback-lg" class="text-[10px] font-bold text-slate-400 text-center">Foto</span>
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold text-slate-800 block">Hasil di Kartu Bagan</span>
+                    <span class="text-[10px] text-slate-500">Pratinjau langsung avatar pengurus</span>
+                  </div>
                 </div>
-                <input type="range" id="sf-pos-y-slider" min="-120" max="120" value="0" step="1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-700" oninput="updateCropTransform()">
+
+                <!-- Apply Button -->
+                <button type="button" onclick="applyPhotoCrop()" id="btn-apply-crop"
+                        class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  <span>Terapkan Potongan</span>
+                </button>
               </div>
 
-              <!-- Horizontal (X) Offset Slider -->
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="text-[11px] font-bold text-slate-700">↔️ Posisi Horizontal (Kiri/Kanan):</label>
-                  <span id="sf-pos-x-val" class="text-[10px] text-slate-600 font-mono">0px</span>
-                </div>
-                <input type="range" id="sf-pos-x-slider" min="-120" max="120" value="0" step="1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-700" oninput="updateCropTransform()">
-              </div>
-
-              <!-- Quick Presets -->
-              <div class="flex items-center gap-1.5 flex-wrap pt-1">
-                <span class="text-[10px] font-bold text-slate-400 mr-1">Preset Cepat:</span>
-                <button type="button" onclick="setCropPreset(100, 0, 0)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition-colors">
-                  Normal (1x)
-                </button>
-                <button type="button" onclick="setCropPreset(140, 0, -20)" class="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-[10px] font-bold transition-colors">
-                  🔍 Fokus Wajah (1.4x)
-                </button>
-                <button type="button" onclick="setCropPreset(180, 0, -35)" class="px-2.5 py-1 rounded-lg bg-brand-100 hover:bg-brand-200 text-brand-800 text-[10px] font-bold transition-colors">
-                  🔍 Close-up (1.8x)
-                </button>
-                <button type="button" onclick="resetCropPositionOnly()" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] font-medium transition-colors">
-                  Pusatkan
-                </button>
-              </div>
             </div>
-          </div>
 
-          <!-- Bottom bar of adjuster -->
-          <div class="pt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-slate-100">
-            <span class="text-[10px] text-slate-500">Tips: Klik <strong>Terapkan Potongan</strong> untuk langsung menyimpan hasil zoom beresolusi HD ke foto profil.</span>
-            <button type="button" onclick="applyPhotoCrop()" id="btn-apply-crop" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 shrink-0 self-end sm:self-auto">
-              <svg class="w-3.5 h-3.5 text-brand-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-              <span>Terapkan Potongan &amp; Zoom</span>
-            </button>
           </div>
         </div>
 
@@ -1390,10 +1413,13 @@
     let currentStaffDeptFilter = 'all';
     let currentStaffSearchQuery = '';
 
-    // --- PHOTO ADJUSTER (ZOOM & POSITIONING) STATE ---
-    let cropZoom = 100;
-    let cropOffsetX = 0;
-    let cropOffsetY = 0;
+    // --- MODERN PHOTO ADJUSTER (ZOOM & POSITIONING) STATE & CONTROLS ---
+    const CROP_VP_SIZE = 224; // 224px viewport (w-56 h-56)
+    let cropZoom = 100; // 100% to 300%
+    let cropOffsetX = 0; // offset px from center
+    let cropOffsetY = 0; // offset px from center
+    let cropBaseW = CROP_VP_SIZE;
+    let cropBaseH = CROP_VP_SIZE;
     let isCropDragging = false;
     let dragStartX = 0;
     let dragStartY = 0;
@@ -1401,52 +1427,63 @@
     let dragStartOffsetY = 0;
     let currentRawPhotoUrl = '';
 
-    function setCropPreset(zoom, x, y) {
-      cropZoom = zoom;
-      cropOffsetX = x;
-      cropOffsetY = y;
-      const zoomSlider = document.getElementById('sf-zoom-slider');
-      const posXSlider = document.getElementById('sf-pos-x-slider');
-      const posYSlider = document.getElementById('sf-pos-y-slider');
-      if (zoomSlider) zoomSlider.value = zoom;
-      if (posXSlider) posXSlider.value = x;
-      if (posYSlider) posYSlider.value = y;
-      updateCropTransform();
+    function handleCropImgError() {
+      const cropImg = document.getElementById('sf-crop-img');
+      const cropFallback = document.getElementById('sf-crop-fallback');
+      if (cropImg) cropImg.classList.add('hidden');
+      if (cropFallback) cropFallback.classList.remove('hidden');
     }
 
-    function resetCropPositionOnly() {
-      cropOffsetX = 0;
-      cropOffsetY = 0;
-      const posXSlider = document.getElementById('sf-pos-x-slider');
-      const posYSlider = document.getElementById('sf-pos-y-slider');
-      if (posXSlider) posXSlider.value = 0;
-      if (posYSlider) posYSlider.value = 0;
+    function initCropImageDimensions(imgEl) {
+      if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
+      const nw = imgEl.naturalWidth;
+      const nh = imgEl.naturalHeight;
+      // Fit mode "cover" in viewport:
+      if (nw >= nh) {
+        cropBaseH = CROP_VP_SIZE;
+        cropBaseW = (nw / nh) * CROP_VP_SIZE;
+      } else {
+        cropBaseW = CROP_VP_SIZE;
+        cropBaseH = (nh / nw) * CROP_VP_SIZE;
+      }
+      imgEl.style.width = Math.round(cropBaseW) + 'px';
+      imgEl.style.height = Math.round(cropBaseH) + 'px';
       updateCropTransform();
     }
 
     function updateCropTransform() {
-      const zoomSlider = document.getElementById('sf-zoom-slider');
-      const posXSlider = document.getElementById('sf-pos-x-slider');
-      const posYSlider = document.getElementById('sf-pos-y-slider');
-      const zoomVal = document.getElementById('sf-zoom-val');
-      const posXVal = document.getElementById('sf-pos-x-val');
-      const posYVal = document.getElementById('sf-pos-y-val');
       const cropImg = document.getElementById('sf-crop-img');
+      const zoomVal = document.getElementById('sf-zoom-val');
+      const zoomSlider = document.getElementById('sf-zoom-slider');
+      const livePrev = document.getElementById('sf-live-preview-lg');
+      const liveFb = document.getElementById('sf-live-fallback-lg');
 
-      if (zoomSlider) cropZoom = parseInt(zoomSlider.value, 10);
-      if (posXSlider) cropOffsetX = parseInt(posXSlider.value, 10);
-      if (posYSlider) cropOffsetY = parseInt(posYSlider.value, 10);
+      const scale = cropZoom / 100;
 
       if (zoomVal) zoomVal.innerText = cropZoom + '%';
-      if (posXVal) posXVal.innerText = cropOffsetX + 'px';
-      if (posYVal) posYVal.innerText = cropOffsetY + 'px';
+      if (zoomSlider) zoomSlider.value = cropZoom;
 
-      if (cropImg) {
-        const scale = cropZoom / 100;
-        cropImg.style.transform = `translate(${cropOffsetX}px, ${cropOffsetY}px) scale(${scale})`;
+      // Update main interactive viewport img
+      if (cropImg && !cropImg.classList.contains('hidden')) {
+        cropImg.style.transform = `translate(calc(-50% + ${cropOffsetX}px), calc(-50% + ${cropOffsetY}px)) scale(${scale})`;
       }
 
-      // Update hidden form inputs
+      // Update live preview mini box (64px target, ratio 64 / CROP_VP_SIZE)
+      if (livePrev && cropImg && cropImg.src && !cropImg.classList.contains('hidden')) {
+        livePrev.src = cropImg.src;
+        livePrev.classList.remove('hidden');
+        if (liveFb) liveFb.classList.add('hidden');
+        
+        const prevRatio = 64 / CROP_VP_SIZE;
+        livePrev.style.width = Math.round(cropBaseW * prevRatio) + 'px';
+        livePrev.style.height = Math.round(cropBaseH * prevRatio) + 'px';
+        livePrev.style.transform = `translate(calc(-50% + ${Math.round(cropOffsetX * prevRatio)}px), calc(-50% + ${Math.round(cropOffsetY * prevRatio)}px)) scale(${scale})`;
+      } else if (liveFb && livePrev) {
+        livePrev.classList.add('hidden');
+        liveFb.classList.remove('hidden');
+      }
+
+      // Save values to hidden inputs
       const scaleInput = document.getElementById('sf-photo-scale');
       const xInput = document.getElementById('sf-photo-x');
       const yInput = document.getElementById('sf-photo-y');
@@ -1455,7 +1492,33 @@
       if (yInput) yInput.value = cropOffsetY;
     }
 
+    function onZoomSliderChange(val) {
+      cropZoom = parseInt(val, 10) || 100;
+      updateCropTransform();
+    }
+
+    function adjustZoomStep(delta) {
+      cropZoom = Math.max(100, Math.min(300, cropZoom + delta));
+      updateCropTransform();
+    }
+
+    function setCropPreset(zoom, x, y) {
+      cropZoom = Math.max(100, Math.min(300, zoom || 100));
+      cropOffsetX = x || 0;
+      cropOffsetY = y || 0;
+      updateCropTransform();
+    }
+
+    function resetCropPositionOnly() {
+      cropOffsetX = 0;
+      cropOffsetY = 0;
+      updateCropTransform();
+    }
+
+    // --- DRAG CONTROLLERS ---
     function startPhotoDrag(e) {
+      const cropImg = document.getElementById('sf-crop-img');
+      if (!cropImg || cropImg.classList.contains('hidden')) return;
       e.preventDefault();
       isCropDragging = true;
       dragStartX = e.clientX;
@@ -1470,12 +1533,9 @@
       if (!isCropDragging) return;
       const dx = e.clientX - dragStartX;
       const dy = e.clientY - dragStartY;
-      cropOffsetX = Math.max(-120, Math.min(120, dragStartOffsetX + dx));
-      cropOffsetY = Math.max(-120, Math.min(120, dragStartOffsetY + dy));
-      const posXSlider = document.getElementById('sf-pos-x-slider');
-      const posYSlider = document.getElementById('sf-pos-y-slider');
-      if (posXSlider) posXSlider.value = cropOffsetX;
-      if (posYSlider) posYSlider.value = cropOffsetY;
+      const maxPan = Math.max(120, Math.round((cropBaseW * (cropZoom / 100)) / 2));
+      cropOffsetX = Math.max(-maxPan, Math.min(maxPan, dragStartOffsetX + dx));
+      cropOffsetY = Math.max(-maxPan, Math.min(maxPan, dragStartOffsetY + dy));
       updateCropTransform();
     }
 
@@ -1486,7 +1546,8 @@
     }
 
     function startPhotoDragTouch(e) {
-      if (!e.touches || e.touches.length === 0) return;
+      const cropImg = document.getElementById('sf-crop-img');
+      if (!cropImg || cropImg.classList.contains('hidden') || !e.touches || e.touches.length === 0) return;
       isCropDragging = true;
       dragStartX = e.touches[0].clientX;
       dragStartY = e.touches[0].clientY;
@@ -1501,12 +1562,9 @@
       e.preventDefault();
       const dx = e.touches[0].clientX - dragStartX;
       const dy = e.touches[0].clientY - dragStartY;
-      cropOffsetX = Math.max(-120, Math.min(120, dragStartOffsetX + dx));
-      cropOffsetY = Math.max(-120, Math.min(120, dragStartOffsetY + dy));
-      const posXSlider = document.getElementById('sf-pos-x-slider');
-      const posYSlider = document.getElementById('sf-pos-y-slider');
-      if (posXSlider) posXSlider.value = cropOffsetX;
-      if (posYSlider) posYSlider.value = cropOffsetY;
+      const maxPan = Math.max(120, Math.round((cropBaseW * (cropZoom / 100)) / 2));
+      cropOffsetX = Math.max(-maxPan, Math.min(maxPan, dragStartOffsetX + dx));
+      cropOffsetY = Math.max(-maxPan, Math.min(maxPan, dragStartOffsetY + dy));
       updateCropTransform();
     }
 
@@ -1525,10 +1583,10 @@
       if (cropImg && cropFallback) {
         if (currentRawPhotoUrl) {
           cropImg.src = currentRawPhotoUrl;
-          cropImg.classList.remove('hidden');
-          cropFallback.classList.add('hidden');
           cropImg.onload = () => {
-            updateCropTransform();
+            cropImg.classList.remove('hidden');
+            cropFallback.classList.add('hidden');
+            initCropImageDimensions(cropImg);
           };
           cropImg.onerror = () => {
             cropImg.classList.add('hidden');
@@ -1551,22 +1609,21 @@
       }
 
       if (cropStatus) {
-        cropStatus.innerText = 'Memproses potongan & zoom...';
-        cropStatus.className = 'text-[10px] text-amber-600 font-bold';
+        cropStatus.innerText = 'Memotong...';
+        cropStatus.className = 'text-[11px] text-amber-600 font-bold';
       }
 
       try {
-        const vp = document.getElementById('sf-viewport');
-        const vpW = (vp ? vp.clientWidth : 176) || 176;
-        const vpH = (vp ? vp.clientHeight : 176) || 176;
-
+        const TARGET_SIZE = 600;
         const canvas = document.createElement('canvas');
-        const targetSize = 600;
-        canvas.width = targetSize;
-        canvas.height = targetSize;
+        canvas.width = TARGET_SIZE;
+        canvas.height = TARGET_SIZE;
         const ctx = canvas.getContext('2d');
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
+
+        const ratio = TARGET_SIZE / CROP_VP_SIZE;
+        const scale = cropZoom / 100;
 
         const img = new Image();
         img.crossOrigin = 'anonymous';
@@ -1577,65 +1634,44 @@
           img.onerror = () => resolve();
         });
 
-        const nw = img.naturalWidth || 600;
-        const nh = img.naturalHeight || 600;
-        const aspect = nw / nh;
-
-        const scale = cropZoom / 100;
-        let baseW, baseH;
-        if (aspect >= 1) {
-          baseH = vpH;
-          baseW = vpH * aspect;
-        } else {
-          baseW = vpW;
-          baseH = vpW / aspect;
-        }
-
-        const factor = targetSize / vpW;
-        const canvasCenterX = targetSize / 2 + (cropOffsetX * factor);
-        const canvasCenterY = targetSize / 2 + (cropOffsetY * factor);
-        const drawW = baseW * scale * factor;
-        const drawH = baseH * scale * factor;
-        const drawX = canvasCenterX - (drawW / 2);
-        const drawY = canvasCenterY - (drawH / 2);
+        const drawW = cropBaseW * scale * ratio;
+        const drawH = cropBaseH * scale * ratio;
+        const drawX = (TARGET_SIZE / 2) + (cropOffsetX * ratio) - (drawW / 2);
+        const drawY = (TARGET_SIZE / 2) + (cropOffsetY * ratio) - (drawH / 2);
 
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
 
         let croppedDataUrl = '';
         try {
-          croppedDataUrl = canvas.toDataURL('image/webp', 0.88);
+          croppedDataUrl = canvas.toDataURL('image/webp', 0.90);
         } catch (e) {
-          console.warn('Canvas export warning:', e);
+          console.warn('Canvas toDataURL fallback:', e);
+          croppedDataUrl = canvas.toDataURL('image/jpeg', 0.90);
         }
 
         if (croppedDataUrl && croppedDataUrl.startsWith('data:image')) {
           const photoUrlInput = document.getElementById('sf-photo-url');
           if (photoUrlInput) photoUrlInput.value = croppedDataUrl;
-          
+
           const previewImg = document.getElementById('sf-preview-img');
           if (previewImg) {
             previewImg.src = croppedDataUrl;
             previewImg.classList.remove('hidden');
           }
-          
+
           if (cropStatus) {
-            cropStatus.innerText = `✓ Berhasil di-zoom (${cropZoom}%) & dipotong HD!`;
-            cropStatus.className = 'text-[10px] text-emerald-600 font-bold';
+            cropStatus.innerText = `✓ Terpotong (${cropZoom}%)`;
+            cropStatus.className = 'text-[11px] text-emerald-600 font-bold';
           }
-          showAdminToast(`✓ Zoom wajah (${cropZoom}%) berhasil diterapkan!`, 'success');
+          showAdminToast(`✓ Hasil zoom (${cropZoom}%) berhasil diterapkan!`, 'success');
           return croppedDataUrl;
-        } else {
-          if (cropStatus) {
-            cropStatus.innerText = `✓ Pengaturan zoom (${cropZoom}%) aktif.`;
-            cropStatus.className = 'text-[10px] text-brand-700 font-bold';
-          }
-          return null;
         }
+        return null;
       } catch (err) {
         console.error('applyPhotoCrop error:', err);
         if (cropStatus) {
-          cropStatus.innerText = 'Gagal memotong: ' + err.message;
-          cropStatus.className = 'text-[10px] text-red-600 font-bold';
+          cropStatus.innerText = 'Gagal memotong';
+          cropStatus.className = 'text-[11px] text-red-600 font-bold';
         }
         return null;
       }
