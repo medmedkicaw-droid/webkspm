@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS public.events (
     location TEXT NOT NULL,
     author TEXT DEFAULT 'Divisi Humas & Eksternal KSPM',
     cover_image TEXT,
+    cover_image_left TEXT,
+    cover_image_right TEXT,
     drive_link TEXT,
     description TEXT,
     article TEXT,
@@ -142,7 +144,7 @@ CREATE POLICY "Allow All Storage Update" ON storage.objects FOR UPDATE USING (bu
 CREATE POLICY "Allow All Storage Delete" ON storage.objects FOR DELETE USING (bucket_id = 'kspm-media');
 
 -- 8. DATA AWAL RESMI (SEED DATA AUTENTIK KSPM UNSOED)
-INSERT INTO public.events (id, name, category, schedule, date_badge, status, location, author, cover_image, drive_link, description, article, article_paragraphs, gallery)
+INSERT INTO public.events (id, name, category, schedule, date_badge, status, location, author, cover_image, cover_image_left, cover_image_right, drive_link, description, article, article_paragraphs, gallery)
 VALUES 
 (
   'siw',
@@ -154,6 +156,8 @@ VALUES
   'Auditorium Graha Widyatama Unsoed',
   'Divisi Project Management & Humas KSPM',
   'assets/team/groups/dsx09626-1-.webp',
+  'assets/team/groups/dsx09550.webp',
+  'assets/team/groups/dsx09572.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-siw-2026',
   'Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.',
   'Purwokerto — Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.',
@@ -170,6 +174,8 @@ VALUES
   'Laboratorium Terpadu Lantai 1 FEB Unsoed',
   'Divisi Project Management & Edukasi',
   'assets/team/groups/dsx09414.webp',
+  'assets/team/groups/dsx09458.webp',
+  'assets/team/groups/dsx09493.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-spm-2026',
   'Pelatihan berjenjang resmi bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.',
   'Purwokerto — Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.',
@@ -186,6 +192,8 @@ VALUES
   'Platform Daring Nasional',
   'Divisi Research & HRM',
   'assets/team/groups/dsx09493.webp',
+  'assets/team/groups/dsx09502.webp',
+  'assets/team/groups/dsx09503.webp',
   'https://drive.google.com/drive/folders/kspm-unsoed-legacy-2026',
   'Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.',
   'Purwokerto — Sebagai wujud komitmen dalam mencetak analis dan trader muda yang rasional, KSPM Unsoed kembali sukses menggelar kompetisi nasional tahunan LEGACY.',
@@ -201,6 +209,8 @@ ON CONFLICT (id) DO UPDATE SET
   location = EXCLUDED.location,
   author = EXCLUDED.author,
   cover_image = EXCLUDED.cover_image,
+  cover_image_left = EXCLUDED.cover_image_left,
+  cover_image_right = EXCLUDED.cover_image_right,
   drive_link = EXCLUDED.drive_link,
   description = EXCLUDED.description,
   article = EXCLUDED.article,

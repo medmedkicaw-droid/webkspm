@@ -1109,13 +1109,13 @@
               <div class="w-full aspect-[16/11] bg-gradient-to-b from-[#F3F4F7] to-[#E9EBF1] rounded-2xl p-3.5 relative overflow-hidden border border-slate-200/70 shadow-inner flex flex-col justify-between mb-5">
                 <div class="relative w-full h-full flex items-center justify-center">
                   <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                    <img src="${e.coverImage || 'assets/team/groups/dsx09459.webp'}" class="w-full h-full object-cover">
+                    <img src="${e.coverImageLeft || (e.gallery && e.gallery[0] ? (e.gallery[0].img || e.gallery[0]) : '') || 'assets/team/groups/dsx09414.webp'}" class="w-full h-full object-cover" onerror="this.src='assets/team/groups/dsx09414.webp'">
                   </div>
                   <div class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                    <img src="${e.coverImage || 'assets/team/groups/dsx09626-1-.webp'}" class="w-full h-full object-cover">
+                    <img src="${e.coverImageRight || (e.gallery && e.gallery[1] ? (e.gallery[1].img || e.gallery[1]) : '') || 'assets/team/groups/dsx09458.webp'}" class="w-full h-full object-cover" onerror="this.src='assets/team/groups/dsx09458.webp'">
                   </div>
                   <div class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                    <img src="${e.coverImage || 'assets/team/groups/dsx09550.webp'}" class="w-full h-full object-cover">
+                    <img src="${e.coverImage || 'assets/team/groups/dsx09493.webp'}" class="w-full h-full object-cover" onerror="this.src='assets/team/groups/dsx09493.webp'">
                   </div>
                 </div>
                 <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-30 pointer-events-none">
