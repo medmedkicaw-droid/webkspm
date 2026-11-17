@@ -198,6 +198,25 @@
 
     .btn-tactile {
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease !important;
+    }
+    .btn-tactile:active {
+      transform: scale(0.97) !important;
+    }
+
+    /* Gallery Scroll Track Styles */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .cursor-grab {
+      cursor: grab;
+    }
+    .cursor-grabbing {
+      cursor: grabbing;
+    }
       cursor: pointer;
       user-select: none;
     }
@@ -494,58 +513,32 @@
 
       </div>
 
-      <!-- DOCUMENTATION PHOTO GALLERY (Clean White Track Room - Running Logo Inspired) -->
-      <section class="space-y-4">
+      <!-- DOCUMENTATION PHOTO GALLERY (Modern Horizontal Track with Cursor Drag) -->
+      <section class="space-y-3.5">
         <div class="flex items-center justify-between px-2">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-700 block mb-0.5">DOKUMENTASI VISUAL RESMI</span>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0F2D] tracking-tight">Kumpulan Foto Momen Kegiatan</h3>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-700 block mb-0.5">DOKUMENTASI VISUAL</span>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0F2D] tracking-tight">Dokumentasi Momen Kegiatan</h3>
           </div>
           
-          <div class="flex items-center gap-3">
-            <!-- Counter Pill Badge -->
-            <span id="gallery-counter" class="text-xs font-black tracking-wider px-3.5 py-1 bg-white border border-[#E4E8F5] rounded-full text-slate-800 shadow-xs">
-              01 / 06
-            </span>
-            <!-- Arrow Navigation Buttons -->
-            <div class="flex items-center gap-1.5">
-              <button onclick="prevGallerySlide()" class="w-9 h-9 rounded-xl bg-white hover:bg-brand-50 hover:text-brand-700 text-slate-700 flex items-center justify-center transition-all btn-tactile border border-[#E4E8F5] shadow-xs" aria-label="Previous Photo">
-                ←
-              </button>
-              <button onclick="nextGallerySlide()" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-brand-700 text-white flex items-center justify-center transition-all btn-tactile shadow-xs" aria-label="Next Photo">
-                →
-              </button>
-            </div>
+          <div class="text-[11px] font-bold text-slate-400 hidden sm:flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-3.5 py-1.5 rounded-full select-none shadow-2xs">
+            <span>↔ Geser dengan kursor / swipe</span>
           </div>
         </div>
 
-        <!-- Clean White Capsule Room (Running Logo Style) -->
-        <div class="w-full bg-white/95 backdrop-blur-md border border-[#E4E8F5] rounded-3xl sm:rounded-[36px] shadow-[0_18px_50px_rgba(0,0,0,0.04)] py-8 sm:py-10 px-6 sm:px-10 overflow-hidden relative">
-          
-          <!-- Visual Layered Cover Flow Deck Track -->
-          <div class="relative w-full flex items-center justify-center min-h-[300px] sm:min-h-[360px] select-none">
-            <div id="carousel-deck" class="relative w-full max-w-4xl h-[280px] sm:h-[340px] flex items-center justify-center"></div>
+        <!-- Clean Gallery Container (Drag-to-Scroll Track) -->
+        <div class="w-full bg-white/95 backdrop-blur-md border border-[#E4E8F5] rounded-3xl sm:rounded-[36px] shadow-[0_18px_50px_rgba(0,0,0,0.04)] p-4 sm:p-6 overflow-hidden relative">
+          <div id="gallery-drag-track" class="flex items-center gap-4 sm:gap-6 overflow-x-auto py-2 px-1 select-none cursor-grab active:cursor-grabbing no-scrollbar">
+            <!-- Cards populated dynamically by renderGalleryTrack() -->
           </div>
-
-          <!-- Active Photo Caption & Info Strip -->
-          <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <div>
-              <h4 id="active-photo-title" class="text-sm sm:text-base font-extrabold text-[#0A0F2D] leading-tight">
-                Foto Kegiatan
-              </h4>
-              <p id="active-photo-subtitle" class="text-xs text-[#6B7AA0] mt-0.5">
-                Dokumentasi Resmi KSPM Universitas Jenderal Soedirman
-              </p>
-            </div>
-
-            <a id="btn-zoom-photo" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200/70 text-xs font-bold flex items-center gap-1.5 transition-colors btn-tactile shrink-0">
-              <span>Lihat Resolusi Penuh</span>
-              <span>↗</span>
-            </a>
-          </div>
-
         </div>
       </section>
+
+      <!-- Simple Clean Lightbox Modal -->
+      <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4 transition-all" onclick="closeGalleryLightbox()">
+        <button type="button" onclick="closeGalleryLightbox()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg font-bold transition-all z-10" aria-label="Tutup">✕</button>
+        <img id="lightbox-img" src="" alt="Dokumentasi Full" class="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl" onclick="event.stopPropagation()">
+      </div>
 
       <!-- Back to All Events Banner -->
       <div class="bg-white border border-[#E4E8F5] rounded-3xl p-8 text-center space-y-4 shadow-xs">
@@ -753,14 +746,11 @@
             "Melalui kemitraan trilateral dengan Bursa Efek Indonesia Kantor Perwakilan Jawa Tengah 2 dan PT Sinarmas Sekuritas, program ini membimbing peserta mulai dari pembacaan laporan keuangan, analisis rasio valuasi (PE, PBV, ROE), hingga simulasi eksekusi order saham secara rasional."
         ],
         "gallery": [
-            {
-                "title": "Praktik Transaksi Saham di Lab GI",
-                "img": "assets/team/groups/dsx09458.webp"
-            },
-            {
-                "title": "Paparan Analis Sinarmas Sekuritas",
-                "img": "assets/team/groups/dsx09493.webp"
-            }
+            { "img": "assets/team/groups/dsx09414.webp" },
+            { "img": "assets/team/groups/dsx09458.webp" },
+            { "img": "assets/team/groups/dsx09493.webp" },
+            { "img": "assets/team/groups/dsx09502.webp" },
+            { "img": "assets/team/groups/dsx09550.webp" }
         ]
     },
     "legacy": {
@@ -776,10 +766,11 @@
             "Purwokerto \u2014 KSPM Unsoed sukses menyelenggarakan babak grand final kompetisi trading saham nasional bertajuk LEGACY 2026. Puluhan delegasi dari universitas ternama seluruh Indonesia beradu strategi portofolio dan pemaparan laporan riset di hadapan dewan juri praktisi fund manager."
         ],
         "gallery": [
-            {
-                "title": "Penjurian Presentasi Finalis",
-                "img": "assets/team/groups/dsx09503.webp"
-            }
+            { "img": "assets/team/groups/dsx09502.webp" },
+            { "img": "assets/team/groups/dsx09503.webp" },
+            { "img": "assets/team/groups/dsx09493.webp" },
+            { "img": "assets/team/groups/dsx09414.webp" },
+            { "img": "assets/team/groups/dsx09572.webp" }
         ]
     },
     "kit": {
@@ -795,98 +786,131 @@
             "Purwokerto \u2014 Divisi Human Resource Management (HRM) KSPM Unsoed menggelar program KSPM Internship Training (KIT) 2026. Program ini dirancang untuk membekali calon pengurus dengan pemahaman mendalam tentang pasar modal, etika riset, kearsipan, serta manajemen proyek."
         ],
         "gallery": [
-            {
-                "title": "Sesi Workshop Manajemen Organisasi",
-                "img": "assets/team/groups/dsx09574.webp"
-            }
+            { "img": "assets/team/groups/dsx09635.webp" },
+            { "img": "assets/team/groups/dsx09574.webp" },
+            { "img": "assets/team/groups/dsx09551-1-.webp" },
+            { "img": "assets/team/groups/dsx09627.webp" },
+            { "img": "assets/team/groups/dsx09599.webp" }
         ]
     }
 };
 
-    // Pinterest Cover Flow Gallery State (GLOBAL SCOPE)
+    // Gallery State & Interactive Drag-to-Scroll Controller
     let currentGallery = [];
-    let currentActiveIndex = 0;
+    let isDragInitialized = false;
 
-    function renderCarouselDeck() {
-      const deck = document.getElementById('carousel-deck');
-      const counter = document.getElementById('gallery-counter');
-      const titleEl = document.getElementById('active-photo-title');
-      const subtitleEl = document.getElementById('active-photo-subtitle');
-      const zoomBtn = document.getElementById('btn-zoom-photo');
+    function renderGalleryTrack() {
+      const track = document.getElementById('gallery-drag-track');
+      if (!track) return;
 
-      if (!deck || currentGallery.length === 0) return;
-
-      const N = currentGallery.length;
-      const active = currentGallery[currentActiveIndex];
-
-      // Update counter (e.g. 01 / 06)
-      if (counter) {
-        counter.innerText = `${String(currentActiveIndex + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`;
-      }
-
-      // Update bottom info
-      if (titleEl) titleEl.innerText = active.title || 'Dokumentasi Acara';
-      if (subtitleEl) subtitleEl.innerText = `Dokumentasi Resmi KSPM UNSOED · Momen #${currentActiveIndex + 1}`;
-      if (zoomBtn) zoomBtn.href = active.img;
-
-      // Render cards with precise layered 3D transforms
-      deck.innerHTML = currentGallery.map((item, i) => {
-        let diff = (i - currentActiveIndex) % N;
-        if (diff > N / 2) diff -= N;
-        if (diff < -N / 2) diff += N;
-
-        const isCenter = diff === 0;
-        const absDiff = Math.abs(diff);
-
-        let translateX = diff * 58; // percentage offset
-        let scale = 1.05 - (absDiff * 0.14);
-        let opacity = absDiff === 0 ? 1 : absDiff === 1 ? 0.65 : absDiff === 2 ? 0.28 : 0;
-        let zIndex = 30 - absDiff * 10;
-        let borderClass = isCenter 
-          ? 'border-[3px] border-brand-600 shadow-[0_25px_60px_rgba(185,28,28,0.22)]' 
-          : 'border border-slate-200 shadow-md';
-
-        return `
-          <div 
-            onclick="setGalleryActive(${i})"
-            style="
-              position: absolute;
-              left: 50%;
-              top: 50%;
-              transform: translate(-50%, -50%) translateX(${translateX}%) scale(${scale});
-              z-index: ${zIndex};
-              opacity: ${opacity};
-              transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, border-color 0.3s ease;
-              pointer-events: ${opacity > 0 ? 'auto' : 'none'};
-            "
-            class="w-[240px] sm:w-[320px] md:w-[360px] aspect-[4/3] rounded-[24px] sm:rounded-[28px] overflow-hidden bg-white ${borderClass} cursor-pointer group shrink-0"
-          >
-            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent ${isCenter ? 'opacity-70' : 'opacity-30'}"></div>
-            ${isCenter ? `
-              <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white drop-shadow-md">
-                <span class="text-xs font-bold truncate">${item.title}</span>
-                <span class="text-[10px] font-bold bg-brand-700/90 px-2 py-0.5 rounded-full border border-white/20">Fokus</span>
-              </div>
-            ` : ''}
+      if (!currentGallery || currentGallery.length === 0) {
+        track.innerHTML = `
+          <div class="py-12 w-full text-center text-xs text-slate-400 font-medium">
+            Dokumentasi foto kegiatan akan segera diunggah oleh tim redaksi.
           </div>
         `;
-      }).join('');
+        return;
+      }
+
+      // Ambil daftar URL foto (baik format { img } atau string)
+      const images = currentGallery.map(item => {
+        if (typeof item === 'string') return item;
+        return (item && item.img) ? item.img : '';
+      }).filter(url => url && url.length > 0);
+
+      track.innerHTML = images.map((imgUrl, i) => `
+        <div 
+          class="h-64 sm:h-80 w-auto aspect-[4/3] sm:aspect-[16/10] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-100 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all group relative cursor-pointer"
+          onclick="openGalleryLightbox('${imgUrl}')"
+          title="Klik untuk memperbesar foto"
+        >
+          <img 
+            src="${imgUrl}" 
+            alt="Dokumentasi Kegiatan #${i + 1}" 
+            loading="lazy"
+            class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 pointer-events-none select-none"
+            onerror="this.src='assets/team/groups/dsx09550.webp'"
+          >
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
+        </div>
+      `).join('');
+
+      initGalleryDragTrack();
     }
 
-    function setGalleryActive(idx) {
-      if (currentGallery.length === 0) return;
-      currentActiveIndex = (idx + currentGallery.length) % currentGallery.length;
-      renderCarouselDeck();
+    function initGalleryDragTrack() {
+      const track = document.getElementById('gallery-drag-track');
+      if (!track || isDragInitialized) return;
+      isDragInitialized = true;
+
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+      let hasDragged = false;
+
+      track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        hasDragged = false;
+        track.classList.add('cursor-grabbing');
+        track.classList.remove('cursor-grab');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener('mouseleave', () => {
+        isDown = false;
+        track.classList.remove('cursor-grabbing');
+        track.classList.add('cursor-grab');
+      });
+
+      track.addEventListener('mouseup', () => {
+        isDown = false;
+        track.classList.remove('cursor-grabbing');
+        track.classList.add('cursor-grab');
+      });
+
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.6;
+        if (Math.abs(walk) > 6) {
+          hasDragged = true;
+        }
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      // Mencegah trigger lightbox klik jika pengguna sedang men-drag
+      track.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
     }
 
-    function nextGallerySlide() {
-      setGalleryActive(currentActiveIndex + 1);
+    function openGalleryLightbox(imgUrl) {
+      const modal = document.getElementById('gallery-lightbox');
+      const img = document.getElementById('lightbox-img');
+      if (!modal || !img || !imgUrl) return;
+      img.src = imgUrl;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
     }
 
-    function prevGallerySlide() {
-      setGalleryActive(currentActiveIndex - 1);
+    function closeGalleryLightbox() {
+      const modal = document.getElementById('gallery-lightbox');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
     }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeGalleryLightbox();
+    });
 
     async function renderPressRelease() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -1006,10 +1030,9 @@
         }
       }
 
-      // Initialize Cover Flow Gallery
+      // Initialize Modern Drag-to-Scroll Gallery
       currentGallery = data.gallery || [];
-      currentActiveIndex = 0;
-      renderCarouselDeck();
+      renderGalleryTrack();
     }
 
     // Preloader Dismiss & Initialization

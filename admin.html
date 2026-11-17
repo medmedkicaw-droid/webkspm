@@ -462,7 +462,7 @@
               <th class="py-3.5 px-6">Event &amp; Kategori</th>
               <th class="py-3.5 px-6">Jadwal &amp; Status</th>
               <th class="py-3.5 px-6">Lokasi</th>
-              <th class="py-3.5 px-6">Press Release &amp; Drive</th>
+              <th class="py-3.5 px-6">Galeri &amp; Dokumentasi</th>
               <th class="py-3.5 px-6 text-right">Aksi Terpadu</th>
             </tr>
           </thead>
@@ -1011,7 +1011,7 @@
         "status": "Running",
         "location": "Lab Terpadu Lt. 1 FEB Unsoed",
         "author": "Departemen Project Management",
-        "coverImage": "assets/team/groups/dsx09572.webp",
+        "coverImage": "assets/team/groups/dsx09414.webp",
         "driveLink": "https://drive.google.com/drive/folders/kspm-unsoed-spm-2026",
         "desc": "Pelatihan komprehensif mekanisme bursa saham, analisis fundamental emiten, serta sertifikasi resmi BEI & Sinarmas Sekuritas.",
         "article": "Purwokerto \u2014 Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.\n\nMelalui kemitraan trilateral dengan Bursa Efek Indonesia Kantor Perwakilan Jawa Tengah 2 dan PT Sinarmas Sekuritas, program ini membimbing peserta mulai dari pembacaan laporan keuangan, analisis rasio valuasi (PE, PBV, ROE), hingga simulasi eksekusi order saham secara rasional.",
@@ -1020,14 +1020,11 @@
             "Melalui kemitraan trilateral dengan Bursa Efek Indonesia Kantor Perwakilan Jawa Tengah 2 dan PT Sinarmas Sekuritas, program ini membimbing peserta mulai dari pembacaan laporan keuangan, analisis rasio valuasi (PE, PBV, ROE), hingga simulasi eksekusi order saham secara rasional."
         ],
         "gallery": [
-            {
-                "title": "Praktik Transaksi Saham di Lab GI",
-                "img": "assets/team/groups/dsx09414.webp"
-            },
-            {
-                "title": "Paparan Analis Sinarmas Sekuritas",
-                "img": "assets/team/groups/dsx09458.webp"
-            }
+            { "img": "assets/team/groups/dsx09414.webp" },
+            { "img": "assets/team/groups/dsx09458.webp" },
+            { "img": "assets/team/groups/dsx09493.webp" },
+            { "img": "assets/team/groups/dsx09502.webp" },
+            { "img": "assets/team/groups/dsx09550.webp" }
         ]
     },
     {
@@ -1047,10 +1044,11 @@
             "Purwokerto \u2014 KSPM Unsoed sukses menyelenggarakan babak grand final kompetisi trading saham nasional bertajuk LEGACY 2026. Puluhan delegasi dari universitas ternama seluruh Indonesia beradu strategi portofolio dan pemaparan laporan riset di hadapan dewan juri praktisi fund manager."
         ],
         "gallery": [
-            {
-                "title": "Penjurian Presentasi Finalis",
-                "img": "assets/team/groups/dsx09502.webp"
-            }
+            { "img": "assets/team/groups/dsx09502.webp" },
+            { "img": "assets/team/groups/dsx09503.webp" },
+            { "img": "assets/team/groups/dsx09493.webp" },
+            { "img": "assets/team/groups/dsx09414.webp" },
+            { "img": "assets/team/groups/dsx09572.webp" }
         ]
     },
     {
@@ -1070,10 +1068,11 @@
             "Purwokerto \u2014 Departemen Human Resources Manajemen (HRM) KSPM Unsoed menggelar program KSPM Internship Training (KIT) 2026. Program ini dirancang untuk membekali calon pengurus dengan pemahaman mendalam tentang pasar modal, etika riset, kearsipan, serta manajemen proyek."
         ],
         "gallery": [
-            {
-                "title": "Sesi Workshop Manajemen Organisasi",
-                "img": "assets/team/groups/dsx09635.webp"
-            }
+            { "img": "assets/team/groups/dsx09635.webp" },
+            { "img": "assets/team/groups/dsx09574.webp" },
+            { "img": "assets/team/groups/dsx09551-1-.webp" },
+            { "img": "assets/team/groups/dsx09627.webp" },
+            { "img": "assets/team/groups/dsx09599.webp" }
         ]
     }
 ];
@@ -2127,14 +2126,28 @@
     function renderEvents() {
       const tbody = document.getElementById('events-table-body');
       if (!tbody) return;
-      tbody.innerHTML = events.map(e => `
+      tbody.innerHTML = events.map(e => {
+        const gal = Array.isArray(e.gallery) ? e.gallery : [];
+        const galCount = gal.length;
+        const previewPhotos = gal.slice(0, 3).map(item => (typeof item === 'string' ? item : (item && item.img ? item.img : ''))).filter(Boolean);
+
+        return `
         <tr class="hover:bg-slate-50/80 transition-colors">
           <td class="py-3.5 px-6">
-            <p class="font-bold text-slate-900">${e.name}</p>
-            <div class="flex items-center gap-2 mt-0.5">
-              <span class="text-[10px] text-slate-400 font-medium">Slug: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-600">${e.id}</code></span>
-              <span class="text-slate-300">·</span>
-              <span class="text-[10px] text-brand-700 font-semibold">${e.category}</span>
+            <div class="flex items-center gap-3">
+              ${e.coverImage ? `
+                <div class="w-10 h-10 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
+                  <img src="${e.coverImage}" class="w-full h-full object-cover" onerror="this.src='assets/team/groups/dsx09550.webp'">
+                </div>
+              ` : ''}
+              <div>
+                <p class="font-bold text-slate-900 leading-tight">${e.name}</p>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="text-[10px] text-slate-400 font-medium">Slug: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-600">${e.id}</code></span>
+                  <span class="text-slate-300">·</span>
+                  <span class="text-[10px] text-brand-700 font-semibold">${e.category}</span>
+                </div>
+              </div>
             </div>
           </td>
           <td class="py-3.5 px-6">
@@ -2149,11 +2162,24 @@
             </span>
           </td>
           <td class="py-3.5 px-6">
-            <span class="text-[11px] font-bold text-slate-800 block mb-0.5">Rilis Tersedia</span>
-            <a href="${e.driveLink || '#'}" target="_blank" class="text-[11px] font-semibold text-slate-500 hover:text-brand-700 hover:underline flex items-center gap-1">
-              <span>Google Drive</span>
-              <span>↗</span>
-            </a>
+            <div class="space-y-1">
+              <div class="flex items-center gap-1.5">
+                ${previewPhotos.length > 0 ? `
+                  <div class="flex -space-x-1.5 overflow-hidden shrink-0">
+                    ${previewPhotos.map(url => `
+                      <img src="${url}" class="inline-block w-6 h-6 rounded-lg ring-2 ring-white object-cover bg-slate-100" onerror="this.src='assets/team/groups/dsx09550.webp'">
+                    `).join('')}
+                  </div>
+                ` : ''}
+                <span class="text-[11px] font-bold ${galCount > 0 ? 'text-slate-800' : 'text-slate-400'}">
+                  ${galCount > 0 ? `📸 ${galCount} Foto` : '⚠️ Belum Ada Foto'}
+                </span>
+              </div>
+              <a href="${e.driveLink || '#'}" target="_blank" class="text-[10px] font-semibold text-slate-500 hover:text-brand-700 hover:underline flex items-center gap-1">
+                <span>Google Drive</span>
+                <span>↗</span>
+              </a>
+            </div>
           </td>
           <td class="py-3.5 px-6 text-right whitespace-nowrap">
             <a href="press-release.html?id=${e.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold mr-1.5 transition-colors">Buka Press Release ↗</a>
@@ -2161,7 +2187,8 @@
             <button onclick="deleteItem('event', '${e.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
           </td>
         </tr>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderResearch() {
@@ -2438,8 +2465,8 @@
       const rawFiles = Array.from(event.target.files);
       if (rawFiles.length === 0) return;
 
-      const previewContainer = document.getElementById('gallery-preview-container');
-      const hiddenInput = document.getElementById('f-gallery-json');
+      const badge = document.getElementById('gallery-count-badge');
+      if (badge) badge.innerText = 'Mengompres foto...';
 
       for (const rawFile of rawFiles) {
         const { file, dataUrl } = await compressImageFile(rawFile);
@@ -2455,11 +2482,20 @@
         }
 
         currentUploadedGallery.push({
-          title: file.name.replace(/\.[^/.]+$/, ""),
           img: photoUrl
         });
       }
 
+      renderGalleryPreviews();
+    }
+
+    function addManualGalleryPhoto() {
+      const input = document.getElementById('f-gallery-url-input');
+      if (!input) return;
+      const url = input.value.trim();
+      if (!url) return;
+      currentUploadedGallery.push({ img: url });
+      input.value = '';
       renderGalleryPreviews();
     }
 
@@ -2471,13 +2507,32 @@
     function renderGalleryPreviews() {
       const previewContainer = document.getElementById('gallery-preview-container');
       const hiddenInput = document.getElementById('f-gallery-json');
+      const countBadge = document.getElementById('gallery-count-badge');
       if (!previewContainer) return;
 
-      hiddenInput.value = JSON.stringify(currentUploadedGallery);
+      // Bersihkan dan normalisasi
+      currentUploadedGallery = currentUploadedGallery.map(item => {
+        if (typeof item === 'string') return { img: item };
+        return item;
+      }).filter(item => item && item.img);
+
+      if (hiddenInput) hiddenInput.value = JSON.stringify(currentUploadedGallery);
+
+      if (countBadge) {
+        countBadge.innerText = currentUploadedGallery.length > 0 
+          ? `✓ ${currentUploadedGallery.length} Foto Dokumentasi Terdaftar (Arahkan kursor & klik Hapus jika ingin membuang)`
+          : 'Belum ada foto dokumentasi.';
+      }
+
       previewContainer.innerHTML = currentUploadedGallery.map((item, idx) => `
-        <div class="relative w-16 h-16 rounded-lg overflow-hidden border border-slate-200 shadow-2xs group">
-          <img src="${item.img}" class="w-full h-full object-cover">
-          <button type="button" onclick="removeGalleryPhoto(${idx})" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">✕</button>
+        <div class="relative aspect-video rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group">
+          <img src="${item.img}" class="w-full h-full object-cover" onerror="this.src='assets/team/groups/dsx09550.webp'">
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <button type="button" onclick="removeGalleryPhoto(${idx})" class="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold shadow-xs transition-colors flex items-center gap-1">
+              <span>✕ Hapus</span>
+            </button>
+          </div>
+          <span class="absolute bottom-1 left-1.5 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">#${idx + 1}</span>
         </div>
       `).join('');
     }
@@ -2707,18 +2762,32 @@
               </div>
             </div>
 
-            <!-- Multiple Gallery Photos Upload -->
-            <div class="mb-3 p-3 bg-slate-50 border border-slate-200/80 rounded-xl">
-              <div class="flex items-center justify-between mb-1.5">
-                <label class="block font-bold text-slate-900 text-xs">Galeri Dokumentasi Foto Tambahan</label>
-                <label class="px-2.5 py-1 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg cursor-pointer text-[11px] font-bold text-brand-700 flex items-center gap-1 shadow-2xs">
-                  <span>+ Tambah Foto Galeri</span>
+            <!-- Multiple Gallery Photos Upload & URL Input -->
+            <div class="mb-3 p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label class="block font-bold text-slate-900 text-xs">Galeri Foto Dokumentasi Kegiatan</label>
+                  <p class="text-[10px] text-slate-500">Foto dokumentasi yang akan tampil di reel geser press release</p>
+                </div>
+                <label class="px-3 py-1.5 bg-slate-900 hover:bg-black text-white rounded-xl cursor-pointer text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                  <span>Upload Foto</span>
                   <input type="file" accept="image/*" multiple class="hidden" onchange="handleGalleryUpload(event)">
                 </label>
               </div>
-              <p class="text-[10px] text-slate-400 mb-2">Pilih 1 atau beberapa foto dokumentasi kegiatan untuk tayang di slider liputan.</p>
-              <div id="gallery-preview-container" class="flex flex-wrap gap-2 empty:hidden"></div>
+
+              <!-- Input URL Manual Cepat -->
+              <div class="flex gap-1.5">
+                <input id="f-gallery-url-input" type="text" placeholder="Atau tempel URL / path foto (assets/team/groups/...)" class="flex-1 px-3 py-1.5 border border-slate-200 rounded-xl bg-white text-xs font-mono text-slate-700 focus:outline-none focus:border-brand-700">
+                <button type="button" onclick="addManualGalleryPhoto()" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs transition-colors shrink-0">
+                  + Tambah URL
+                </button>
+              </div>
+
+              <!-- Container Preview Kartu Foto -->
+              <div id="gallery-preview-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1 empty:hidden"></div>
               <input type="hidden" id="f-gallery-json" value="[]">
+              <span id="gallery-count-badge" class="text-[10px] font-bold text-slate-500 block"></span>
             </div>
             <div class="mb-3">
               <label class="block font-bold text-slate-900 mb-1">Tautan Arsip Google Drive</label>
@@ -3041,10 +3110,9 @@
           article: articleHtml,
           articleParagraphs: paragraphs,
           updated_at: new Date().toISOString(),
-          gallery: (currentUploadedGallery && currentUploadedGallery.length > 0) ? currentUploadedGallery : [
-            { title: 'Sesi Dokumentasi Acara', img: coverImg },
-            { title: 'Antusiasme Peserta Acara', img: 'assets/team/groups/dsx09574.webp' }
-          ]
+          gallery: (currentUploadedGallery && currentUploadedGallery.length > 0) 
+            ? currentUploadedGallery.map(g => ({ img: (typeof g === 'string' ? g : g.img) })) 
+            : (coverImg ? [{ img: coverImg }] : [])
         };
 
         if (editingId) {

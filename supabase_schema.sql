@@ -158,7 +158,7 @@ VALUES
   'Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.',
   'Purwokerto — Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.',
   '["Purwokerto — Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman sukses menyelenggarakan rangkaian akbar tahunan Soedirman Investment Week (SIW) 2026 berkolaborasi dengan Sekolah Pasar Modal II di Auditorium Graha Widyatama.", "Mengusung tema ''Outthink the Algorithm, Outinvest the Rhythm, Outperform the System'', kegiatan ini menghadirkan narasumber dari BEI dan OJK Purwokerto.", "Seluruh dokumentasi kegiatan dan materi paparan telah diarsipkan secara resmi."]'::jsonb,
-  '[{"title": "Sesi Keynote Speaker BEI & OJK", "img": "assets/team/groups/dsx09550.webp"}, {"title": "Antusiasme 1.200 Peserta Mahasiswa", "img": "assets/team/groups/dsx09572.webp"}]'::jsonb
+  '[{"img": "assets/team/groups/dsx09550.webp"}, {"img": "assets/team/groups/dsx09572.webp"}, {"img": "assets/team/groups/dsx09414.webp"}, {"img": "assets/team/groups/dsx09458.webp"}, {"img": "assets/team/groups/dsx09493.webp"}, {"img": "assets/team/groups/dsx09502.webp"}]'::jsonb
 ),
 (
   'spm',
@@ -174,7 +174,7 @@ VALUES
   'Pelatihan berjenjang resmi bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.',
   'Purwokerto — Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.',
   '["Purwokerto — Galeri Investasi BEI FEB Unsoed dan KSPM Unsoed secara konsisten menyelenggarakan Sekolah Pasar Modal (SPM) Level 1 dan Level 2 di Laboratorium Terpadu Lantai 1 FEB Unsoed.", "Bekerja sama erat dengan PT Sinarmas Sekuritas untuk pembukaan rekening dana nasabah (RDN) dan sertifikasi edukasi BEI."]'::jsonb,
-  '[{"title": "Praktik Transaksi Saham Perdana", "img": "assets/team/groups/dsx09458.webp"}]'::jsonb
+  '[{"img": "assets/team/groups/dsx09414.webp"}, {"img": "assets/team/groups/dsx09458.webp"}, {"img": "assets/team/groups/dsx09493.webp"}, {"img": "assets/team/groups/dsx09502.webp"}, {"img": "assets/team/groups/dsx09550.webp"}]'::jsonb
 ),
 (
   'legacy',
@@ -190,11 +190,22 @@ VALUES
   'Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.',
   'Purwokerto — Sebagai wujud komitmen dalam mencetak analis dan trader muda yang rasional, KSPM Unsoed kembali sukses menggelar kompetisi nasional tahunan LEGACY.',
   '["Purwokerto — Sebagai wujud komitmen dalam mencetak analis dan trader muda yang rasional, KSPM Unsoed kembali sukses menggelar kompetisi nasional tahunan LEGACY."]'::jsonb,
-  '[{"title": "Penjurian Babak Presentasi Finalis", "img": "assets/team/groups/dsx09502.webp"}]'::jsonb
+  '[{"img": "assets/team/groups/dsx09502.webp"}, {"img": "assets/team/groups/dsx09503.webp"}, {"img": "assets/team/groups/dsx09493.webp"}, {"img": "assets/team/groups/dsx09414.webp"}, {"img": "assets/team/groups/dsx09572.webp"}]'::jsonb
 )
 ON CONFLICT (id) DO UPDATE SET 
   name = EXCLUDED.name,
+  category = EXCLUDED.category,
   schedule = EXCLUDED.schedule,
+  date_badge = EXCLUDED.date_badge,
+  status = EXCLUDED.status,
+  location = EXCLUDED.location,
+  author = EXCLUDED.author,
+  cover_image = EXCLUDED.cover_image,
+  drive_link = EXCLUDED.drive_link,
+  description = EXCLUDED.description,
+  article = EXCLUDED.article,
+  article_paragraphs = EXCLUDED.article_paragraphs,
+  gallery = EXCLUDED.gallery,
   updated_at = now();
 
 -- SEED DATA RISET INVESTORY (AMMN, BRPT, BBCA)
