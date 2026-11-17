@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Favicon & Identity -->
+  <link rel="icon" type="image/png" href="assets/logo-gi-unsoed.png">
+  <link rel="apple-touch-icon" href="assets/logo-gi-unsoed.png">
+
+  <!-- Primary Meta Tags -->
+  <title>404: Halaman Tidak Ditemukan — KSPM UNSOED</title>
+  <meta name="title" content="404: Halaman Tidak Ditemukan — KSPM UNSOED">
+  <meta name="description" content="Halaman yang Anda tuju tidak ditemukan atau telah dipindahkan. Kembali ke beranda resmi KSPM Universitas Jenderal Soedirman.">
+  <meta name="robots" content="noindex, follow">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#FEF2F2',
+              100: '#FEE2E2',
+              200: '#FECACA',
+              300: '#FCA5A5',
+              400: '#F87171',
+              500: '#EF4444',
+              600: '#DC2626',
+              700: '#B91C1C',
+              800: '#991B1B',
+              900: '#7F1D1D',
+              950: '#450A0A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0A0204;
+      font-family: 'Inter', sans-serif;
+      color: #F8FAFC;
+    }
+    h1, h2, h3, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    .hero-h1-red {
+      background: linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Navigation Bar Minimalist -->
+  <nav class="w-full border-b border-white/10 bg-[#0F0306]/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <img src="assets/logo-gi-unsoed.png" alt="Logo KSPM Unsoed" class="w-9 h-9 object-contain rounded-xl p-0.5 bg-white/10 border border-white/10 group-hover:scale-105 transition-transform">
+        <div class="flex flex-col text-left">
+          <span class="text-white text-sm font-black tracking-tight leading-none">
+            KSPM <span class="text-brand-500">UNSOED</span>
+          </span>
+          <span class="text-white/40 text-[9px] uppercase font-semibold mt-0.5">
+            Universitas Jenderal Soedirman
+          </span>
+        </div>
+      </a>
+      <a href="index.html" class="px-3.5 py-1.5 rounded-xl border border-white/15 text-white/80 hover:text-white hover:bg-white/10 text-xs font-semibold transition-all">
+        ← Beranda
+      </a>
+    </div>
+  </nav>
+
+  <!-- 404 Hero Content -->
+  <main class="flex-1 flex items-center justify-center px-6 py-16 relative overflow-hidden">
+    <!-- Ambient Background Glows -->
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-brand-600/20 blur-[130px] pointer-events-none -top-24 left-1/2 -translate-x-1/2"></div>
+    <div class="absolute w-[300px] h-[300px] rounded-full bg-brand-900/30 blur-[100px] pointer-events-none bottom-0 right-10"></div>
+
+    <div class="max-w-xl w-full text-center relative z-10 space-y-6">
+      <!-- 404 Large Code -->
+      <div class="inline-flex items-center justify-center">
+        <span class="text-7xl sm:text-8xl md:text-9xl font-black hero-h1-red tracking-tighter drop-shadow-sm select-none">
+          404
+        </span>
+      </div>
+
+      <!-- Badge Notification -->
+      <div>
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-950/80 text-brand-300 border border-brand-800/60 shadow-xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+          Tautan Tidak Ditemukan
+        </span>
+      </div>
+
+      <!-- Heading & Explanation -->
+      <div class="space-y-2">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
+          Waduh, Halamannya Tidak Ditemukan!
+        </h1>
+        <p class="text-sm text-slate-300/80 leading-relaxed max-w-md mx-auto">
+          Alamat URL yang Anda tuju mungkin salah ketik, telah diperbarui, atau laporannya sudah diarsipkan ke kategori lain.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <a href="index.html" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-xs transition-all shadow-lg hover:shadow-brand-600/30 text-center">
+          Kembali ke Beranda Utama
+        </a>
+        <a href="event.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold text-xs transition-all text-center">
+          Jelajahi Agenda &amp; Program
+        </a>
+        <a href="research.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold text-xs transition-all text-center">
+          Pusat Riset Saham
+        </a>
+      </div>
+
+      <!-- Quick Directory Links -->
+      <div class="pt-6 border-t border-white/10 text-xs text-white/50 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+        <a href="about.html" class="hover:text-white transition-colors">Tentang Kami</a>
+        <span>•</span>
+        <a href="event.html" class="hover:text-white transition-colors">SIW 2026</a>
+        <span>•</span>
+        <a href="research.html" class="hover:text-white transition-colors">Investory</a>
+        <span>•</span>
+        <a href="index.html#contact-section" class="hover:text-white transition-colors">Kemitraan &amp; Kontak</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Minimalist -->
+  <footer class="border-t border-white/10 py-5 text-center text-xs text-white/40">
+    <p>© 2026 Kelompok Studi Pasar Modal (KSPM) FEB Universitas Jenderal Soedirman.</p>
+  </footer>
+
+</body>
+</html>

@@ -620,19 +620,35 @@
       }
     };
 
-    function renderResearchDetail() {
+    async function renderResearchDetail() {
       const urlParams = new URLSearchParams(window.location.search);
       let tickerId = (urlParams.get('id') || 'bbca').toLowerCase();
 
-      // Check localStorage for custom admin data
       let customData = null;
-      try {
-        const saved = localStorage.getItem('kspm_research_reports');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed && parsed[tickerId]) customData = parsed[tickerId];
+
+      // 1. Check Supabase Cloud first
+      if (window.kspmDB) {
+        try {
+          const cloudList = await window.kspmDB.getResearch();
+          if (Array.isArray(cloudList) && cloudList.length > 0) {
+            const found = cloudList.find(r => (r.ticker || r.id || '').toLowerCase() === tickerId);
+            if (found) customData = found;
+          }
+        } catch(e) {
+          console.warn('Cloud research fetch error:', e);
         }
-      } catch(e) {}
+      }
+
+      // 2. Check localStorage for custom admin data
+      if (!customData) {
+        try {
+          const saved = localStorage.getItem('kspm_research_reports');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed[tickerId]) customData = parsed[tickerId];
+          }
+        } catch(e) {}
+      }
 
       let data = customData || defaultResearchReports[tickerId] || defaultResearchReports['bbca'];
 
@@ -694,8 +710,8 @@
       }).join('');
     }
 
-    function initPage() {
-      renderResearchDetail();
+    async function initPage() {
+      await renderResearchDetail();
       const preloader = document.getElementById('preloader');
       if (preloader) {
         preloader.style.opacity = '0';
