@@ -683,22 +683,19 @@
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09550.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09550.webp"
                     alt="Soedirman Investment Week 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md translate-x-12 rotate-7 group-hover:translate-x-14 group-hover:rotate-10 transition-transform duration-500 z-10">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09572.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09572.webp"
                     alt="Soedirman Investment Week 2" class="w-full h-full object-cover">
                 </div>
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09626-1-.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09626-1-.webp"
                     alt="Soedirman Investment Week" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -763,8 +760,7 @@
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09414.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09414.webp"
                     alt="Sekolah Pasar Modal (SPM) 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
@@ -776,8 +772,7 @@
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09493.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09493.webp"
                     alt="Sekolah Pasar Modal (SPM)" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -842,8 +837,7 @@
                 <!-- Left tilted photo -->
                 <div
                   class="absolute w-[46%] aspect-[4/3] rounded-xl overflow-hidden border-[2.5px] border-white shadow-md -translate-x-12 -rotate-8 group-hover:-translate-x-14 group-hover:-rotate-12 transition-transform duration-500 z-10">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09502.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09502.webp"
                     alt="LEGACY National Trading 1" class="w-full h-full object-cover">
                 </div>
                 <!-- Right tilted photo -->
@@ -855,8 +849,7 @@
                 <!-- Center Hero Photo (Primary Focus) -->
                 <div
                   class="relative w-[56%] aspect-[4/3] rounded-xl overflow-hidden border-[3px] border-white shadow-xl scale-100 group-hover:scale-105 transition-transform duration-500 z-20">
-                  <img loading="lazy" decoding="async"
-                    src="assets/team/groups/dsx09635.webp"
+                  <img loading="lazy" decoding="async" src="assets/team/groups/dsx09635.webp"
                     alt="LEGACY National Trading" class="w-full h-full object-cover">
                   <div
                     class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -1398,7 +1391,7 @@
         } else if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
           renderPrograms(JSON.parse(savedPrograms));
         }
-      } catch (e) {}
+      } catch (e) { }
 
       // 2. Background Cloud Sync with 1.5s timeout (never freezes page, preserves newest edit)
       if (window.kspmDB && window.kspmDB.isCloudConnected()) {
@@ -1415,7 +1408,7 @@
               renderPrograms(cloudEvents);
             }
           }
-        } catch (e) {}
+        } catch (e) { }
       }
 
       // 2. Running Logo Marquee Synchronization (from Supabase cloud or localStorage)

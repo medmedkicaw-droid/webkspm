@@ -198,15 +198,15 @@
   <aside id="admin-sidebar" class="w-72 bg-white border-r border-[#E4E8F5] flex flex-col justify-between shrink-0 fixed inset-y-0 left-0 z-40 -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
     <div class="p-6 overflow-y-auto">
       <!-- Organization Brand Header -->
-      <div class="flex items-center justify-between pb-6 border-b border-[#E4E8F5]">
-        <a href="index.html" class="flex items-center gap-3.5 group">
-          <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-10 h-10 object-contain rounded-2xl p-1 bg-white border border-[#E4E8F5] shadow-xs group-hover:scale-105 transition-transform">
+      <div class="flex items-center justify-between pb-5 border-b border-[#E4E8F5]">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <img src="assets/logo-gi-unsoed.png" alt="Logo GI Unsoed" class="w-9 h-9 object-contain rounded-xl p-1 bg-white border border-[#E4E8F5] shadow-xs group-hover:scale-105 transition-transform">
           <div>
-            <span class="text-sm font-black text-slate-900 tracking-tight flex items-center gap-1.5">
-              KSPM <span class="text-brand-700">UNSOED</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-brand-50 text-brand-700 border border-brand-200">CMS</span>
-            </span>
-            <span class="text-[11px] text-[#6B7AA0] block font-medium">Control Management Center</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm font-black text-slate-900 tracking-tight">KSPM <span class="text-brand-700">UNSOED</span></span>
+              <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-brand-50 text-brand-700 border border-brand-200">Admin</span>
+            </div>
+            <span class="text-[11px] text-slate-500 block font-medium">Panel Pengelola Web</span>
           </div>
         </a>
         <button type="button" onclick="toggleAdminSidebar()" class="lg:hidden w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-xs shrink-0 ml-2" aria-label="Tutup Menu">
@@ -216,43 +216,41 @@
 
       <!-- Navigation Modules List -->
       <nav class="mt-6 space-y-1.5">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 px-3 mb-2">Konten Web Kustom</p>
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 px-3 mb-2">Menu Konten</p>
         
         <button onclick="switchTab('overview')" id="tab-btn-overview" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-brand-700 bg-brand-50/80 border border-brand-200/60 shadow-xs">
           <svg class="w-4 h-4 text-brand-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-          <span>Ringkasan Konten</span>
+          <span>Ringkasan</span>
         </button>
 
         <button onclick="switchTab('programs')" id="tab-btn-programs" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-          <span>Our Activities &amp; Events</span>
+          <span>Event Beranda</span>
         </button>
 
         <button onclick="switchTab('events')" id="tab-btn-events" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span>Event &amp; Press Release (Sepaket)</span>
+          <span>Event &amp; Press Release</span>
         </button>
 
         <button onclick="switchTab('research')" id="tab-btn-research" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          <span>Publikasi Riset Saham</span>
+          <span>Publikasi Riset</span>
         </button>
 
         <button onclick="switchTab('partners')" id="tab-btn-partners" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-          <span>Logo Running Mitra &amp; Medpart</span>
+          <span>Mitra &amp; Medpart</span>
         </button>
 
         <button onclick="switchTab('staff')" id="tab-btn-staff" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          <span>Pengurus &amp; Foto Staf</span>
+          <span>Pengurus &amp; Staf</span>
         </button>
-
-
 
         <button onclick="switchTab('inquiries')" id="tab-btn-inquiries" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
           <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          <span>Pesan Masuk Kemitraan</span>
+          <span>Pesan Kemitraan</span>
         </button>
 
         <div class="pt-4 border-t border-[#E4E8F5] my-3">
@@ -266,23 +264,27 @@
     </div>
 
     <!-- Bottom Admin Status Profile -->
-    <div class="p-6 border-t border-[#E4E8F5] bg-slate-50/50">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-brand-700 text-white font-bold text-xs flex items-center justify-center shadow-xs">
-          AD
+    <div class="p-4 border-t border-[#E4E8F5] bg-slate-50/70">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-brand-700 text-white font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
+            AD
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-bold text-slate-900 truncate">Admin KSPM</p>
+            <p class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online
+            </p>
+          </div>
         </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-xs font-bold text-slate-900 truncate">Administrator KSPM</p>
-          <p class="text-[10px] text-slate-600 font-medium flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Online (Local Storage)
-          </p>
+        <div class="flex items-center gap-1 shrink-0">
+          <a href="index.html" title="Lihat Website" target="_blank" class="p-1.5 text-slate-400 hover:text-slate-800 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-slate-200">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <button onclick="logoutAdmin()" title="Keluar / Logout" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-slate-200">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          </button>
         </div>
-        <a href="index.html" title="Lihat Website" target="_blank" class="p-1.5 text-slate-400 hover:text-brand-700 hover:bg-white rounded-lg transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </a>
-        <button onclick="logoutAdmin()" title="Keluar / Logout" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-white rounded-lg transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-        </button>
       </div>
     </div>
   </aside>
@@ -291,23 +293,22 @@
   <main class="flex-1 ml-0 lg:ml-72 p-4 sm:p-6 lg:p-10 min-h-screen">
     
     <!-- TOP HEADER BAR -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 mb-8 border-b border-[#E4E8F5]">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-[#E4E8F5]">
       <div>
-        <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 block mb-1">KSPM UNSOED CMS PANEL</span>
         <h1 id="page-title" class="text-2xl sm:text-3xl font-extrabold text-[#0A0F2D] tracking-tight">
-          Ringkasan Konten &amp; Metrik
+          Ringkasan Konten
         </h1>
         <p id="page-subtitle" class="text-xs text-[#6B7AA0] mt-1">
-          Kelola seluruh modul card yang tampil pada halaman web publik secara fleksibel.
+          Kelola konten dan publikasi website KSPM UNSOED.
         </p>
       </div>
 
       <div class="flex items-center gap-3">
         <a href="index.html" target="_blank" class="px-4 py-2 rounded-xl bg-white border border-[#E4E8F5] text-xs font-bold text-slate-700 hover:text-brand-700 hover:border-brand-500/30 transition-all flex items-center gap-2 shadow-xs btn-tactile">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          <span>Lihat Live Web</span>
+          <span>Lihat Web</span>
         </a>
-        <button onclick="openModal()" id="btn-add-content" class="px-5 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow-xs hover:shadow-[0_4px_12px_rgba(185,28,28,0.25)] transition-all flex items-center gap-2 btn-tactile">
+        <button onclick="openModal()" id="btn-add-content" class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow-xs hover:shadow-[0_4px_12px_rgba(185,28,28,0.25)] transition-all flex items-center gap-2 btn-tactile">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
           <span id="btn-add-label">Tambah Konten</span>
         </button>
@@ -426,14 +427,11 @@
 
     <!-- ==================== TAB 2: PROGRAM CARDS (BERANDA) ==================== -->
     <div id="tab-programs" class="hidden space-y-6">
-      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl">
+      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-3.5 rounded-2xl shadow-xs">
         <div class="flex items-center gap-3">
-          <input type="text" placeholder="Cari kartu program..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
-          <span class="text-xs text-slate-400 font-medium">3 Program Terdaftar</span>
+          <input type="text" placeholder="Cari program..." class="px-3.5 py-1.5 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+          <span class="text-xs text-slate-500 font-medium">3 Program Ditampilkan di Beranda</span>
         </div>
-        <button onclick="openModal('program')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
-          + Tambah Program
-        </button>
       </div>
 
       <!-- Programs Grid -->
@@ -1115,7 +1113,31 @@
     function getData(key, fallback) {
       const saved = localStorage.getItem('kspm_' + key);
       if (saved) {
-        try { return JSON.parse(saved); } catch(e) {}
+        try {
+          const parsed = JSON.parse(saved);
+          if (key === 'programs' && Array.isArray(parsed)) {
+            let updated = false;
+            parsed.forEach((p, idx) => {
+              const fb = fallback.find(f => f.id === p.id) || fallback[idx] || fallback[0] || {};
+              if (!p.image || typeof p.image !== 'string' || p.image.trim() === '') {
+                p.image = fb.image || 'assets/team/groups/dsx09414.webp';
+                updated = true;
+              }
+              if (!p.imageLeft || typeof p.imageLeft !== 'string' || p.imageLeft.trim() === '') {
+                p.imageLeft = fb.imageLeft || 'assets/team/groups/dsx09458.webp';
+                updated = true;
+              }
+              if (!p.imageRight || typeof p.imageRight !== 'string' || p.imageRight.trim() === '') {
+                p.imageRight = fb.imageRight || 'assets/team/groups/dsx09493.webp';
+                updated = true;
+              }
+            });
+            if (updated) {
+              localStorage.setItem('kspm_programs', JSON.stringify(parsed));
+            }
+          }
+          return parsed;
+        } catch(e) {}
       }
       localStorage.setItem('kspm_' + key, JSON.stringify(fallback));
       return fallback;
@@ -1344,42 +1366,42 @@
       const addLabel = document.getElementById('btn-add-label');
 
       if (tabId === 'overview') {
-        title.innerText = 'Ringkasan Konten & Metrik';
-        subtitle.innerText = 'Kelola seluruh modul card yang tampil pada halaman web publik secara fleksibel.';
+        title.innerText = 'Ringkasan Konten';
+        subtitle.innerText = 'Kelola konten dan publikasi website KSPM UNSOED.';
         addBtn.classList.remove('hidden');
         addLabel.innerText = 'Tambah Konten';
       } else if (tabId === 'programs') {
-        title.innerText = 'Kelola Big Events Beranda';
-        subtitle.innerText = 'Atur kartu acara unggulan yang tampil di seksi Big Events halaman utama.';
+        title.innerText = 'Event Beranda';
+        subtitle.innerText = 'Daftar kartu program utama yang tampil di bagian Big Events beranda.';
         addBtn.classList.remove('hidden');
-        addLabel.innerText = 'Tambah Aktivitas / Event';
+        addLabel.innerText = 'Tambah Program';
       } else if (tabId === 'events') {
-        title.innerText = 'Kelola Event & Press Release (Sepaket)';
-        subtitle.innerText = 'Satu pintu kelola agenda kegiatan: kartu acara, jadwal, status, foto dokumentasi, dan rilis berita liputan.';
+        title.innerText = 'Event & Press Release';
+        subtitle.innerText = 'Kelola agenda kegiatan, tanggal, dokumentasi foto, dan artikel rilis berita.';
         addBtn.classList.remove('hidden');
-        addLabel.innerText = 'Tambah Event & Press Release';
+        addLabel.innerText = 'Tambah Event';
       } else if (tabId === 'research') {
-        title.innerText = 'Kelola Publikasi Riset Saham';
-        subtitle.innerText = 'Katalog analisis emiten, rating rekomendasi, download PDF, dan tim analis di research.html.';
+        title.innerText = 'Publikasi Riset';
+        subtitle.innerText = 'Kelola analisis saham emiten, rekomendasi, dan berkas laporan PDF.';
         addBtn.classList.remove('hidden');
-        addLabel.innerText = 'Terbitkan Riset Baru';
+        addLabel.innerText = 'Terbitkan Riset';
       } else if (tabId === 'partners') {
-        title.innerText = 'Kelola Logo Running Mitra';
-        subtitle.innerText = 'Atur logo-logo jejaring pasar modal yang berputar di continuous white track.';
+        title.innerText = 'Mitra & Media Partner';
+        subtitle.innerText = 'Kelola logo partner yang tampil pada running track beranda.';
         addBtn.classList.remove('hidden');
-        addLabel.innerText = 'Tambah Logo Mitra';
+        addLabel.innerText = 'Tambah Mitra';
       } else if (tabId === 'staff') {
-        title.innerText = 'Kelola Pengurus & Foto Staf Organisasi';
-        subtitle.innerText = 'Koreksi foto, nama, dan susunan fungsionaris BPH serta 5 departemen (about.html).';
+        title.innerText = 'Pengurus & Staf';
+        subtitle.innerText = 'Kelola profil direktur, leader divisi, dan fungsionaris staf.';
         addBtn.classList.remove('hidden');
-        addLabel.innerText = 'Tambah Anggota Staf';
+        addLabel.innerText = 'Tambah Staf';
       } else if (tabId === 'inquiries') {
-        title.innerText = 'Kotak Masuk Kemitraan & Sponsorship';
-        subtitle.innerText = 'Daftar pesan delegasi dan pengajuan proposal yang dikirim melalui formulir beranda.';
+        title.innerText = 'Pesan Kemitraan';
+        subtitle.innerText = 'Daftar pesan delegasi dan penawaran kerja sama dari formulir beranda.';
         addBtn.classList.add('hidden');
       } else if (tabId === 'database') {
-        title.innerText = 'Integrasi Supabase & Data Cadangan';
-        subtitle.innerText = 'Konfigurasi database cloud gratis Supabase atau pulihkan data bawaan.';
+        title.innerText = 'Koneksi Supabase';
+        subtitle.innerText = 'Konfigurasi database cloud Supabase atau pulihkan data bawaan.';
         addBtn.classList.add('hidden');
       }
 
@@ -2110,35 +2132,68 @@
     function renderPrograms() {
       const container = document.getElementById('programs-list');
       if (!container) return;
-      container.innerHTML = programs.map(p => `
-        <div class="bg-white rounded-3xl border border-[#E4E8F5] overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+      const defaultPhotos = [
+        { center: 'assets/team/groups/dsx09626-1-.webp', left: 'assets/team/groups/dsx09550.webp', right: 'assets/team/groups/dsx09572.webp' },
+        { center: 'assets/team/groups/dsx09414.webp', left: 'assets/team/groups/dsx09458.webp', right: 'assets/team/groups/dsx09493.webp' },
+        { center: 'assets/team/groups/dsx09493.webp', left: 'assets/team/groups/dsx09502.webp', right: 'assets/team/groups/dsx09503.webp' }
+      ];
+
+      container.innerHTML = programs.map((p, idx) => {
+        const df = defaultPhotos[idx % defaultPhotos.length];
+        const imgCenter = (p.image && typeof p.image === 'string' && p.image.trim()) ? p.image : df.center;
+        const imgLeft = (p.imageLeft && typeof p.imageLeft === 'string' && p.imageLeft.trim()) ? p.imageLeft : df.left;
+        const imgRight = (p.imageRight && typeof p.imageRight === 'string' && p.imageRight.trim()) ? p.imageRight : df.right;
+
+        return `
+        <div class="bg-white rounded-3xl border border-[#E4E8F5] overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
           <div class="p-6">
             <div class="flex items-center justify-between mb-4">
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-[#1C1C1C] text-white">${p.tag}</span>
-              <div class="flex items-center text-xs font-bold border border-slate-200 rounded-full overflow-hidden">
-                <span class="bg-[#1C1C1C] text-white px-2.5 py-0.5">${p.month}</span>
-                <span class="bg-white text-slate-900 px-2.5 py-0.5">${p.day}</span>
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-[#1C1C1C] text-white tracking-wide">${p.tag || 'Program'}</span>
+              <div class="flex items-center text-xs font-bold border border-slate-200 rounded-full overflow-hidden shadow-2xs">
+                <span class="bg-[#1C1C1C] text-white px-2.5 py-0.5">${p.month || '2026'}</span>
+                <span class="bg-white text-slate-900 px-2.5 py-0.5">${p.day || '26'}</span>
               </div>
             </div>
-            <h4 class="text-base font-extrabold text-[#0A0F2D] leading-tight mb-2">${p.title}</h4>
-            <p class="text-xs text-[#6B7AA0] line-clamp-3 leading-relaxed mb-4">${p.desc}</p>
-            <div class="aspect-[16/9] rounded-2xl overflow-hidden relative border border-slate-100">
-              <img src="${p.image}" class="w-full h-full object-cover">
-              <span class="absolute bottom-2.5 left-2.5 px-3 py-1 rounded-lg bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold flex items-center gap-1">
-                ${p.location}
-              </span>
+
+            <h4 class="text-base font-extrabold text-[#0A0F2D] leading-tight mb-2 group-hover:text-brand-700 transition-colors">${p.title}</h4>
+            <p class="text-xs text-[#6B7AA0] line-clamp-2 leading-relaxed mb-5">${p.desc}</p>
+
+            <!-- Triptych 3-Stacked Cards Live Preview -->
+            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-visible select-none py-2 px-3 bg-slate-50/80 border border-slate-100 flex items-center justify-center mb-1">
+              <!-- Left Stacked Photo -->
+              <div class="absolute left-2.5 top-2.5 bottom-2.5 w-[58%] rounded-xl overflow-hidden shadow-sm -rotate-8 transform -translate-x-1.5 border border-white bg-slate-200 z-0">
+                <img src="${imgLeft}" onerror="this.src='${df.left}'" class="w-full h-full object-cover brightness-95" alt="Foto Kiri">
+              </div>
+              <!-- Right Stacked Photo -->
+              <div class="absolute right-2.5 top-2.5 bottom-2.5 w-[58%] rounded-xl overflow-hidden shadow-sm rotate-7 transform translate-x-1.5 border border-white bg-slate-200 z-10">
+                <img src="${imgRight}" onerror="this.src='${df.right}'" class="w-full h-full object-cover brightness-95" alt="Foto Kanan">
+              </div>
+              <!-- Center Hero Main Photo -->
+              <div class="relative w-[76%] h-full mx-auto rounded-xl overflow-hidden shadow-md border-2 border-white bg-slate-100 z-20">
+                <img src="${imgCenter}" onerror="this.src='${df.center}'" class="w-full h-full object-cover" alt="${p.title}">
+                <span class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-white text-[9px] font-semibold flex items-center gap-1 shadow-xs">
+                  📍 ${p.location || 'FEB Unsoed'}
+                </span>
+              </div>
             </div>
           </div>
-          <div class="px-6 py-3 bg-slate-50 border-t border-[#E4E8F5] flex items-center justify-between">
-            <span class="text-[10px] font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md">Aktif</span>
-            <div class="flex items-center gap-2">
-              <button onclick="editItem('program', '${p.id}')" class="text-xs font-bold text-slate-700 hover:text-brand-700">Edit</button>
-              <span class="text-slate-300">·</span>
-              <button onclick="deleteItem('program', '${p.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
+
+          <div class="px-6 py-3.5 bg-slate-50/70 border-t border-[#E4E8F5] flex items-center justify-between">
+            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Tampil di Beranda
+            </span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="editItem('program', '${p.id}')" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:border-brand-300 hover:text-brand-700 hover:bg-brand-50/50 shadow-2xs transition-all">
+                Edit
+              </button>
+              <button onclick="deleteItem('program', '${p.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold text-red-600 bg-white border border-slate-200 hover:border-red-300 hover:text-red-700 hover:bg-red-50/50 shadow-2xs transition-all">
+                Hapus
+              </button>
             </div>
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderEvents() {
@@ -3114,12 +3169,12 @@
           document.getElementById('f-month').value = item.month || '';
           document.getElementById('f-day').value = item.day || '';
           document.getElementById('f-desc').value = item.desc || '';
-          document.getElementById('f-image').value = item.image || '';
+          document.getElementById('f-image').value = item.image || 'assets/team/groups/dsx09414.webp';
           if (document.getElementById('f-image-left')) {
-            document.getElementById('f-image-left').value = item.imageLeft || '';
+            document.getElementById('f-image-left').value = item.imageLeft || 'assets/team/groups/dsx09458.webp';
           }
           if (document.getElementById('f-image-right')) {
-            document.getElementById('f-image-right').value = item.imageRight || '';
+            document.getElementById('f-image-right').value = item.imageRight || 'assets/team/groups/dsx09493.webp';
           }
           updateStackPreviewLive();
           document.getElementById('f-location').value = item.location || '';
@@ -3225,6 +3280,10 @@
       const type = currentModalType;
 
       if (type === 'program') {
+        const progImg = (document.getElementById('f-image').value || '').trim() || 'assets/team/groups/dsx09414.webp';
+        const progLeft = (document.getElementById('f-image-left') ? document.getElementById('f-image-left').value : '').trim() || 'assets/team/groups/dsx09458.webp';
+        const progRight = (document.getElementById('f-image-right') ? document.getElementById('f-image-right').value : '').trim() || 'assets/team/groups/dsx09493.webp';
+
         const data = {
           id: editingId || 'prog-' + Date.now(),
           title: document.getElementById('f-title').value,
@@ -3232,9 +3291,9 @@
           month: document.getElementById('f-month').value,
           day: document.getElementById('f-day').value,
           desc: document.getElementById('f-desc').value,
-          image: document.getElementById('f-image').value,
-          imageLeft: document.getElementById('f-image-left') ? document.getElementById('f-image-left').value : '',
-          imageRight: document.getElementById('f-image-right') ? document.getElementById('f-image-right').value : '',
+          image: progImg,
+          imageLeft: progLeft,
+          imageRight: progRight,
           location: document.getElementById('f-location').value,
           status: 'Active',
           updated_at: new Date().toISOString()
