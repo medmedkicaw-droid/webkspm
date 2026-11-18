@@ -249,6 +249,45 @@
       return JSON.parse(localStorage.getItem('kspm_partners') || '[]');
     },
 
+    async savePartner(partnerObj) {
+      let list = JSON.parse(localStorage.getItem('kspm_partners') || '[]');
+      const idx = list.findIndex(p => p.id === partnerObj.id);
+      if (idx >= 0) list[idx] = partnerObj;
+      else list.push(partnerObj);
+      localStorage.setItem('kspm_partners', JSON.stringify(list));
+
+      if (isCloudConnected()) {
+        try {
+          const payload = {
+            id: partnerObj.id,
+            name: partnerObj.name,
+            tooltip: partnerObj.tooltip || partnerObj.name,
+            logo: partnerObj.logo,
+            sort_order: typeof partnerObj.sort_order === 'number' ? partnerObj.sort_order : (idx >= 0 ? idx : list.length)
+          };
+          await supabaseClient.from('partners').upsert(payload);
+        } catch (e) {
+          console.warn('savePartner cloud error:', e);
+        }
+      }
+      return true;
+    },
+
+    async deletePartner(id) {
+      let list = JSON.parse(localStorage.getItem('kspm_partners') || '[]');
+      list = list.filter(p => p.id !== id);
+      localStorage.setItem('kspm_partners', JSON.stringify(list));
+
+      if (isCloudConnected()) {
+        try {
+          await supabaseClient.from('partners').delete().eq('id', id);
+        } catch (e) {
+          console.warn('deletePartner cloud error:', e);
+        }
+      }
+      return true;
+    },
+
     // --- DEPARTMENTS & STAFF ---
     async getDepartments() {
       if (isCloudConnected()) {

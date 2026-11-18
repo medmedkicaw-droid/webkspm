@@ -504,14 +504,19 @@
 
     <!-- ==================== TAB 5: MEDIA PARTNER & RUNNING LOGO ==================== -->
     <div id="tab-partners" class="hidden space-y-6">
-      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#E4E8F5] p-4 rounded-2xl">
         <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-slate-800">Daftar Logo di Running Marquee Track</span>
-          <span class="text-[11px] text-slate-400">(Tampil di bawah seksi Official Partners beranda)</span>
+          <span class="text-xs font-bold text-slate-800">Daftar Logo Mitra &amp; Media Partner</span>
+          <span class="text-[11px] text-slate-400">(Tampil di seksi Mitra &amp; Media Partner beranda)</span>
         </div>
-        <button onclick="openModal('partner')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
-          + Tambah Logo Mitra
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="resetPartnersToDefault()" class="px-3.5 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition-colors btn-tactile">
+            ↺ Pulihkan Standar
+          </button>
+          <button onclick="openModal('partner')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+            + Tambah Logo Mitra
+          </button>
+        </div>
       </div>
 
       <!-- Partner Cards Grid -->
@@ -2314,19 +2319,53 @@
     function renderPartners() {
       const container = document.getElementById('partners-list');
       if (!container) return;
-      container.innerHTML = partners.map(p => `
-        <div class="bg-white border border-[#E4E8F5] rounded-2xl p-5 flex flex-col items-center text-center shadow-xs hover:shadow-md transition-all group">
-          <div class="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 p-2 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-            <img src="${p.logo}" alt="${p.name}" class="w-full h-full object-contain">
+      if (!partners || partners.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center bg-white border border-[#E4E8F5] rounded-3xl p-6">
+            <p class="text-sm font-bold text-slate-700 mb-1">Belum ada logo mitra terdaftar</p>
+            <p class="text-xs text-slate-400 mb-4">Tambahkan logo mitra baru atau pulihkan setelan standar bawaan.</p>
+            <div class="flex items-center justify-center gap-2">
+              <button onclick="resetPartnersToDefault()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">
+                ↺ Pulihkan Standar
+              </button>
+              <button onclick="openModal('partner')" class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold">
+                + Tambah Logo
+              </button>
+            </div>
           </div>
-          <h4 class="text-xs font-bold text-slate-900 mb-0.5">${p.name}</h4>
-          <p class="text-[10px] text-slate-400 line-clamp-1 mb-4">${p.tooltip}</p>
+        `;
+        return;
+      }
+      container.innerHTML = partners.map(p => `
+        <div class="bg-white border border-[#E4E8F5] rounded-2xl p-5 flex flex-col items-center text-center shadow-xs hover:shadow-md hover:border-brand-500/30 transition-all group">
+          <div class="w-20 h-20 rounded-2xl bg-slate-50 border border-slate-100 p-2.5 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <img src="${p.logo}" alt="${p.name}" class="max-w-full max-h-full object-contain" onerror="this.onerror=null; this.src='assets/logo-gi-unsoed.png'">
+          </div>
+          <h4 class="text-xs font-bold text-slate-900 mb-0.5 line-clamp-1" title="${p.name}">${p.name}</h4>
+          <p class="text-[10px] text-slate-400 line-clamp-1 mb-4" title="${p.tooltip}">${p.tooltip || '-'}</p>
           <div class="w-full pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <button onclick="editItem('partner', '${p.id}')" class="font-bold text-slate-700 hover:text-brand-700">Edit</button>
-            <button onclick="deleteItem('partner', '${p.id}')" class="font-bold text-red-600 hover:text-red-700">Hapus</button>
+            <button onclick="editItem('partner', '${p.id}')" class="font-bold text-slate-700 hover:text-brand-700 flex items-center gap-1">
+              <span>✏️ Edit</span>
+            </button>
+            <button onclick="deleteItem('partner', '${p.id}')" class="font-bold text-red-600 hover:text-red-700 flex items-center gap-1">
+              <span>🗑️ Hapus</span>
+            </button>
           </div>
         </div>
       `).join('');
+    }
+
+    async function resetPartnersToDefault() {
+      if (!confirm('Pulihkan seluruh daftar logo mitra ke bawaan resmi (Sinarmas Sekuritas, IDX, OJK, dan jejaring kampus)?')) return;
+      partners = JSON.parse(JSON.stringify(initialPartners));
+      setData('partners', partners);
+      if (window.kspmDB && window.kspmDB.savePartner) {
+        for (const p of partners) {
+          try { await window.kspmDB.savePartner(p); } catch(e) {}
+        }
+      }
+      renderPartners();
+      showAdminToast('✓ Logo mitra berhasil dipulihkan ke setelan bawaan!', 'success');
     }
 
         // --- INQUIRIES RENDER ---
@@ -2682,6 +2721,36 @@
 
     // --- MODAL CONTROLLER ---
     let currentQuill = null;
+
+    function updatePartnerLogoPreviewLive() {
+      const input = document.getElementById('f-logo');
+      const previewImg = document.getElementById('f-logo-preview-img');
+      const placeholder = document.getElementById('f-logo-preview-placeholder');
+      if (!input || !previewImg) return;
+      const val = (input.value || '').trim();
+      if (val) {
+        previewImg.src = val;
+        previewImg.classList.remove('hidden');
+        if (placeholder) placeholder.classList.add('hidden');
+        previewImg.onerror = () => {
+          previewImg.classList.add('hidden');
+          if (placeholder) {
+            placeholder.classList.remove('hidden');
+            placeholder.innerText = 'Logo tidak dapat dimuat dari link/berkas ini. Coba unggah file kembali.';
+          }
+        };
+        previewImg.onload = () => {
+          previewImg.classList.remove('hidden');
+          if (placeholder) placeholder.classList.add('hidden');
+        };
+      } else {
+        previewImg.classList.add('hidden');
+        if (placeholder) {
+          placeholder.classList.remove('hidden');
+          placeholder.innerText = 'Preview logo akan tampil di sini saat diunggah atau diisi URL';
+        }
+      }
+    }
 
     function initQuillEditor(initialContent = '') {
       const editorElem = document.getElementById('quill-editor');
@@ -3135,18 +3204,39 @@
       } else if (type === 'partner') {
         container.innerHTML = `
           <div>
-            <label class="block font-bold text-slate-900 mb-1">Nama Mitra / Universitas</label>
-            <input required id="f-name" placeholder="Universitas Indonesia" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            <label class="block font-bold text-slate-900 mb-1">Nama Mitra / Media Partner / Organisasi</label>
+            <input required id="f-name" placeholder="Contoh: PT Sinarmas Sekuritas / KSPM UI" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
           </div>
           <div>
             <label class="block font-bold text-slate-900 mb-1">Label Tooltip Hover</label>
-            <input required id="f-tooltip" placeholder="KSPM UNSOED UI · Universitas Indonesia" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            <input required id="f-tooltip" placeholder="Contoh: Official Partner · PT Sinarmas Sekuritas" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
           </div>
           <div>
-            <label class="block font-bold text-slate-900 mb-1">Path / URL Logo Gambar</label>
-            <input required id="f-logo" placeholder="assets/logo-ui.png" class="w-full px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs">
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-900">Logo Gambar Mitra / Partner</label>
+              <span id="upload-status-partner-logo" class="text-[10px] text-slate-400 font-medium"></span>
+            </div>
+            <div class="flex gap-2">
+              <input required id="f-logo" oninput="updatePartnerLogoPreviewLive()" placeholder="Pilih file logo atau masukkan link/path..." class="flex-1 px-3 py-2 border rounded-xl bg-slate-50 focus:bg-white text-xs font-mono">
+              <label class="px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl cursor-pointer text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+                <span>Upload Logo</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'f-logo', 'upload-status-partner-logo', 'partners', updatePartnerLogoPreviewLive)">
+              </label>
+            </div>
+          </div>
+          <!-- Preview Box Logo -->
+          <div class="space-y-1">
+            <span class="block text-[11px] font-bold text-slate-700">Preview Logo:</span>
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-center min-h-[90px] relative overflow-hidden">
+              <img id="f-logo-preview-img" src="" alt="Preview Logo" class="max-h-16 max-w-[180px] object-contain hidden select-none">
+              <span id="f-logo-preview-placeholder" class="text-[11px] text-slate-400 font-medium text-center">Preview logo akan tampil di sini saat diunggah atau diisi URL</span>
+            </div>
           </div>
         `;
+        setTimeout(() => {
+          updatePartnerLogoPreviewLive();
+        }, 40);
       }
 
       const modal = document.getElementById('modal-container');
@@ -3249,9 +3339,12 @@
       } else if (type === 'partner') {
         const item = partners.find(p => p.id === id);
         if (item) {
-          document.getElementById('f-name').value = item.name;
-          document.getElementById('f-tooltip').value = item.tooltip;
-          document.getElementById('f-logo').value = item.logo;
+          document.getElementById('f-name').value = item.name || '';
+          document.getElementById('f-tooltip').value = item.tooltip || '';
+          document.getElementById('f-logo').value = item.logo || '';
+          setTimeout(() => {
+            updatePartnerLogoPreviewLive();
+          }, 30);
         }
       }
     }
@@ -3283,6 +3376,10 @@
       } else if (type === 'partner') {
         partners = partners.filter(p => p.id !== id);
         setData('partners', partners);
+        if (window.kspmDB && window.kspmDB.deletePartner) {
+          try { await window.kspmDB.deletePartner(id); } catch(err) { console.warn('Cloud deletePartner error:', err); }
+        }
+        showAdminToast('✓ Logo mitra berhasil dihapus!', 'success');
       }
 
       renderAll();
@@ -3509,23 +3606,45 @@
           console.warn('Reports sync error:', err);
         }
       } else if (type === 'partner') {
+        const nameVal = (document.getElementById('f-name').value || '').trim();
+        const tooltipVal = (document.getElementById('f-tooltip').value || '').trim() || nameVal;
+        const logoVal = (document.getElementById('f-logo').value || '').trim();
+
+        if (!nameVal || !logoVal) {
+          alert('Mohon lengkapi nama mitra dan unggah atau tentukan logo terlebih dahulu.');
+          return;
+        }
+
         const data = {
           id: editingId || 'pt-' + Date.now(),
-          name: document.getElementById('f-name').value,
-          tooltip: document.getElementById('f-tooltip').value,
-          logo: document.getElementById('f-logo').value
+          name: nameVal,
+          tooltip: tooltipVal,
+          logo: logoVal,
+          sort_order: editingId ? (partners.find(p => p.id === editingId)?.sort_order || 0) : partners.length
         };
+
         if (editingId) {
-          partners = partners.map(pt => pt.id === editingId ? data : pt);
+          partners = partners.map(pt => pt.id === editingId ? { ...pt, ...data } : pt);
         } else {
           partners.push(data);
         }
         setData('partners', partners);
+
+        if (window.kspmDB && window.kspmDB.savePartner) {
+          try {
+            await window.kspmDB.savePartner(data);
+          } catch(err) {
+            console.warn('Cloud savePartner error:', err);
+          }
+        }
+        showAdminToast('✓ Logo mitra berhasil disimpan & diperbarui!', 'success');
       }
 
       closeModal();
       renderAll();
-      alert('✓ Berhasil disimpan! Data acara & foto kustom telah diperbarui.');
+      if (type !== 'partner') {
+        showAdminToast('✓ Berhasil disimpan! Data konten telah diperbarui.', 'success');
+      }
     }
 
     function saveSupabaseSettings(e) {
