@@ -900,19 +900,45 @@
     </div>
   </section>
 
-  <!-- SECTION: RUNNING LOGO MITRA & MEDPART (CONTINUOUS TRACK ABOVE CONTACT US) -->
-  <section class="py-14 bg-transparent relative z-10 border-t border-[#E4E8F5]">
+  <!-- SECTION: OFFICIAL PARTNERS & JEJARING MITRA (ABOVE CONTACT US) -->
+  <section class="py-14 sm:py-16 bg-transparent relative z-10 border-t border-[#E4E8F5]">
     <div class="max-w-7xl mx-auto px-6 sm:px-8">
-      <div class="text-center mb-6">
-        <p class="text-[11px] font-bold tracking-[0.2em] text-[#6B7AA0] uppercase">
-          Mitra Kolaborasi &amp; Media Partner
+
+      <!-- Official Partners: Sinarmas Sekuritas, IDX, OJK -->
+      <div class="text-center mb-10">
+        <p class="text-[11px] font-bold tracking-[0.2em] text-brand-700 uppercase mb-5">
+          OFFICIAL PARTNERS
         </p>
-      </div>
-      <div class="w-full overflow-hidden marquee-fade-mask py-3">
-        <div class="animate-logo-runner items-center gap-6 sm:gap-8">
-          <!-- Populated dynamically via JavaScript with seamless loop -->
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto">
+          <!-- PT Bursa Efek Indonesia (IDX) -->
+          <div class="flex items-center justify-center py-3.5 px-6 sm:px-8 bg-white border border-[#E4E8F5] rounded-2xl shadow-xs hover:shadow-md hover:border-brand-500/30 transition-all h-20 min-w-[180px] sm:min-w-[210px] group" title="PT Bursa Efek Indonesia (IDX)">
+            <img src="assets/logo-idx.png" alt="Bursa Efek Indonesia (IDX)" class="h-10 sm:h-12 w-auto max-w-[150px] object-contain group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <!-- Otoritas Jasa Keuangan (OJK) -->
+          <div class="flex items-center justify-center py-3.5 px-6 sm:px-8 bg-white border border-[#E4E8F5] rounded-2xl shadow-xs hover:shadow-md hover:border-brand-500/30 transition-all h-20 min-w-[180px] sm:min-w-[210px] group" title="Otoritas Jasa Keuangan (OJK)">
+            <img src="assets/logo-ojk.png" alt="Otoritas Jasa Keuangan (OJK)" class="h-9 sm:h-11 w-auto max-w-[150px] object-contain group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <!-- PT Sinarmas Sekuritas -->
+          <div class="flex items-center justify-center py-3.5 px-6 sm:px-8 bg-white border border-[#E4E8F5] rounded-2xl shadow-xs hover:shadow-md hover:border-brand-500/30 transition-all h-20 min-w-[180px] sm:min-w-[210px] group" title="PT Sinarmas Sekuritas">
+            <img src="assets/logo-sinarmas-sekuritas.png" alt="PT Sinarmas Sekuritas" class="h-9 sm:h-11 w-auto max-w-[160px] object-contain group-hover:scale-105 transition-transform duration-300">
+          </div>
         </div>
       </div>
+
+      <!-- Jejaring Komunitas & Media Partner (Running Marquee) -->
+      <div class="pt-8 border-t border-slate-100">
+        <div class="text-center mb-4">
+          <p class="text-[10px] font-bold tracking-[0.2em] text-[#6B7AA0] uppercase">
+            Jejaring Komunitas &amp; Media Partner
+          </p>
+        </div>
+        <div class="w-full overflow-hidden marquee-fade-mask py-2">
+          <div class="animate-logo-runner items-center gap-6 sm:gap-8">
+            <!-- Populated dynamically via JavaScript with seamless loop -->
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1044,7 +1070,8 @@
           class="lg:col-span-7 bg-white border border-[#E4E8F5] rounded-3xl p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 light-sweep">
 
           <div class="mb-6 pb-5 border-b border-slate-100">
-            <span class="text-[11px] font-bold tracking-[0.2em] text-brand-700 uppercase block mb-1">KEMITRAAN &amp; SPONSORSHIP</span>
+            <span class="text-[11px] font-bold tracking-[0.2em] text-brand-700 uppercase block mb-1">KEMITRAAN &amp;
+              SPONSORSHIP</span>
             <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0F2D] tracking-tight">
               Ajukan Kerja Sama Strategis
             </h3>
@@ -1436,22 +1463,40 @@
           if (saved) partnerList = JSON.parse(saved);
         } catch (e) { }
       }
+
+      const defaultOfficialPartners = [
+        { id: 'pt-idx', name: 'PT Bursa Efek Indonesia (IDX)', tooltip: 'Bursa Efek Indonesia (IDX)', logo: 'assets/logo-idx.png' },
+        { id: 'pt-ojk', name: 'Otoritas Jasa Keuangan (OJK)', tooltip: 'Otoritas Jasa Keuangan (OJK)', logo: 'assets/logo-ojk.png' },
+        { id: 'pt-sinarmas', name: 'PT Sinarmas Sekuritas', tooltip: 'PT Sinarmas Sekuritas', logo: 'assets/logo-sinarmas-sekuritas.png' }
+      ];
+
+      const defaultNetworkPartners = [
+        { id: 'pt-1', name: 'Universitas Indonesia', tooltip: 'KSPM UI · Universitas Indonesia', logo: 'assets/logo-ui.png' },
+        { id: 'pt-2', name: 'Universitas Gadjah Mada', tooltip: 'KSPM UGM · Universitas Gadjah Mada', logo: 'assets/logo-ugm.png' },
+        { id: 'pt-3', name: 'Institut Teknologi Bandung', tooltip: 'KSPM ITB · Institut Teknologi Bandung', logo: 'assets/logo-itb.png' },
+        { id: 'pt-4', name: 'Universitas Diponegoro', tooltip: 'KSPM Undip · Universitas Diponegoro', logo: 'assets/logo-undip.png' },
+        { id: 'pt-5', name: 'Universitas Padjadjaran', tooltip: 'Young Investor · Universitas Padjadjaran', logo: 'assets/logo-yi-unpad.png' },
+        { id: 'pt-6', name: 'Institut Pertanian Bogor', tooltip: 'IPB Finance Club · Institut Pertanian Bogor', logo: 'assets/logo-ipb.png' }
+      ];
+
       if (!partnerList || partnerList.length === 0) {
-        partnerList = [
-          { id: 'pt-1', name: 'Universitas Indonesia', tooltip: 'KSPM UI · Universitas Indonesia', logo: 'assets/logo-ui.png' },
-          { id: 'pt-2', name: 'Universitas Gadjah Mada', tooltip: 'KSPM UGM · Universitas Gadjah Mada', logo: 'assets/logo-ugm.png' },
-          { id: 'pt-3', name: 'Institut Teknologi Bandung', tooltip: 'KSPM ITB · Institut Teknologi Bandung', logo: 'assets/logo-itb.png' },
-          { id: 'pt-4', name: 'Universitas Diponegoro', tooltip: 'KSPM Undip · Universitas Diponegoro', logo: 'assets/logo-undip.png' },
-          { id: 'pt-5', name: 'Universitas Padjadjaran', tooltip: 'Young Investor · Universitas Padjadjaran', logo: 'assets/logo-yi-unpad.png' },
-          { id: 'pt-6', name: 'Institut Pertanian Bogor', tooltip: 'IPB Finance Club · Institut Pertanian Bogor', logo: 'assets/logo-ipb.png' }
-        ];
+        partnerList = [...defaultOfficialPartners, ...defaultNetworkPartners];
+      } else {
+        // Pastikan official partners selalu ada di daftar jika belum tersimpan sebelumnya
+        const hasIdx = partnerList.some(p => p.id === 'pt-idx' || (p.name && p.name.includes('Bursa Efek')));
+        const hasOjk = partnerList.some(p => p.id === 'pt-ojk' || (p.name && p.name.includes('OJK')));
+        const hasSinarmas = partnerList.some(p => p.id === 'pt-sinarmas' || (p.name && p.name.includes('Sinarmas')));
+        if (!hasIdx || !hasOjk || !hasSinarmas) {
+          partnerList = [...defaultOfficialPartners, ...partnerList.filter(p => !['pt-idx', 'pt-ojk', 'pt-sinarmas'].includes(p.id))];
+          try { localStorage.setItem('kspm_partners', JSON.stringify(partnerList)); } catch (e) { }
+        }
       }
 
       const runner = document.querySelector('.animate-logo-runner');
       if (runner && partnerList.length > 0) {
         const renderItem = p => `
           <div class="relative group cursor-pointer shrink-0 flex flex-col items-center py-2 px-5 sm:px-7">
-            <img src="${p.logo}" alt="${p.tooltip || p.name}" class="h-10 sm:h-12 w-auto max-w-[110px] object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 select-none">
+            <img src="${p.logo}" alt="${p.tooltip || p.name}" class="h-10 sm:h-12 w-auto max-w-[120px] object-contain opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 select-none">
             <div class="absolute -top-10 px-3 py-1 rounded-xl bg-slate-900 text-white text-[11px] font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-200 shadow-xl z-30">
               ${p.tooltip || p.name}
               <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>

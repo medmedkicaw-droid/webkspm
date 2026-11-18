@@ -363,7 +363,7 @@
             <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shadow-2xs"><svg class="w-5 h-5 text-brand-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.333A2.25 2.25 0 0018.75 8.25H5.25a2.25 2.25 0 00-1.75 2.083V21"/></svg></span>
           </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-3xl font-black text-[#0A0F2D]" id="count-partners">6</span>
+            <span class="text-3xl font-black text-[#0A0F2D]" id="count-partners">9</span>
             <span class="text-xs text-slate-500 font-semibold">Running Track</span>
           </div>
           <p class="text-[11px] text-[#6B7AA0] mt-2">Logo jejaring kampus &amp; partner</p>
@@ -1101,10 +1101,13 @@
     ];
 
     const initialPartners = [
-      { id: 'pt-1', name: 'Universitas Indonesia', tooltip: 'KSPM UNSOED UI · Universitas Indonesia', logo: 'assets/logo-ui.png' },
-      { id: 'pt-2', name: 'Universitas Gadjah Mada', tooltip: 'KSPM UNSOED UGM · Universitas Gadjah Mada', logo: 'assets/logo-ugm.png' },
+      { id: 'pt-idx', name: 'PT Bursa Efek Indonesia (IDX)', tooltip: 'Bursa Efek Indonesia (IDX)', logo: 'assets/logo-idx.png' },
+      { id: 'pt-ojk', name: 'Otoritas Jasa Keuangan (OJK)', tooltip: 'Otoritas Jasa Keuangan (OJK)', logo: 'assets/logo-ojk.png' },
+      { id: 'pt-sinarmas', name: 'PT Sinarmas Sekuritas', tooltip: 'PT Sinarmas Sekuritas', logo: 'assets/logo-sinarmas-sekuritas.png' },
+      { id: 'pt-1', name: 'Universitas Indonesia', tooltip: 'KSPM UI · Universitas Indonesia', logo: 'assets/logo-ui.png' },
+      { id: 'pt-2', name: 'Universitas Gadjah Mada', tooltip: 'KSPM UGM · Universitas Gadjah Mada', logo: 'assets/logo-ugm.png' },
       { id: 'pt-3', name: 'Institut Teknologi Bandung', tooltip: 'KSPM ITB · Institut Teknologi Bandung', logo: 'assets/logo-itb.png' },
-      { id: 'pt-4', name: 'Universitas Diponegoro', tooltip: 'KSPM UNSOED Undip · Universitas Diponegoro', logo: 'assets/logo-undip.png' },
+      { id: 'pt-4', name: 'Universitas Diponegoro', tooltip: 'KSPM Undip · Universitas Diponegoro', logo: 'assets/logo-undip.png' },
       { id: 'pt-5', name: 'Universitas Padjadjaran', tooltip: 'Young Investor · Universitas Padjadjaran', logo: 'assets/logo-yi-unpad.png' },
       { id: 'pt-6', name: 'Institut Pertanian Bogor', tooltip: 'IPB Finance Club · Institut Pertanian Bogor', logo: 'assets/logo-ipb.png' }
     ];
@@ -1115,6 +1118,17 @@
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
+          if (key === 'partners' && Array.isArray(parsed)) {
+            const hasIdx = parsed.some(p => p.id === 'pt-idx' || (p.name && p.name.includes('Bursa Efek')));
+            const hasOjk = parsed.some(p => p.id === 'pt-ojk' || (p.name && p.name.includes('OJK')));
+            const hasSinarmas = parsed.some(p => p.id === 'pt-sinarmas' || (p.name && p.name.includes('Sinarmas')));
+            if (!hasIdx || !hasOjk || !hasSinarmas) {
+              const officials = initialPartners.slice(0, 3);
+              const merged = [...officials, ...parsed.filter(p => !['pt-idx', 'pt-ojk', 'pt-sinarmas'].includes(p.id))];
+              localStorage.setItem('kspm_partners', JSON.stringify(merged));
+              return merged;
+            }
+          }
           if (key === 'programs' && Array.isArray(parsed)) {
             let updated = false;
             parsed.forEach((p, idx) => {
