@@ -468,40 +468,124 @@
           </div>
         </div>
 
-        <!-- Hero Right Column: Big Responsively Animated GI Logo -->
-        <div class="relative flex items-center justify-center py-6 sm:py-8 reveal-on-scroll">
+        <!-- Hero Right: Dynamic Interactive Event Slider -->
+        <div id="heroCarouselBox"
+          class="relative aspect-[4/3] rounded-[24px] overflow-hidden bg-white/5 border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.5)] group flex items-center justify-center reveal-on-scroll"
+          onmouseenter="stopHeroAutoPlay()" onmouseleave="startHeroAutoPlay()">
           
-          <!-- Outer Ambient Glows -->
-          <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-brand-600/25 blur-[100px] pointer-events-none -z-10 animate-pulse" style="animation-duration: 4s;"></div>
-          <div class="absolute w-48 h-48 rounded-full bg-amber-500/15 blur-[80px] pointer-events-none -z-10"></div>
-
-          <!-- Glassmorphic Card Container -->
-          <div id="hero-gi-card"
-            class="relative w-full max-w-[420px] sm:max-w-[460px] aspect-[4/3] sm:aspect-square rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-white/10 via-white/[0.04] to-transparent backdrop-blur-xl border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center group overflow-hidden transition-all duration-300">
-            
-            <!-- Radial Inner Light Accent -->
-            <div class="absolute inset-0 bg-radial from-brand-600/20 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-
-            <!-- Concentric Decorative Rings -->
-            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-white/10 pointer-events-none scale-90 group-hover:scale-100 transition-transform duration-700 ease-out"></div>
-            <div class="absolute w-48 h-48 sm:w-60 sm:h-60 rounded-full border border-dashed border-white/15 pointer-events-none scale-95 group-hover:rotate-45 transition-transform duration-1000 ease-out"></div>
-
-            <!-- Big GI Logo with Levitation & Hover Scaling -->
-            <div class="relative z-10 animate-levitate-1 flex items-center justify-center">
-              <img src="assets/logo-gi-unsoed.png" alt="Galeri Investasi BEI FEB Unsoed"
-                class="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.65)] filter group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 select-none">
-            </div>
-
-            <!-- Subtitle Badge Pill -->
-            <div class="relative z-10 mt-4 sm:mt-5">
-              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-white/90 shadow-sm group-hover:border-white/30 group-hover:bg-black/50 transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-[11px] sm:text-xs font-semibold tracking-wide">Galeri Investasi BEI · FEB UNSOED</span>
+          <div id="heroCarousel" class="flex w-full h-full transition-transform duration-700 ease-in-out"
+            style="transform: translateX(0%);">
+            <!-- Slide 1: Soedirman Investment Week -->
+            <div class="w-full h-full shrink-0 relative flex flex-col justify-end p-6 sm:p-9 select-none overflow-hidden">
+              <img src="assets/team/groups/dsx09626-1-.webp" alt="Soedirman Investment Week (SIW)" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 ease-out" onerror="this.onerror=null; this.src='assets/team/groups/dsx09626-1-.webp'">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0204] via-[#1A0307]/80 to-black/30"></div>
+              
+              <div class="relative z-10 max-w-lg">
+                <div class="flex items-center gap-2 mb-2.5">
+                  <span class="text-[10px] font-extrabold tracking-[0.2em] uppercase text-brand-300 bg-brand-950/80 border border-brand-500/40 px-2.5 py-0.5 rounded-full shadow-xs">
+                    Annual Flagship
+                  </span>
+                  <span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-white/10">
+                    OKT 2026
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-white mb-2 leading-snug drop-shadow font-display">
+                  Soedirman Investment Week (SIW)
+                </h3>
+                <p class="text-xs text-white/85 line-clamp-2 leading-relaxed mb-4 max-w-md drop-shadow-xs">
+                  Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.
+                </p>
+                <div class="flex items-center gap-3">
+                  <a href="press-release.html?id=siw" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 px-4 py-2 rounded-xl transition-all shadow-md hover:shadow-brand-700/40 btn-tactile">
+                    <span>Lihat Dokumentasi</span>
+                    <span>→</span>
+                  </a>
+                  <a href="event.html" class="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl border border-white/20 transition-all">
+                    <span>Semua Agenda</span>
+                  </a>
+                </div>
               </div>
             </div>
 
+            <!-- Slide 2: Sekolah Pasar Modal -->
+            <div class="w-full h-full shrink-0 relative flex flex-col justify-end p-6 sm:p-9 select-none overflow-hidden">
+              <img src="assets/team/groups/dsx09414.webp" alt="Sekolah Pasar Modal (SPM)" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 ease-out" onerror="this.onerror=null; this.src='assets/team/groups/dsx09414.webp'">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0204] via-[#1A0307]/80 to-black/30"></div>
+              
+              <div class="relative z-10 max-w-lg">
+                <div class="flex items-center gap-2 mb-2.5">
+                  <span class="text-[10px] font-extrabold tracking-[0.2em] uppercase text-brand-300 bg-brand-950/80 border border-brand-500/40 px-2.5 py-0.5 rounded-full shadow-xs">
+                    Literacy &amp; Cert
+                  </span>
+                  <span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-white/10">
+                    SEP 2026
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-white mb-2 leading-snug drop-shadow font-display">
+                  Sekolah Pasar Modal (SPM)
+                </h3>
+                <p class="text-xs text-white/85 line-clamp-2 leading-relaxed mb-4 max-w-md drop-shadow-xs">
+                  Pelatihan berjenjang bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.
+                </p>
+                <div class="flex items-center gap-3">
+                  <a href="press-release.html?id=spm" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 px-4 py-2 rounded-xl transition-all shadow-md hover:shadow-brand-700/40 btn-tactile">
+                    <span>Lihat Dokumentasi</span>
+                    <span>→</span>
+                  </a>
+                  <a href="event.html" class="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl border border-white/20 transition-all">
+                    <span>Semua Agenda</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: LEGACY National Trading -->
+            <div class="w-full h-full shrink-0 relative flex flex-col justify-end p-6 sm:p-9 select-none overflow-hidden">
+              <img src="assets/team/groups/dsx09493.webp" alt="LEGACY National Trading" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 ease-out" onerror="this.onerror=null; this.src='assets/team/groups/dsx09493.webp'">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A0204] via-[#1A0307]/80 to-black/30"></div>
+              
+              <div class="relative z-10 max-w-lg">
+                <div class="flex items-center gap-2 mb-2.5">
+                  <span class="text-[10px] font-extrabold tracking-[0.2em] uppercase text-brand-300 bg-brand-950/80 border border-brand-500/40 px-2.5 py-0.5 rounded-full shadow-xs">
+                    National Contest
+                  </span>
+                  <span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-white/10">
+                    AGU 2026
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-white mb-2 leading-snug drop-shadow font-display">
+                  LEGACY National Trading
+                </h3>
+                <p class="text-xs text-white/85 line-clamp-2 leading-relaxed mb-4 max-w-md drop-shadow-xs">
+                  Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.
+                </p>
+                <div class="flex items-center gap-3">
+                  <a href="press-release.html?id=legacy" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 px-4 py-2 rounded-xl transition-all shadow-md hover:shadow-brand-700/40 btn-tactile">
+                    <span>Lihat Dokumentasi</span>
+                    <span>→</span>
+                  </a>
+                  <a href="event.html" class="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl border border-white/20 transition-all">
+                    <span>Semua Agenda</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
+          <!-- Navigation Arrows -->
+          <button onclick="prevHeroSlide()" aria-label="Slide Sebelumnya" class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-20 backdrop-blur-xs cursor-pointer shadow-md select-none text-base">
+            ‹
+          </button>
+          <button onclick="nextHeroSlide()" aria-label="Slide Berikutnya" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/75 text-white border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-20 backdrop-blur-xs cursor-pointer shadow-md select-none text-base">
+            ›
+          </button>
+
+          <!-- Dynamic Dots Container -->
+          <div id="heroCarouselDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+            <button onclick="setSlide(0)" class="slider-dot w-6 h-2 rounded-full bg-white transition-all duration-300" aria-label="Slide 1"></button>
+            <button onclick="setSlide(1)" class="slider-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300" aria-label="Slide 2"></button>
+            <button onclick="setSlide(2)" class="slider-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300" aria-label="Slide 3"></button>
+          </div>
         </div>
       </div>
 
@@ -1196,21 +1280,157 @@
 
   <script>
 
+    // --- HERO CAROUSEL CONTROLLER & CMS SYNC ---
+    let heroCurrentSlide = 0;
+    let heroAutoPlayTimer = null;
+    let heroProgramsData = [];
 
-    // Interactive 3D tilt effect on Hero GI Card (Mousemove on desktop)
-    const giCard = document.getElementById('hero-gi-card');
-    if (giCard && window.matchMedia('(pointer: fine)').matches) {
-      giCard.addEventListener('mousemove', (e) => {
-        const rect = giCard.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const tiltX = (y / rect.height) * -10;
-        const tiltY = (x / rect.width) * 10;
-        giCard.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+    const defaultHeroPrograms = [
+      {
+        id: 'siw',
+        title: 'Soedirman Investment Week (SIW)',
+        name: 'Soedirman Investment Week (SIW)',
+        tag: 'Annual Flagship',
+        category: 'Annual Flagship',
+        dateBadge: 'OKT 2026',
+        month: 'OKT',
+        day: '25',
+        desc: 'Konferensi akbar pasar modal nasional terbesar yang mempertemukan praktisi BEI, analis, dan 1.200+ investor muda.',
+        image: 'assets/team/groups/dsx09626-1-.webp',
+        coverImage: 'assets/team/groups/dsx09626-1-.webp',
+        location: 'Graha Widyatama Unsoed'
+      },
+      {
+        id: 'spm',
+        title: 'Sekolah Pasar Modal (SPM)',
+        name: 'Sekolah Pasar Modal (SPM)',
+        tag: 'Literacy & Cert',
+        category: 'Literacy & Cert',
+        dateBadge: 'SEP 2026',
+        month: 'SEP',
+        day: '12',
+        desc: 'Pelatihan berjenjang bersama Bursa Efek Indonesia dan Sinarmas Sekuritas dengan sertifikasi dan fasilitas pembukaan RDN.',
+        image: 'assets/team/groups/dsx09414.webp',
+        coverImage: 'assets/team/groups/dsx09414.webp',
+        location: 'Lab Terpadu Lantai 1 FEB Unsoed'
+      },
+      {
+        id: 'legacy',
+        title: 'LEGACY National Trading',
+        name: 'LEGACY National Trading',
+        tag: 'National Contest',
+        category: 'National Contest',
+        dateBadge: 'AGU 2026',
+        month: 'AGU',
+        day: '18',
+        desc: 'Kompetisi analisis riset saham dan virtual trading bergengsi berskala nasional bagi mahasiswa seluruh Indonesia.',
+        image: 'assets/team/groups/dsx09493.webp',
+        coverImage: 'assets/team/groups/dsx09493.webp',
+        location: 'Platform Daring Nasional'
+      }
+    ];
+
+    function renderHeroCarousel(list) {
+      const carousel = document.getElementById('heroCarousel');
+      const dotsContainer = document.getElementById('heroCarouselDots');
+      if (!carousel) return;
+
+      const items = (list && list.length > 0) ? list.slice(0, 5) : defaultHeroPrograms;
+      heroProgramsData = items;
+      const total = items.length;
+
+      carousel.innerHTML = items.map((p, idx) => {
+        const title = p.title || p.name || 'Kegiatan KSPM UNSOED';
+        const tag = p.tag || p.category || 'PROGRAM UNGGULAN';
+        const desc = p.desc || '';
+        const img = p.image || p.coverImage || 'assets/team/groups/dsx09626-1-.webp';
+        const dateBadge = p.dateBadge || (p.month ? `${p.month} ${p.day || ''}` : '2026');
+        const pressId = (p.id === 'prog-1' || p.id === 'siw') ? 'siw' : (p.id === 'prog-2' || p.id === 'spm') ? 'spm' : (p.id === 'prog-3' || p.id === 'legacy') ? 'legacy' : (p.id || 'siw');
+
+        return `
+          <div class="w-full h-full shrink-0 relative flex flex-col justify-end p-6 sm:p-9 select-none overflow-hidden">
+            <img src="${img}" alt="${title}" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 ease-out" onerror="this.onerror=null; this.src='assets/team/groups/dsx09626-1-.webp'">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0204] via-[#1A0307]/80 to-black/30"></div>
+            
+            <div class="relative z-10 max-w-lg">
+              <div class="flex items-center gap-2 mb-2.5">
+                <span class="text-[10px] font-extrabold tracking-[0.2em] uppercase text-brand-300 bg-brand-950/80 border border-brand-500/40 px-2.5 py-0.5 rounded-full shadow-xs">
+                  ${tag}
+                </span>
+                <span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-white/10">
+                  ${dateBadge}
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl lg:text-[1.65rem] font-black text-white mb-2 leading-snug drop-shadow font-display">
+                ${title}
+              </h3>
+              <p class="text-xs text-white/85 line-clamp-2 leading-relaxed mb-4 max-w-md drop-shadow-xs">
+                ${desc}
+              </p>
+              <div class="flex items-center gap-3">
+                <a href="press-release.html?id=${pressId}" class="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 px-4 py-2 rounded-xl transition-all shadow-md hover:shadow-brand-700/40 btn-tactile">
+                  <span>Lihat Dokumentasi</span>
+                  <span>→</span>
+                </a>
+                <a href="event.html" class="inline-flex items-center gap-1 text-xs font-bold text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-2 rounded-xl border border-white/20 transition-all">
+                  <span>Semua Agenda</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (dotsContainer) {
+        dotsContainer.innerHTML = items.map((_, idx) => `
+          <button onclick="setSlide(${idx})" class="slider-dot h-2 rounded-full transition-all duration-300 ${idx === heroCurrentSlide ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'}" aria-label="Slide ${idx + 1}"></button>
+        `).join('');
+      }
+
+      setSlide(heroCurrentSlide >= total ? 0 : heroCurrentSlide);
+    }
+
+    function setSlide(index) {
+      const carousel = document.getElementById('heroCarousel');
+      const dots = document.querySelectorAll('.slider-dot');
+      if (!carousel) return;
+      const total = heroProgramsData.length || document.querySelectorAll('#heroCarousel > div').length || 3;
+      heroCurrentSlide = ((index % total) + total) % total;
+      carousel.style.transform = `translateX(-${heroCurrentSlide * 100}%)`;
+
+      dots.forEach((dot, idx) => {
+        if (idx === heroCurrentSlide) {
+          dot.classList.remove('w-2', 'bg-white/40');
+          dot.classList.add('w-6', 'bg-white');
+        } else {
+          dot.classList.remove('w-6', 'bg-white');
+          dot.classList.add('w-2', 'bg-white/40');
+        }
       });
-      giCard.addEventListener('mouseleave', () => {
-        giCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-      });
+
+      startHeroAutoPlay();
+    }
+
+    function nextHeroSlide() {
+      setSlide(heroCurrentSlide + 1);
+    }
+
+    function prevHeroSlide() {
+      setSlide(heroCurrentSlide - 1);
+    }
+
+    function startHeroAutoPlay() {
+      if (heroAutoPlayTimer) clearInterval(heroAutoPlayTimer);
+      heroAutoPlayTimer = setInterval(() => {
+        nextHeroSlide();
+      }, 5500);
+    }
+
+    function stopHeroAutoPlay() {
+      if (heroAutoPlayTimer) {
+        clearInterval(heroAutoPlayTimer);
+        heroAutoPlayTimer = null;
+      }
     }
 
     let lastSubmitTime = 0;
@@ -1377,14 +1597,22 @@
 
       // 1. Instant paint from local cache (0ms)
       try {
-        const savedEvents = localStorage.getItem('kspm_events');
         const savedPrograms = localStorage.getItem('kspm_programs');
-        if (savedEvents && JSON.parse(savedEvents).length > 0) {
-          renderPrograms(JSON.parse(savedEvents));
-        } else if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
-          renderPrograms(JSON.parse(savedPrograms));
+        const savedEvents = localStorage.getItem('kspm_events');
+        if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
+          const pList = JSON.parse(savedPrograms);
+          renderHeroCarousel(pList);
+          renderPrograms(pList);
+        } else if (savedEvents && JSON.parse(savedEvents).length > 0) {
+          const eList = JSON.parse(savedEvents);
+          renderHeroCarousel(eList);
+          renderPrograms(eList);
+        } else {
+          renderHeroCarousel(defaultHeroPrograms);
         }
-      } catch (e) { }
+      } catch (e) {
+        renderHeroCarousel(defaultHeroPrograms);
+      }
 
       // 2. Background Cloud Sync with 1.5s timeout (never freezes page, preserves newest edit)
       if (window.kspmDB && window.kspmDB.isCloudConnected()) {
@@ -1398,6 +1626,7 @@
             const localLatest = Math.max(...localList.map(e => new Date(e.updated_at || 0).getTime()), 0);
             const cloudLatest = Math.max(...cloudEvents.map(e => new Date(e.updated_at || 0).getTime()), 0);
             if (cloudLatest >= localLatest || localLatest === 0) {
+              renderHeroCarousel(cloudEvents);
               renderPrograms(cloudEvents);
             }
           }
@@ -1462,7 +1691,31 @@
         runner.innerHTML = items + items + items;
       }
     }
-    document.addEventListener('DOMContentLoaded', syncCMSData);
+
+    // Inisialisasi gestur swipe mobile & auto-play hero carousel
+    document.addEventListener('DOMContentLoaded', () => {
+      syncCMSData();
+      const heroBox = document.getElementById('heroCarouselBox');
+      if (heroBox) {
+        let touchStartX = 0;
+        heroBox.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        heroBox.addEventListener('touchend', e => {
+          const touchEndX = e.changedTouches[0].screenX;
+          if (touchStartX - touchEndX > 40) nextHeroSlide();
+          else if (touchEndX - touchStartX > 40) prevHeroSlide();
+        }, { passive: true });
+      }
+      startHeroAutoPlay();
+    });
+
+    // Real-time synchronization saat admin menyimpan perubahan di tab lain
+    window.addEventListener('storage', e => {
+      if (e.key === 'kspm_programs' || e.key === 'kspm_events' || e.key === 'kspm_partners') {
+        syncCMSData();
+      }
+    });
 
   </script>
 </body>
