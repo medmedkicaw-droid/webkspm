@@ -468,66 +468,40 @@
           </div>
         </div>
 
-        <div
-          class="relative aspect-[4/3] rounded-[20px] overflow-hidden bg-white/5 border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.5)] group flex items-center justify-center reveal-on-scroll">
-          <div id="heroCarousel" class="flex w-full h-full transition-transform duration-700 ease-in-out"
-            style="transform: translateX(0%);">
-            <!-- Slide 1 -->
-            <div
-              class="w-full h-full shrink-0 flex items-center justify-center bg-gradient-to-br from-[#2D060D] to-[#881337] relative p-8">
-              <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
-              <div class="relative z-10 text-center text-white max-w-sm">
-                <p class="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-2">Flagship Agenda
-                </p>
-                <h3 class="text-2xl font-bold mb-2">Soedirman Investment Week (SIW)</h3>
-                <p class="text-xs text-white/70 leading-relaxed mb-4">
-                  Pekan pasar modal nasional tahunan dengan seminar, workshop regulator, dan penganugerahan investor
-                  muda.
-                </p>
-                <span class="text-[11px] font-semibold text-brand-300">KSPM UNSOED × BEI × OJK</span>
+        <!-- Hero Right Column: Big Responsively Animated GI Logo -->
+        <div class="relative flex items-center justify-center py-6 sm:py-8 reveal-on-scroll">
+          
+          <!-- Outer Ambient Glows -->
+          <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-brand-600/25 blur-[100px] pointer-events-none -z-10 animate-pulse" style="animation-duration: 4s;"></div>
+          <div class="absolute w-48 h-48 rounded-full bg-amber-500/15 blur-[80px] pointer-events-none -z-10"></div>
+
+          <!-- Glassmorphic Card Container -->
+          <div id="hero-gi-card"
+            class="relative w-full max-w-[420px] sm:max-w-[460px] aspect-[4/3] sm:aspect-square rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-white/10 via-white/[0.04] to-transparent backdrop-blur-xl border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center group overflow-hidden transition-all duration-300">
+            
+            <!-- Radial Inner Light Accent -->
+            <div class="absolute inset-0 bg-radial from-brand-600/20 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+            <!-- Concentric Decorative Rings -->
+            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-white/10 pointer-events-none scale-90 group-hover:scale-100 transition-transform duration-700 ease-out"></div>
+            <div class="absolute w-48 h-48 sm:w-60 sm:h-60 rounded-full border border-dashed border-white/15 pointer-events-none scale-95 group-hover:rotate-45 transition-transform duration-1000 ease-out"></div>
+
+            <!-- Big GI Logo with Levitation & Hover Scaling -->
+            <div class="relative z-10 animate-levitate-1 flex items-center justify-center">
+              <img src="assets/logo-gi-unsoed.png" alt="Galeri Investasi BEI FEB Unsoed"
+                class="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.65)] filter group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 select-none">
+            </div>
+
+            <!-- Subtitle Badge Pill -->
+            <div class="relative z-10 mt-4 sm:mt-5">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-white/90 shadow-sm group-hover:border-white/30 group-hover:bg-black/50 transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-[11px] sm:text-xs font-semibold tracking-wide">Galeri Investasi BEI · FEB UNSOED</span>
               </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div
-              class="w-full h-full shrink-0 flex items-center justify-center bg-gradient-to-br from-[#1C0408] to-[#991B1B] relative p-8">
-              <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
-              <div class="relative z-10 text-center text-white max-w-sm">
-                <p class="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-2">National
-                  Competition</p>
-                <h3 class="text-2xl font-bold mb-2">LEGACY 2026</h3>
-                <p class="text-xs text-white/70 leading-relaxed mb-4">
-                  League of Capital Market Competency: Kompetisi virtual trading dan equity research antar mahasiswa
-                  seluruh Indonesia.
-                </p>
-                <span class="text-[11px] font-semibold text-amber-300">Break The Resistance • Lead The Market</span>
-              </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div
-              class="w-full h-full shrink-0 flex items-center justify-center bg-gradient-to-br from-[#3B080F] to-[#7F1D1D] relative p-8">
-              <div class="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
-              <div class="relative z-10 text-center text-white max-w-sm">
-                <p class="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-white/50 mb-2">Literacy &
-                  Certification</p>
-                <h3 class="text-2xl font-bold mb-2">Sekolah Pasar Modal (SPM)</h3>
-                <p class="text-xs text-white/70 leading-relaxed mb-4">
-                  Pelatihan berjenjang dengan fasilitas pembukaan rekening efek langsung bersama sekuritas mitra.
-                </p>
-                <span class="text-[11px] font-semibold text-white/80 font-medium">Sertifikasi BEI</span>
-              </div>
-            </div>
           </div>
 
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-            <button onclick="setSlide(0)" class="slider-dot w-2 h-2 rounded-full bg-white transition-all"
-              aria-label="Slide 1"></button>
-            <button onclick="setSlide(1)" class="slider-dot w-2 h-2 rounded-full bg-white/40 transition-all"
-              aria-label="Slide 2"></button>
-            <button onclick="setSlide(2)" class="slider-dot w-2 h-2 rounded-full bg-white/40 transition-all"
-              aria-label="Slide 3"></button>
-          </div>
         </div>
       </div>
 
@@ -1223,28 +1197,21 @@
   <script>
 
 
-    let currentSlide = 0;
-    const totalSlides = 3;
-    const carousel = document.getElementById('heroCarousel');
-    const dots = document.querySelectorAll('.slider-dot');
-
-    function setSlide(index) {
-      currentSlide = index;
-      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-      dots.forEach((dot, idx) => {
-        if (idx === currentSlide) {
-          dot.classList.remove('bg-white/40');
-          dot.classList.add('bg-white');
-        } else {
-          dot.classList.remove('bg-white');
-          dot.classList.add('bg-white/40');
-        }
+    // Interactive 3D tilt effect on Hero GI Card (Mousemove on desktop)
+    const giCard = document.getElementById('hero-gi-card');
+    if (giCard && window.matchMedia('(pointer: fine)').matches) {
+      giCard.addEventListener('mousemove', (e) => {
+        const rect = giCard.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const tiltX = (y / rect.height) * -10;
+        const tiltY = (x / rect.width) * 10;
+        giCard.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+      });
+      giCard.addEventListener('mouseleave', () => {
+        giCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
       });
     }
-
-    setInterval(() => {
-      setSlide((currentSlide + 1) % totalSlides);
-    }, 5000);
 
     let lastSubmitTime = 0;
 
