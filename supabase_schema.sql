@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS public.events (
     article TEXT,
     article_paragraphs JSONB DEFAULT '[]'::jsonb,
     gallery JSONB DEFAULT '[]'::jsonb,
+    featured BOOLEAN DEFAULT false,
+    show_on_home BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );

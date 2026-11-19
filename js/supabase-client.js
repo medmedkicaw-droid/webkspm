@@ -61,7 +61,52 @@
     isCloudConnected,
 
     // --- EVENTS & PRESS RELEASES ---
+    async getFeaturedEventIds() {
+      let saved = [];
+      try {
+        const raw = localStorage.getItem('kspm_featured_events');
+        if (raw) saved = JSON.parse(raw);
+      } catch(e) {}
+      if (isCloudConnected()) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('site_config')
+            .select('value')
+            .eq('key', 'home_featured_events')
+            .maybeSingle();
+          if (!error && data && data.value && Array.isArray(data.value)) {
+            saved = data.value;
+            localStorage.setItem('kspm_featured_events', JSON.stringify(saved));
+          }
+        } catch(e) {}
+      }
+      if (!Array.isArray(saved) || saved.length === 0) {
+        // Default featured programs on home: SIW, SPM, LEGACY
+        saved = ['siw', 'spm', 'legacy'];
+        localStorage.setItem('kspm_featured_events', JSON.stringify(saved));
+      }
+      return saved;
+    },
+
+    async saveFeaturedEventIds(ids) {
+      if (!Array.isArray(ids)) return [];
+      localStorage.setItem('kspm_featured_events', JSON.stringify(ids));
+      if (isCloudConnected()) {
+        try {
+          await supabaseClient
+            .from('site_config')
+            .upsert({
+              key: 'home_featured_events',
+              value: ids,
+              updated_at: new Date().toISOString()
+            });
+        } catch(e) {}
+      }
+      return ids;
+    },
+
     async getEvents() {
+      const featuredIds = await this.getFeaturedEventIds();
       if (isCloudConnected()) {
         try {
           const { data, error } = await supabaseClient
@@ -86,14 +131,21 @@
               desc: row.description,
               article: row.article,
               articleParagraphs: row.article_paragraphs || [],
-              gallery: row.gallery || []
+              gallery: row.gallery || [],
+              featured: (typeof row.featured === 'boolean') ? row.featured : featuredIds.includes(row.id),
+              showOnHome: (typeof row.featured === 'boolean') ? row.featured : featuredIds.includes(row.id)
             }));
           }
         } catch (e) {
           console.warn('[KSPM Backend] Error fetching cloud events, using local fallback:', e);
         }
       }
-      return JSON.parse(localStorage.getItem('kspm_events') || '[]');
+      const local = JSON.parse(localStorage.getItem('kspm_events') || '[]');
+      return local.map(e => ({
+        ...e,
+        featured: (typeof e.featured === 'boolean') ? e.featured : featuredIds.includes(e.id),
+        showOnHome: (typeof e.featured === 'boolean') ? e.featured : featuredIds.includes(e.id)
+      }));
     },
 
     async saveEvent(item) {
@@ -103,6 +155,17 @@
       if (idx !== -1) localEvents[idx] = item;
       else localEvents.unshift(item);
       localStorage.setItem('kspm_events', JSON.stringify(localEvents));
+
+      // Manage featured IDs list
+      if (typeof item.featured === 'boolean') {
+        let featuredIds = JSON.parse(localStorage.getItem('kspm_featured_events') || '["siw","spm","legacy"]');
+        if (item.featured && !featuredIds.includes(item.id)) {
+          featuredIds.push(item.id);
+        } else if (!item.featured && featuredIds.includes(item.id)) {
+          featuredIds = featuredIds.filter(id => id !== item.id);
+        }
+        await this.saveFeaturedEventIds(featuredIds);
+      }
 
       // Sync to cloud if connected
       if (isCloudConnected()) {
@@ -134,6 +197,26 @@
         }
       }
       return item;
+    },
+
+    async toggleFeaturedEvent(id) {
+      let featuredIds = await this.getFeaturedEventIds();
+      let isFeatured = false;
+      if (featuredIds.includes(id)) {
+        featuredIds = featuredIds.filter(x => x !== id);
+        isFeatured = false;
+      } else {
+        featuredIds.push(id);
+        isFeatured = true;
+      }
+      await this.saveFeaturedEventIds(featuredIds);
+
+      // Update local events array
+      let localEvents = JSON.parse(localStorage.getItem('kspm_events') || '[]');
+      localEvents = localEvents.map(e => e.id === id ? { ...e, featured: isFeatured, showOnHome: isFeatured } : e);
+      localStorage.setItem('kspm_events', JSON.stringify(localEvents));
+
+      return { id, isFeatured, featuredIds };
     },
 
     async deleteEvent(id) {

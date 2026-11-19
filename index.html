@@ -1515,18 +1515,41 @@
         `).join('');
       };
 
+      // Filter event mana yang dipilih untuk tampil di beranda
+      function extractHomeEvents(list) {
+        if (!Array.isArray(list) || list.length === 0) return defaultHeroPrograms;
+        let featuredIds = [];
+        try {
+          const raw = localStorage.getItem('kspm_featured_events');
+          if (raw) featuredIds = JSON.parse(raw);
+        } catch(e) {}
+
+        let filtered = list.filter(e => {
+          if (e.featured === true || e.showOnHome === true) return true;
+          if (Array.isArray(featuredIds) && featuredIds.length > 0 && featuredIds.includes(e.id)) return true;
+          return false;
+        });
+
+        if (filtered.length === 0) {
+          const defaults = list.filter(e => e.id === 'siw' || e.id === 'spm' || e.id === 'legacy');
+          filtered = defaults.length > 0 ? defaults : list.slice(0, 3);
+        }
+        return filtered;
+      }
+
       // 1. Instant paint from local cache (0ms)
       try {
-        const savedPrograms = localStorage.getItem('kspm_programs');
         const savedEvents = localStorage.getItem('kspm_events');
-        if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
+        const savedPrograms = localStorage.getItem('kspm_programs');
+        if (savedEvents && JSON.parse(savedEvents).length > 0) {
+          const eList = JSON.parse(savedEvents);
+          const homeList = extractHomeEvents(eList);
+          renderHeroCarousel(homeList);
+          renderPrograms(homeList);
+        } else if (savedPrograms && JSON.parse(savedPrograms).length > 0) {
           const pList = JSON.parse(savedPrograms);
           renderHeroCarousel(pList);
           renderPrograms(pList);
-        } else if (savedEvents && JSON.parse(savedEvents).length > 0) {
-          const eList = JSON.parse(savedEvents);
-          renderHeroCarousel(eList);
-          renderPrograms(eList);
         } else {
           renderHeroCarousel(defaultHeroPrograms);
         }
@@ -1540,15 +1563,9 @@
           const timeout = new Promise((_, rej) => setTimeout(() => rej('timeout'), 1500));
           const cloudEvents = await Promise.race([window.kspmDB.getEvents(), timeout]);
           if (cloudEvents && cloudEvents.length > 0) {
-            const localRaw = localStorage.getItem('kspm_events');
-            const localProgramsRaw = localStorage.getItem('kspm_programs');
-            const localList = (localRaw ? JSON.parse(localRaw) : []).concat(localProgramsRaw ? JSON.parse(localProgramsRaw) : []);
-            const localLatest = Math.max(...localList.map(e => new Date(e.updated_at || 0).getTime()), 0);
-            const cloudLatest = Math.max(...cloudEvents.map(e => new Date(e.updated_at || 0).getTime()), 0);
-            if (cloudLatest >= localLatest || localLatest === 0) {
-              renderHeroCarousel(cloudEvents);
-              renderPrograms(cloudEvents);
-            }
+            const homeList = extractHomeEvents(cloudEvents);
+            renderHeroCarousel(homeList);
+            renderPrograms(homeList);
           }
         } catch (e) { }
       }
@@ -1632,7 +1649,7 @@
 
     // Real-time synchronization saat admin menyimpan perubahan di tab lain
     window.addEventListener('storage', e => {
-      if (e.key === 'kspm_programs' || e.key === 'kspm_events' || e.key === 'kspm_partners') {
+      if (e.key === 'kspm_programs' || e.key === 'kspm_events' || e.key === 'kspm_partners' || e.key === 'kspm_featured_events') {
         syncCMSData();
       }
     });

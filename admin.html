@@ -223,14 +223,20 @@
           <span>Ringkasan</span>
         </button>
 
-        <button onclick="switchTab('programs')" id="tab-btn-programs" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
-          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-          <span>Event Beranda</span>
+        <button onclick="switchTab('programs')" id="tab-btn-programs" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span>Preview Beranda</span>
+          </div>
+          <span id="badge-nav-featured" class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">3 Aktif</span>
         </button>
 
-        <button onclick="switchTab('events')" id="tab-btn-events" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
-          <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span>Event &amp; Press Release</span>
+        <button onclick="switchTab('events')" id="tab-btn-events" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
+          <div class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>Event &amp; Press Release</span>
+          </div>
+          <span id="badge-nav-events" class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-slate-100 text-slate-700">6 Paket</span>
         </button>
 
         <button onclick="switchTab('research')" id="tab-btn-research" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all">
@@ -425,12 +431,17 @@
       </div>
     </div>
 
-    <!-- ==================== TAB 2: PROGRAM CARDS (BERANDA) ==================== -->
+    <!-- ==================== TAB 2: PREVIEW BIG EVENTS BERANDA ==================== -->
     <div id="tab-programs" class="hidden space-y-6">
-      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-3.5 rounded-2xl shadow-xs">
-        <div class="flex items-center gap-3">
-          <input type="text" placeholder="Cari program..." class="px-3.5 py-1.5 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
-          <span class="text-xs text-slate-500 font-medium">3 Program Ditampilkan di Beranda</span>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#E4E8F5] p-4 rounded-2xl shadow-xs">
+        <div>
+          <span class="text-xs font-bold text-slate-800">Preview Susunan Event di Beranda Utama</span>
+          <p class="text-[11px] text-slate-500">Berikut adalah kartu-kartu agenda yang sedang aktif ditampilkan di Beranda utama (Hero Slide &amp; Seksi Big Events).</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="switchTab('events')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
+            ⚙️ Pilih / Atur Event Beranda
+          </button>
         </div>
       </div>
 
@@ -440,16 +451,49 @@
       </div>
     </div>
 
-    <!-- ==================== TAB 3: EVENT & PRESS RELEASE (SEPAKET) ==================== -->
+    <!-- ==================== TAB 3: EVENT & PRESS RELEASE (SEPAKET TERPADU) ==================== -->
     <div id="tab-events" class="hidden space-y-6">
-      <div class="flex items-center justify-between bg-white border border-[#E4E8F5] p-4 rounded-2xl shadow-xs">
-        <div class="flex items-center gap-3">
-          <input type="text" placeholder="Cari event atau liputan rilis..." class="px-4 py-2 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
-          <span class="text-xs text-slate-400 font-medium">Sepaket: Agenda, Jadwal, Kartu &amp; Berita Liputan</span>
+      
+      <!-- Integrated Home Event Selection Bar -->
+      <div class="bg-gradient-to-r from-amber-50/80 via-white to-amber-50/40 border border-amber-200/90 rounded-2xl p-4 sm:p-5 shadow-xs">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-amber-200/70">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-800 font-black flex items-center justify-center text-xs">★</span>
+              <h3 class="text-xs sm:text-sm font-extrabold text-slate-900">Pilihan Event Tampil di Beranda</h3>
+              <span id="feat-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-600 text-white shadow-2xs">3 Event Aktif</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5">Pilih agenda mana saja yang ingin dimunculkan pada Slide Hero dan seksi Big Events beranda (Rekomendasi: 3 program).</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="switchTab('programs')" class="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 shadow-2xs transition-colors">
+              👁️ Lihat Preview Beranda
+            </button>
+            <button onclick="openModal('event')" class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-800 text-white text-xs font-bold shadow-xs btn-tactile">
+              + Tambah Event &amp; Press Release
+            </button>
+          </div>
         </div>
-        <button onclick="openModal('event')" class="px-4 py-2 rounded-xl bg-brand-700 text-white text-xs font-bold hover:bg-brand-800 btn-tactile">
-          + Tambah Event &amp; Press Release
-        </button>
+
+        <!-- Selected Event Chips -->
+        <div class="pt-3 flex flex-wrap items-center gap-2" id="featured-chips-container">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#E4E8F5] p-3.5 rounded-2xl shadow-xs">
+        <div class="flex items-center gap-2">
+          <button onclick="setEventFilter('all')" id="filter-btn-all" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-white transition-all">
+            Semua Event (<span id="count-filter-all">6</span>)
+          </button>
+          <button onclick="setEventFilter('featured')" id="filter-btn-featured" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all">
+            ⭐ Tampil di Beranda (<span id="count-filter-featured">3</span>)
+          </button>
+        </div>
+        <div class="flex items-center gap-3">
+          <input id="event-search-input" oninput="renderEvents()" type="text" placeholder="Cari nama event atau kategori..." class="px-4 py-1.5 border border-[#E4E8F5] rounded-xl bg-[#F8F9FD] text-xs focus:outline-none focus:border-brand-700 text-slate-800 w-64">
+        </div>
       </div>
 
       <!-- Unified Table Card -->
@@ -458,6 +502,7 @@
           <thead class="bg-slate-50 border-b border-[#E4E8F5] text-slate-400 font-bold uppercase tracking-wider text-[10px]">
             <tr>
               <th class="py-3.5 px-6">Event &amp; Kategori</th>
+              <th class="py-3.5 px-6 text-center">Tampil di Beranda</th>
               <th class="py-3.5 px-6">Jadwal &amp; Status</th>
               <th class="py-3.5 px-6">Lokasi</th>
               <th class="py-3.5 px-6">Galeri &amp; Dokumentasi</th>
@@ -898,6 +943,8 @@
     const initialEvents = [
     {
         "id": "siw",
+        "featured": true,
+        "showOnHome": true,
         "name": "Soedirman Investment Week 2026 X SPM II",
         "category": "Annual Flagship",
         "schedule": "24 - 28 Oktober 2026",
@@ -945,6 +992,8 @@
     },
     {
         "id": "gts",
+        "featured": false,
+        "showOnHome": false,
         "name": "KSPM Goes to School \u2013 SMAN 1 Padamara",
         "category": "Financial Literacy",
         "schedule": "30 September 2026",
@@ -984,6 +1033,8 @@
     },
     {
         "id": "finexpo",
+        "featured": false,
+        "showOnHome": false,
         "name": "FINEXPO 2026 & Puncak Bulan Inklusi Keuangan",
         "category": "Public Exhibition",
         "schedule": "24 Oktober 2026",
@@ -1019,6 +1070,8 @@
     },
     {
         "id": "spm",
+        "featured": true,
+        "showOnHome": true,
         "name": "Sekolah Pasar Modal (SPM) Level 1 & 2",
         "category": "Certification",
         "schedule": "Setiap Sabtu (Reguler)",
@@ -1046,6 +1099,8 @@
     },
     {
         "id": "legacy",
+        "featured": true,
+        "showOnHome": true,
         "name": "LEGACY National Trading Competition",
         "category": "National Competition",
         "schedule": "20 Agustus 2026",
@@ -1072,6 +1127,8 @@
     },
     {
         "id": "kit",
+        "featured": false,
+        "showOnHome": false,
         "name": "KSPM Internship & Capacity Training (KIT)",
         "category": "Internal Capacity",
         "schedule": "25 - 28 September 2026",
@@ -1167,8 +1224,25 @@
       updateCounts();
     }
 
-    let programs = getData('programs', initialPrograms);
     let events = getData('events', initialEvents);
+    let featuredListFromStorage = [];
+    try {
+      const fRaw = localStorage.getItem('kspm_featured_events');
+      if (fRaw) featuredListFromStorage = JSON.parse(fRaw);
+    } catch(e) {}
+    if (!Array.isArray(featuredListFromStorage) || featuredListFromStorage.length === 0) {
+      featuredListFromStorage = ['siw', 'spm', 'legacy'];
+      localStorage.setItem('kspm_featured_events', JSON.stringify(featuredListFromStorage));
+    }
+    events = events.map(e => ({
+      ...e,
+      featured: (typeof e.featured === 'boolean') ? e.featured : featuredListFromStorage.includes(e.id),
+      showOnHome: (typeof e.featured === 'boolean') ? e.featured : featuredListFromStorage.includes(e.id)
+    }));
+
+    // Auto-sync programs directly from featured events
+    let programs = events.filter(e => e.featured === true || e.showOnHome === true);
+    if (programs.length === 0) programs = events.slice(0, 3);
     let research = getData('research', initialResearch);
     let partners = getData('partners', initialPartners);
 
@@ -2127,16 +2201,82 @@
     }
 
     // --- RENDER COUNTS & TABLES ---
+    let currentEventFilter = 'all';
+
+    function setEventFilter(filter) {
+      currentEventFilter = filter;
+      const btnAll = document.getElementById('filter-btn-all');
+      const btnFeat = document.getElementById('filter-btn-featured');
+      if (btnAll && btnFeat) {
+        if (filter === 'all') {
+          btnAll.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-white transition-all';
+          btnFeat.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all';
+        } else {
+          btnFeat.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white shadow-xs transition-all';
+          btnAll.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all';
+        }
+      }
+      renderEvents();
+    }
+
+    async function toggleFeatureEvent(id) {
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+
+      const nextState = !(ev.featured === true || ev.showOnHome === true);
+      ev.featured = nextState;
+      ev.showOnHome = nextState;
+
+      setData('events', events);
+
+      // Sinkronkan ke kspm_featured_events & site_config
+      const featuredIds = events.filter(e => e.featured === true || e.showOnHome === true).map(e => e.id);
+      localStorage.setItem('kspm_featured_events', JSON.stringify(featuredIds));
+      if (window.kspmDB && window.kspmDB.saveFeaturedEventIds) {
+        try { await window.kspmDB.saveFeaturedEventIds(featuredIds); } catch(err) {}
+      }
+
+      // Sinkronkan kspm_programs untuk fallback beranda
+      const syncPrograms = events.filter(e => e.featured === true || e.showOnHome === true).map(e => ({
+        id: e.id,
+        tag: e.category || 'Annual Flagship',
+        month: (e.dateBadge ? e.dateBadge.split(' ')[0] : '2026'),
+        day: (e.dateBadge ? e.dateBadge.split(' ')[1] || '2026' : '2026'),
+        title: e.name,
+        desc: e.desc,
+        image: e.coverImage,
+        imageLeft: e.coverImageLeft || '',
+        imageRight: e.coverImageRight || '',
+        location: e.location,
+        status: e.status
+      }));
+      setData('programs', syncPrograms);
+
+      renderEvents();
+      renderPrograms();
+      updateCounts();
+
+      showAdminToast(nextState
+        ? `⭐ Event "${ev.name}" sekarang ditampilkan di Beranda!`
+        : `✓ Event "${ev.name}" dilepas dari Beranda.`, 'success');
+    }
+
     function updateCounts() {
+      const featuredCount = events.filter(e => e.featured === true || e.showOnHome === true).length;
       const cP = document.getElementById('count-programs');
       const cE = document.getElementById('count-events');
       const cR = document.getElementById('count-research');
       const cPt = document.getElementById('count-partners');
       const cS = document.getElementById('count-staff');
-      if (cP) cP.innerText = programs.length;
+      if (cP) cP.innerText = featuredCount;
       if (cE) cE.innerText = events.length;
       if (cR) cR.innerText = research.length;
       if (cPt) cPt.innerText = partners.length;
+
+      const badgeNavFeatured = document.getElementById('badge-nav-featured');
+      if (badgeNavFeatured) badgeNavFeatured.innerText = `${featuredCount} Aktif`;
+      const badgeNavEvents = document.getElementById('badge-nav-events');
+      if (badgeNavEvents) badgeNavEvents.innerText = `${events.length} Paket`;
 
       let totalStaff = 0;
       Object.keys(deptDetails || {}).forEach(k => {
@@ -2151,31 +2291,36 @@
     function renderPrograms() {
       const container = document.getElementById('programs-list');
       if (!container) return;
+
+      const featuredEvents = events.filter(e => e.featured === true || e.showOnHome === true);
+      const displayList = featuredEvents.length > 0 ? featuredEvents : events.slice(0, 3);
+
       const defaultPhotos = [
         { center: 'assets/team/groups/dsx09626-1-.webp', left: 'assets/team/groups/dsx09550.webp', right: 'assets/team/groups/dsx09572.webp' },
         { center: 'assets/team/groups/dsx09414.webp', left: 'assets/team/groups/dsx09458.webp', right: 'assets/team/groups/dsx09493.webp' },
         { center: 'assets/team/groups/dsx09493.webp', left: 'assets/team/groups/dsx09502.webp', right: 'assets/team/groups/dsx09503.webp' }
       ];
 
-      container.innerHTML = programs.map((p, idx) => {
+      container.innerHTML = displayList.map((p, idx) => {
         const df = defaultPhotos[idx % defaultPhotos.length];
-        const imgCenter = (p.image && typeof p.image === 'string' && p.image.trim()) ? p.image : df.center;
-        const imgLeft = (p.imageLeft && typeof p.imageLeft === 'string' && p.imageLeft.trim()) ? p.imageLeft : df.left;
-        const imgRight = (p.imageRight && typeof p.imageRight === 'string' && p.imageRight.trim()) ? p.imageRight : df.right;
+        const imgCenter = (p.coverImage && typeof p.coverImage === 'string' && p.coverImage.trim()) ? p.coverImage : (p.image || df.center);
+        const imgLeft = (p.coverImageLeft && typeof p.coverImageLeft === 'string' && p.coverImageLeft.trim()) ? p.coverImageLeft : (p.imageLeft || df.left);
+        const imgRight = (p.coverImageRight && typeof p.coverImageRight === 'string' && p.coverImageRight.trim()) ? p.coverImageRight : (p.imageRight || df.right);
+        const dateTag = p.dateBadge || (p.month ? `${p.month} ${p.day || ''}` : '2026');
+        const title = p.name || p.title;
 
         return `
         <div class="bg-white rounded-3xl border border-[#E4E8F5] overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
           <div class="p-6">
             <div class="flex items-center justify-between mb-4">
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-[#1C1C1C] text-white tracking-wide">${p.tag || 'Program'}</span>
-              <div class="flex items-center text-xs font-bold border border-slate-200 rounded-full overflow-hidden shadow-2xs">
-                <span class="bg-[#1C1C1C] text-white px-2.5 py-0.5">${p.month || '2026'}</span>
-                <span class="bg-white text-slate-900 px-2.5 py-0.5">${p.day || '26'}</span>
-              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-[#1C1C1C] text-white tracking-wide">${p.category || p.tag || 'Program'}</span>
+              <span class="bg-brand-50 text-brand-700 border border-brand-200/80 px-2.5 py-0.5 rounded-full text-xs font-bold shadow-2xs">
+                ${dateTag}
+              </span>
             </div>
 
-            <h4 class="text-base font-extrabold text-[#0A0F2D] leading-tight mb-2 group-hover:text-brand-700 transition-colors">${p.title}</h4>
-            <p class="text-xs text-[#6B7AA0] line-clamp-2 leading-relaxed mb-5">${p.desc}</p>
+            <h4 class="text-base font-extrabold text-[#0A0F2D] leading-tight mb-2 group-hover:text-brand-700 transition-colors">${title}</h4>
+            <p class="text-xs text-[#6B7AA0] line-clamp-2 leading-relaxed mb-5">${p.desc || ''}</p>
 
             <!-- Triptych 3-Stacked Cards Live Preview -->
             <div class="relative w-full aspect-[16/10] rounded-2xl overflow-visible select-none py-2 px-3 bg-slate-50/80 border border-slate-100 flex items-center justify-center mb-1">
@@ -2189,7 +2334,7 @@
               </div>
               <!-- Center Hero Main Photo -->
               <div class="relative w-[76%] h-full mx-auto rounded-xl overflow-hidden shadow-md border-2 border-white bg-slate-100 z-20">
-                <img src="${imgCenter}" onerror="this.src='${df.center}'" class="w-full h-full object-cover" alt="${p.title}">
+                <img src="${imgCenter}" onerror="this.src='${df.center}'" class="w-full h-full object-cover" alt="${title}">
                 <span class="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-white text-[9px] font-semibold flex items-center gap-1 shadow-xs">
                   📍 ${p.location || 'FEB Unsoed'}
                 </span>
@@ -2198,15 +2343,15 @@
           </div>
 
           <div class="px-6 py-3.5 bg-slate-50/70 border-t border-[#E4E8F5] flex items-center justify-between">
-            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Tampil di Beranda
+            <span class="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-300 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <span class="text-amber-500 font-bold">★</span> Urutan #${idx + 1} di Beranda
             </span>
             <div class="flex items-center gap-1.5">
-              <button onclick="editItem('program', '${p.id}')" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:border-brand-300 hover:text-brand-700 hover:bg-brand-50/50 shadow-2xs transition-all">
-                Edit
+              <button onclick="toggleFeatureEvent('${p.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 shadow-2xs transition-all">
+                Lepas
               </button>
-              <button onclick="deleteItem('program', '${p.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold text-red-600 bg-white border border-slate-200 hover:border-red-300 hover:text-red-700 hover:bg-red-50/50 shadow-2xs transition-all">
-                Hapus
+              <button onclick="editItem('event', '${p.id}')" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:border-brand-300 hover:text-brand-700 shadow-2xs transition-all">
+                Edit Paket
               </button>
             </div>
           </div>
@@ -2218,13 +2363,76 @@
     function renderEvents() {
       const tbody = document.getElementById('events-table-body');
       if (!tbody) return;
-      tbody.innerHTML = events.map(e => {
+
+      const searchInput = document.getElementById('event-search-input');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+      // Render featured chips at the top
+      const featuredList = events.filter(e => e.featured === true || e.showOnHome === true);
+      const chipsContainer = document.getElementById('featured-chips-container');
+      const featCountBadge = document.getElementById('feat-count-badge');
+      const countFilterAll = document.getElementById('count-filter-all');
+      const countFilterFeatured = document.getElementById('count-filter-featured');
+
+      if (featCountBadge) featCountBadge.innerText = `${featuredList.length} Event Aktif`;
+      if (countFilterAll) countFilterAll.innerText = events.length;
+      if (countFilterFeatured) countFilterFeatured.innerText = featuredList.length;
+
+      if (chipsContainer) {
+        if (featuredList.length === 0) {
+          chipsContainer.innerHTML = `
+            <span class="text-xs text-amber-800/70 italic py-1">
+              Belum ada event yang dipilih. Klik tombol <strong>"+ Tampilkan di Beranda"</strong> pada tabel di bawah untuk memunculkannya di beranda.
+            </span>
+          `;
+        } else {
+          chipsContainer.innerHTML = featuredList.map((e, idx) => `
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-amber-300/80 shadow-2xs text-xs font-bold text-slate-800 group">
+              <span class="w-4 h-4 rounded-full bg-amber-500 text-white text-[9px] flex items-center justify-center font-black">${idx + 1}</span>
+              <span class="max-w-[180px] truncate" title="${e.name}">${e.name}</span>
+              <button onclick="toggleFeatureEvent('${e.id}')" title="Lepas dari Beranda" class="text-slate-400 hover:text-red-600 transition-colors ml-1 p-0.5 rounded cursor-pointer">
+                ✕
+              </button>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Filter events
+      let filtered = events;
+      if (currentEventFilter === 'featured') {
+        filtered = filtered.filter(e => e.featured === true || e.showOnHome === true);
+      }
+      if (query) {
+        filtered = filtered.filter(e => 
+          (e.name && e.name.toLowerCase().includes(query)) ||
+          (e.category && e.category.toLowerCase().includes(query)) ||
+          (e.id && e.id.toLowerCase().includes(query)) ||
+          (e.location && e.location.toLowerCase().includes(query))
+        );
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-12 text-center text-slate-400">
+              <p class="font-bold text-sm text-slate-600 mb-1">Tidak ada event yang sesuai</p>
+              <p class="text-xs">Coba ubah kata kunci pencarian atau ganti filter kategori.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(e => {
         const gal = Array.isArray(e.gallery) ? e.gallery : [];
         const galCount = gal.length;
         const previewPhotos = gal.slice(0, 3).map(item => (typeof item === 'string' ? item : (item && item.img ? item.img : ''))).filter(Boolean);
+        const isFeatured = !!(e.featured === true || e.showOnHome === true);
+        const featIdx = featuredList.findIndex(x => x.id === e.id);
 
         return `
-        <tr class="hover:bg-slate-50/80 transition-colors">
+        <tr class="hover:bg-slate-50/80 transition-colors ${isFeatured ? 'bg-amber-50/20' : ''}">
           <td class="py-3.5 px-6">
             <div class="flex items-center gap-3">
               ${e.coverImage ? `
@@ -2242,9 +2450,23 @@
               </div>
             </div>
           </td>
+          <td class="py-3.5 px-6 text-center">
+            ${isFeatured ? `
+              <button onclick="toggleFeatureEvent('${e.id}')" title="Klik untuk lepas dari Beranda" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 transition-all cursor-pointer shadow-2xs group">
+                <span class="text-amber-500 font-black">★</span>
+                <span>Tampil di Beranda</span>
+                <span class="text-[10px] bg-amber-200/80 text-amber-900 px-1.5 py-0.2 rounded-full font-bold">#${featIdx + 1}</span>
+              </button>
+            ` : `
+              <button onclick="toggleFeatureEvent('${e.id}')" title="Klik untuk tampilkan di Beranda" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-500 bg-slate-50 border border-slate-200 hover:border-brand-400 hover:text-brand-700 hover:bg-brand-50 transition-all cursor-pointer">
+                <span class="text-slate-400">☆</span>
+                <span>+ Tampilkan di Beranda</span>
+              </button>
+            `}
+          </td>
           <td class="py-3.5 px-6">
             <p class="font-semibold text-slate-800">${e.schedule}</p>
-            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${e.status === 'Running' ? 'bg-slate-100 text-slate-800 border border-slate-200' : e.status === 'Upcoming' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-100 text-slate-600'}">
+            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${e.status === 'Running' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : e.status === 'Upcoming' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-slate-100 text-slate-600'}">
               ${e.status}
             </span>
           </td>
@@ -2274,7 +2496,7 @@
             </div>
           </td>
           <td class="py-3.5 px-6 text-right whitespace-nowrap">
-            <a href="press-release.html?id=${e.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold mr-1.5 transition-colors">Buka Press Release ↗</a>
+            <a href="press-release.html?id=${e.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold mr-1.5 transition-colors">Liputan ↗</a>
             <button onclick="editItem('event', '${e.id}')" class="px-2.5 py-1 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-bold mr-1.5 transition-colors">Edit Paket</button>
             <button onclick="deleteItem('event', '${e.id}')" class="text-xs font-bold text-red-600 hover:text-red-700">Hapus</button>
           </td>
@@ -2941,7 +3163,26 @@
         container.innerHTML = `
           <!-- SECTION 1: INFORMASI EVENT & JADWAL -->
           <div class="pb-3 mb-2 border-b border-slate-100">
-            <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block mb-2">1. INFORMASI ACARA &amp; JADWAL</span>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold text-brand-700 uppercase tracking-widest block">1. INFORMASI ACARA &amp; JADWAL</span>
+              <span class="text-[10px] text-slate-400">Sepaket agenda, kartu &amp; liputan</span>
+            </div>
+
+            <!-- TOGGLE FEATURED UNTUK BERANDA -->
+            <div class="mb-3.5 p-3.5 bg-gradient-to-r from-amber-50 via-amber-50/70 to-orange-50 border border-amber-200 rounded-2xl flex items-center justify-between shadow-2xs">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 font-black flex items-center justify-center text-sm shrink-0">★</span>
+                <div>
+                  <label for="f-featured" class="block font-bold text-slate-900 text-xs cursor-pointer">Tampilkan di Beranda Utama</label>
+                  <p class="text-[11px] text-slate-500">Tampilkan acara ini pada Slide Hero dan seksi Big Events halaman utama</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-3">
+                <input type="checkbox" id="f-featured" class="sr-only peer">
+                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+              </label>
+            </div>
+
             <div class="grid grid-cols-2 gap-3 mb-3">
               <div>
                 <label class="block font-bold text-slate-900 mb-1">ID Slug URL</label>
@@ -3305,6 +3546,9 @@
           updateStackPreviewLive();
           if (document.getElementById('f-drive')) document.getElementById('f-drive').value = item.driveLink || '';
           if (document.getElementById('f-desc')) document.getElementById('f-desc').value = item.desc || '';
+          if (document.getElementById('f-featured')) {
+            document.getElementById('f-featured').checked = !!(item.featured === true || item.showOnHome === true);
+          }
           currentUploadedGallery = (item.gallery && Array.isArray(item.gallery)) ? [...item.gallery] : [];
           renderGalleryPreviews();
           if (document.getElementById('f-author')) document.getElementById('f-author').value = item.author || '';
@@ -3454,6 +3698,7 @@
         const coverImg = document.getElementById('f-cover').value;
         const coverLeft = document.getElementById('f-cover-left') ? document.getElementById('f-cover-left').value : '';
         const coverRight = document.getElementById('f-cover-right') ? document.getElementById('f-cover-right').value : '';
+        const isFeatured = document.getElementById('f-featured') ? document.getElementById('f-featured').checked : false;
 
         const data = {
           id: slug,
@@ -3471,6 +3716,8 @@
           desc: document.getElementById('f-desc').value,
           article: articleHtml,
           articleParagraphs: paragraphs,
+          featured: isFeatured,
+          showOnHome: isFeatured,
           updated_at: new Date().toISOString(),
           gallery: (currentUploadedGallery && currentUploadedGallery.length > 0) 
             ? currentUploadedGallery.map(g => ({ img: (typeof g === 'string' ? g : g.img) })) 
@@ -3484,9 +3731,18 @@
         }
         setData('events', events);
 
+        // Update featured event ids
+        const featuredIds = events.filter(e => e.featured === true || e.showOnHome === true).map(e => e.id);
+        localStorage.setItem('kspm_featured_events', JSON.stringify(featuredIds));
+        if (window.kspmDB && window.kspmDB.saveFeaturedEventIds) {
+          try { await window.kspmDB.saveFeaturedEventIds(featuredIds); } catch(err) {}
+        }
+
         // Synchronize automatically to Big Events / Programs so index.html is always matching
         try {
-          const syncPrograms = events.slice(0, 3).map(ev => ({
+          const featuredEvents = events.filter(ev => ev.featured === true || ev.showOnHome === true);
+          const homeEvents = featuredEvents.length > 0 ? featuredEvents : events.slice(0, 3);
+          const syncPrograms = homeEvents.map(ev => ({
             id: ev.id,
             tag: ev.category || 'Annual Flagship',
             month: (ev.dateBadge ? ev.dateBadge.split(' ')[0] : '2026'),
@@ -3500,7 +3756,7 @@
             status: ev.status === 'Running' || ev.status === 'Upcoming' ? 'Active' : ev.status
           }));
           programs = syncPrograms;
-          setData('programs', programs);
+          setData('programs', syncPrograms);
         } catch(e) {}
 
         if (window.kspmDB) {
